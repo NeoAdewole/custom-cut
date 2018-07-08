@@ -1,0 +1,68 @@
+/*
+Theme Name: Custom Cut
+Description: Custom Child Theme on Beans.
+Author: Niyi Adewole
+Author URI: https://niyiadewole.com
+Template: tm-beans
+Version: 1.0.1
+Text Domain: tm-beans
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+.plug {
+	width: 25%;
+	height: auto;
+}
+
+.inline-image {
+	max-width: 30%;
+	height: auto;
+	margin: 0 2% 0 2%;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.tm-header {
+	background-color: white;
+}
+
+.tm-main {
+	background: repeat url(bg1.png); 
+	position: relative;
+  /*opacity: 0.70;*/
+  /*background-position: center center;*/
+  /*background-size: cover;*/
+  /*background-repeat: no-repeat;*/
+  background-attachment: fixed;
+  /*z-index: 15;*/
+}
+
+.tm-hero {
+	padding: 0;
+	/*background: repeat url(banner.png); */
+	/*position: relative;*/
+  /*opacity: 0.70;*/
+  /*background-position: center center;*/
+  background-size: cover;
+  background-repeat: no-repeat;  
+  /*z-index: 5;*/
+}
+
+.tm-hero > img.banner {
+	display: block;
+	width: 100%;
+	/*background: url(banner.png);*/
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
+
+.uk-panel-box, .uk-article-title {
+	background-color: #FAFAFA;
+}
