@@ -16,11 +16,13 @@ function custom_mods_child_theme() {
  * Remove this action and callback function if you do not whish to use LESS to style your site or overwrite UIkit variables.
  * If you are using LESS, make sure to enable development mode via the Admin->Appearance->Settings option. LESS will then be processed on the fly.
  */
-add_action( 'beans_uikit_enqueue_scripts', 'beans_child_enqueue_uikit_assets' );
+add_action( 'beans_uikit_enqueue_scripts', 'beans_child_enqueue_uikit_assets');
 function beans_child_enqueue_uikit_assets() {
 	//$uri = get_stylesheet_directory_uri();
 	beans_uikit_enqueue_components(array('contrast'));
-	beans_uikit_enqueue_components(array('sticky'), 'add-ons');
+	beans_uikit_enqueue_components(array('sticky', 'slideshow', 'slideshow-fx'), 'add-ons');
+	// beans_uikit_enqueue_components( true );
+ // 	beans_uikit_enqueue_components( true, 'add-ons' );
 	beans_compiler_add_fragment( 'uikit', array(
 			get_stylesheet_directory_uri() . '/style.less',
 		), 'less'	
@@ -31,6 +33,10 @@ function beans_child_enqueue_uikit_assets() {
 add_action( 'wp_enqueue_scripts', 'beans_child_enqueue_assets' );
 function beans_child_enqueue_assets() {
 	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css' );
+	wp_enqueue_script('particles-js', get_stylesheet_directory_uri() . '/assets/particles.min.js');
+	if ( is_front_page()){
+		wp_enqueue_script('particle-settings', get_stylesheet_directory_uri() . '/assets/particleSettings.js', false, false, true );
+	}
 }
 
 // Find A way to dynamically call nav link IDs and add Icons based on name
@@ -83,12 +89,12 @@ function beans_child_add_post_meta_date_icon() {
   <?php
 }
 	
-function beans_child_control_image() {
-	add_image_size('max-width', 300, 9999); //300 pixels wide (and unlimited height)
-	add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size( 150, 150 );
-}
-add_action('after_setup_theme', 'beans_child_control_image' );
+// function beans_child_control_image() {
+// 	add_image_size('max-width', 300, 9999); //300 pixels wide (and unlimited height)
+// 	add_theme_support( 'post-thumbnails' );
+// 	set_post_thumbnail_size( 150, 150 );
+// }
+// add_action('after_setup_theme', 'beans_child_control_image' );
 
 // Remove jetpack share links from default location except on single posts
 if (!is_single() ) {
@@ -107,6 +113,15 @@ if (!is_single() ) {
 		beans_add_attribute( 'beans_post_more_link', 'class', 'uk-button-primary' );
 	  return 'Keep reading';
 	}
+}
+
+add_action( 'beans_footer_credit_right_text_output', 'hyperindian_right_copyright' );
+
+function hyperindian_right_copyright() {
+
+    // Add your copyright html text, Dynamic date and times etc something like .
+    ?><div class='beans-footer-class'><a href="#">Privacy Poicy</a></div><?php
+
 }
 
 // Load page banner name to be called after header

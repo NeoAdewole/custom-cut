@@ -46,7 +46,7 @@ function add_share_links() {
   if ( function_exists( 'sharing_display' ) ) {
 	?>
 	<br><p>
-	  <?php echo  sharing_display( '', true ) ; ?> 
+	  <?php echo sharing_display( '', true ) ; ?> 
 	</p>
 	<?php
 	}
