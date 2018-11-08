@@ -18,7 +18,7 @@
 //}
 
 add_filter( 'the_content', 'beans_child_modify_post_content' );
-function beans_child_modify_post_content( $content ) {
+function beans_child_modify_post_content( $query ) {
   // Only apply to front page.
   if ( !is_home() )
   	return;
@@ -34,7 +34,7 @@ function beans_child_modify_post_content( $content ) {
   if ( has_excerpt() )
     	$content = $thumb . '<!-- <p>this is a crazy post</p> --><p class="uk-article-lead">' . get_the_excerpt() . '</p>';
     else 
-    	$content = $thumb .  '<!-- <p>No excerpt here!</p> --><p class="uk-article-lead">' . wp_trim_words( get_the_content(), 55, '...') . '</p>';
+    	$content = $thumb .  '<!-- <p>Preview:</p> --><p class="uk-article-lead">' . wp_trim_words( get_the_content(), 55, '...') . '</p>';
 
   // Return content and readmore.
   return $content . '<p class="right more">' . beans_post_more_link() . '</p>';	  

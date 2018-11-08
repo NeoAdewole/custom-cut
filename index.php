@@ -43,7 +43,8 @@
 	  				));
 
 	  				$slider_excerpt = get_the_excerpt();
-	  				$categories_list = get_the_category_list( esc_html_x(', ', 'category seperator', 'sps') );		  		
+	  				$categories_list = get_the_category_list( esc_html_x(', ', 'category seperator', 'sps') );
+	  				$contact_page = get_permalink( get_page_by_path( 'contact' ) );
 	  			?>
 		  			<li data-uk-slideshow-item> 
 				  		<div class="ben">
@@ -52,7 +53,7 @@
 	  					 		<img src="<?php echo $resized_src; ?>" class="left inline-image" />
 	  					 		<?php echo $slider_excerpt ?>
 		            </p>
-		            <a class="action" href="<?php the_permalink(); ?>">Learn More</a>
+            		<!-- <a class="action" href="<?php //echo $contact_page ?>">Learn More</a> -->
 				  		</div>
 		        </li>
 

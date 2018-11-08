@@ -96,6 +96,17 @@ function beans_child_add_post_meta_date_icon() {
 // }
 // add_action('after_setup_theme', 'beans_child_control_image' );
 
+// filter 'the_content' on home.php to exclude posts with category 'services'
+function post_archive_mod_query($query) {
+  if ( $query->is_home() && $query->is_main_query() ) {
+    //get ID of services category
+    $services_id = get_cat_ID('services');
+    // exclude posts in new from query 
+    $query->set('category__not_in', array( $services_id ) );
+  }
+}
+add_action( 'pre_get_posts', 'post_archive_mod_query' );
+
 // Remove jetpack share links from default location except on single posts
 if (!is_single() ) {
 	function jptweak_remove_share() {
@@ -119,8 +130,12 @@ add_action( 'beans_footer_credit_right_text_output', 'hyperindian_right_copyrigh
 
 function hyperindian_right_copyright() {
 
-    // Add your copyright html text, Dynamic date and times etc something like .
-    ?><div class='beans-footer-class'><a href="#">Privacy Poicy</a></div><?php
+  // Add your copyright html text, Dynamic date and times etc something like .
+  ?>
+  	<div class='beans-footer-class'>
+  		<a href="<?php echo get_the_permalink(get_page_by_path('privacy-policy')) ?>">Privacy Policy</a>
+  	</div>
+  <?php
 
 }
 
