@@ -32,6 +32,7 @@ function beans_child_enqueue_uikit_assets() {
 // Remove this action and callback function if you are not adding CSS in the style.css file.
 add_action( 'wp_enqueue_scripts', 'beans_child_enqueue_assets' );
 function beans_child_enqueue_assets() {
+	wp_enqueue_style( 'bootstrap4', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ); // Get bootstrap
 	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css' );
 	wp_enqueue_script('particles-js', get_stylesheet_directory_uri() . '/assets/particles.min.js');
 	if ( is_front_page()){
@@ -137,6 +138,29 @@ function hyperindian_right_copyright() {
   	</div>
   <?php
 
+}
+
+add_action( 'beans_footer_credit_text_output', 'footer_verisign_badge' );
+function footer_verisign_badge() {
+		
+	?>
+		<div class='beans-footer-class'>
+			<span>
+				<?php 
+					echo sprintf(
+						// translators: Footer credits. Date followed by the name of the website.
+						__( '&#x000A9; %1$s - %2$s. All rights reserved.', 'tm-beans' ),
+						date( 'Y' ),
+						get_bloginfo( 'name' )
+					);
+				?>
+			</span>
+			</br>
+			<span id="siteseal">
+				<script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=SKy8ye9W5h2KCmuHbmj4zAuLkHKweG0GwSTx4MYWKYiDnJs6CbEmG2EnENwH"></script>
+			</span>
+		</div>
+	<?php
 }
 
 // Load page banner name to be called after header
