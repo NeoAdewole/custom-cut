@@ -34,7 +34,7 @@ function beans_child_enqueue_uikit_assets() {
 // Remove this action and callback function if you are not adding CSS in the style.css file.
 add_action( 'wp_enqueue_scripts', 'beans_child_enqueue_assets' );
 function beans_child_enqueue_assets() {
-	wp_enqueue_style( 'bootstrap4', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ); // Get bootstrap
+	// wp_enqueue_style( 'bootstrap4', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' ); // Get bootstrap
 	wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css' );
 	wp_enqueue_script('particles-js', get_stylesheet_directory_uri() . '/assets/particles.min.js');
 	if ( is_front_page()){
