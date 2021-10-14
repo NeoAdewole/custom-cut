@@ -8,11 +8,13 @@ Author URI: https://clearcutcomms.ca
 Plugin URI: https://clearcutcomms.ca
 */
 
+  // Setup
+  define( 'PLUGS', __FILE__ );
+
   function traxJS() {
     wp_enqueue_script(
-      'custom_script',
-      plugins_url( '/assets/tags.js', __FILE__ ),
-      array( 'jquery' )
+      'custom_trax',
+      get_stylesheet_directory_uri() . '/assets/tags.js'
     );
   }
   add_action( 'wp_enqueue_scripts',  'traxJS' );
