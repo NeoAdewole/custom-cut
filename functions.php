@@ -2,6 +2,8 @@
 // Include Beans. Do not remove the line below.
 require_once( get_template_directory() . '/lib/init.php' );
 
+include('plugin.php');
+
 // Customize the beans child theme
 add_action('beans_before_load_document', 'custom_mods_child_theme');
 function custom_mods_child_theme() {
