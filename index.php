@@ -12,22 +12,16 @@
 			$image = wp_get_attachment_image_src(get_post_thumbnail_id(get_post()->ID), 'single-post-thumbnail');
 			$image_link = array_values($image)[0];
 		}
-	  ?>
+	?>
 
 	  <div class="tm-hero uk-sticky-placeholder">
-			<!-- particles.js container -->
-			<div id="particles-js">
-			</div>
-			<!-- End of ParticleJS -->
 	<?php
 	}
 		add_action('beans_main_before_markup', 'action_calls');
 
 		function action_calls() {
 			?>
-			<!-- <div data-uk-parallax="{bg: -200}">
-			  <div data-uk-parallax="{opacity: '0,1', scale: '0,1'}">...</div>
-			</div> -->
+			
 			<div class="uk-slidenav-position uk-container uk-container-center" data-uk-slideshow="{animation: 'random-fx', kenburns:true, autoplay:true}">
 		  	<?php query_posts('category_name=services'); ?>
 			  <?php if (have_posts() ): ?>
