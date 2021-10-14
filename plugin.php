@@ -19,6 +19,14 @@ Plugin URI: https://clearcutcomms.ca
   }
   add_action( 'wp_enqueue_scripts',  'traxJS' );
 
+  function custom_cut_metadata() {
+    // add fb verification meta
+  ?>
+    <meta name="facebook-domain-verification" content="6mfd7kvlnyzzqkp41gbz853woswor2" />    
+  <?php
+    }
+  add_action('wp_head', 'custom_cut_metadata');
+
   // add_action( 'wp_enqueue_scripts', 'prefix_add_my_stylesheet' );
 
   // function prefix_add_my_stylesheet() {
