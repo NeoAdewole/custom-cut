@@ -165,6 +165,21 @@ function footer_verisign_badge() {
 	<?php
 }
 
+function custom_head_script() {
+	$google = "<script async src='https://www.googletagmanager.com/gtag/js?id=G-8MJYEEC6DC'></script>";
+	$google .= "<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	
+		gtag('config', 'G-8MJYEEC6DC');
+	</script>";
+
+	echo $google;
+
+}	
+add_action('wp_head', 'custom_head_script');
+
 // Load page banner name to be called after header
 // $current_page = "home";
 // if (!is_page($current_page)) {
