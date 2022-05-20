@@ -166,39 +166,19 @@ function footer_verisign_badge() {
 }
 
 function custom_head_script() {
-	$google = "<!-- Global site tag (gtag.js) - Google Analytics --><br><script async src='https://www.googletagmanager.com/gtag/js?id=UA-111255337-1'></script>";
+	$google = "<script async src='https://www.googletagmanager.com/gtag/js?id=G-8MJYEEC6DC'></script>";
 	$google .= "<script>
-	window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-111255337-1');
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	
+		gtag('config', 'G-8MJYEEC6DC');
 	</script>";
-
-	$google .= "<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-P8QGFN7');</script>
-		<!-- End Google Tag Manager -->";
 
 	echo $google;
 
 }	
 add_action('wp_head', 'custom_head_script');
-
-
-// Add Google Tag code which is supposed to be placed after opening body tag.
-function custom_body_script() {
-	$gtm = "<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-P8QGFN7'
-		height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->";
-
-	echo $gtm;
-}
-add_action( 'wp_body_open', 'custom_body_script' );
 
 // Load page banner name to be called after header
 // $current_page = "home";
