@@ -11,13 +11,13 @@ Plugin URI: https://clearcutcomms.ca
   // Setup
   define( 'PLUGS', __FILE__ );
 
-  function traxJS() {
-    wp_enqueue_script(
-      'custom_trax',
-      get_stylesheet_directory_uri() . '/assets/tags.js'
-    );
-  }
-  add_action( 'wp_enqueue_scripts',  'traxJS' );
+  // function traxJS() {
+  //   wp_enqueue_script(
+  //     'custom_trax',
+  //     get_stylesheet_directory_uri() . '/assets/tags.js'
+  //   );
+  // }
+  // add_action( 'wp_enqueue_scripts',  'traxJS' );
 
   function custom_cut_metadata() {
     // add fb verification meta
