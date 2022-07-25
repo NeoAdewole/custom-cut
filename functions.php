@@ -143,8 +143,7 @@ function hyperindian_right_copyright() {
 }
 
 add_action( 'beans_footer_credit_text_output', 'footer_verisign_badge' );
-function footer_verisign_badge() {
-		
+function footer_verisign_badge() {		
 	?>
 		<div class='beans-footer-class'>
 			<span>
@@ -175,7 +174,18 @@ function custom_head_script() {
 		gtag('config', 'G-8MJYEEC6DC');
 	</script>";
 
-	echo $google;
+	$ga4 = "<!-- Global site tag (gtag.js) - Google Analytics 4 -->";
+	$ga4 .= "<script async src='https://www.googletagmanager.com/gtag/js?id=UA-111255337-1'></script>";
+	$ga4 .= "<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-111255337-1');
+	</script>";
+	
+	// echo $google;
+	echo $ga4;
 
 }	
 add_action('wp_head', 'custom_head_script');
