@@ -4,8 +4,6 @@
 
 include('plugin.php');
 
-include('plugin.php');
-
 // Customize the beans child theme
 // add_action('beans_before_load_document', 'custom_mods_child_theme');
 function custom_mods_child_theme()
