@@ -161,6 +161,16 @@
         "color": {
           "text": "var(--wp--preset--color--primary)"
         }
+      },
+      "core/list": {
+        "color": {
+          "text": "var(--wp--preset--color--pop)"
+        }
+      },
+      "core/heading": {
+        "color": {
+          "text": "var(--wp--preset--color--pop)"
+        }
       }
     },
     "elements": {
