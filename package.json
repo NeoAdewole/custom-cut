@@ -1,0 +1,35 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "Clear Cut Sandbox scripts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "build:custom": "wp-scripts build entry-one.js entry-two.js --output-path=custom",
+    "build:copy-php": "wp-scripts build --webpack-copy-php",
+    "build:custom-directory": "wp-scripts build --webpack-src-dir=custom-directory",
+    "bs": "browser-sync start --config src/browser-sync.config.cjs",
+    "watch-bs": "npm-run-all --parallel start bs watch-run-*",
+    "watch-run-js": "nodemon --watch src/js/ --ext js --exec \"npm-run-all\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9janeo/sandbox.git"
+  },
+  "author": "Niyi Adewole",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9janeo/sandbox/issues"
+  },
+  "homepage": "https://github.com/9janeo/sandbox#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^26.12.0",
+    "browser-sync": "^2.29.3",
+    "font-awesome": "^4.7.0",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5"
+  },
+  "type": "module"
+}
