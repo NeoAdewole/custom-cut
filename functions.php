@@ -2,7 +2,18 @@
 // Include Beans. Do not remove the line below.
 // require_once( get_template_directory() . '/lib/init.php' );
 
-include('plugin.php');
+// Includes
+include(get_theme_file_path('/includes/front/enqueue.php'));
+include(get_theme_file_path('/includes/front/head.php'));
+include(get_theme_file_path('/includes/front/foot.php'));
+include(get_theme_file_path('/includes/setup.php'));
+
+// Hooks
+// add_action('wp_enqueue_scripts', 'custom_cut_enqueue');
+add_action('wp_enqueue_scripts', 'custom_cut_head', 5);
+add_action('after_setup_theme', 'custom_cut_setup_theme');
+add_action('wp_footer', 'custom_cut_foot');
+
 
 // Customize the beans child theme
 // add_action('beans_before_load_document', 'custom_mods_child_theme');
