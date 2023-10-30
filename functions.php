@@ -9,7 +9,7 @@ include(get_theme_file_path('/includes/front/foot.php'));
 include(get_theme_file_path('/includes/setup.php'));
 
 // Hooks
-// add_action('wp_enqueue_scripts', 'custom_cut_enqueue');
+add_action('wp_enqueue_scripts', 'custom_cut_enqueue');
 add_action('wp_enqueue_scripts', 'custom_cut_head', 5);
 add_action('after_setup_theme', 'custom_cut_setup_theme');
 add_action('wp_footer', 'custom_cut_foot');
@@ -25,26 +25,6 @@ function custom_mods_child_theme()
   beans_remove_action('beans_post_image');
 }
 
-/*
- * Remove this action and callback function if you do not whish to use LESS to style your site or overwrite UIkit variables.
- * If you are using LESS, make sure to enable development mode via the Admin->Appearance->Settings option. LESS will then be processed on the fly.
- */
-// add_action( 'beans_uikit_enqueue_scripts', 'beans_child_enqueue_uikit_assets');
-function beans_child_enqueue_uikit_assets()
-{
-  //$uri = get_stylesheet_directory_uri();
-  beans_uikit_enqueue_components(array('contrast'));
-  beans_uikit_enqueue_components(array('sticky', 'slideshow', 'slideshow-fx'), 'add-ons');
-  // beans_uikit_enqueue_components( true );
-  // 	beans_uikit_enqueue_components( true, 'add-ons' );
-  beans_compiler_add_fragment(
-    'uikit',
-    array(
-      get_stylesheet_directory_uri() . '/style.less',
-    ),
-    'less'
-  );
-}
 
 // Remove this action and callback function if you are not adding CSS in the style.css file.
 // add_action( 'wp_enqueue_scripts', 'beans_child_enqueue_assets' );
@@ -114,12 +94,8 @@ function beans_child_add_post_meta_date_icon()
 <?php
 }
 
-// function beans_child_control_image() {
-// 	add_image_size('max-width', 300, 9999); //300 pixels wide (and unlimited height)
-// 	add_theme_support( 'post-thumbnails' );
-// 	set_post_thumbnail_size( 150, 150 );
-// }
-// add_action('after_setup_theme', 'beans_child_control_image' );
+// ToDo: convert all menu icons to fontAwesome
+
 
 // filter 'the_content' on home.php to exclude posts with category 'services'
 function post_archive_mod_query($query)

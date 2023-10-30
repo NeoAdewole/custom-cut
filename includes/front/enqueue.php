@@ -12,6 +12,10 @@ function custom_cut_enqueue()
     get_theme_file_uri('assets/bootstrap-icons/bootstrap-icons.css')
   );
   wp_register_style(
+    'cc_fontawesome',
+    'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+  );
+  wp_register_style(
     'cc_theme',
     get_theme_file_uri('build/index.css')
   );
@@ -19,9 +23,9 @@ function custom_cut_enqueue()
     'cc_theme',
     get_theme_file_uri('build/index.js')
   );
-
+  wp_enqueue_style('cc_fontawesome');
   wp_enqueue_style('cc_font_rubik_and_pacifico');
-  wp_enqueue_style('cc_bootstrap_icons');
+  // wp_enqueue_style('cc_bootstrap_icons');
   wp_enqueue_style('cc_theme');
   wp_enqueue_script('cc_theme');
 }
