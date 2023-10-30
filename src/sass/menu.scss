@@ -1,0 +1,15 @@
+.primary-menu ul {
+  display: flex;
+  flex-direction: row
+}
+
+.primary-menu ul li:first-child a {
+  padding-left: 0
+}
+
+.primary-menu ul a {
+  padding: 1.25rem 1.25rem .875rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-duration: .15s
+}

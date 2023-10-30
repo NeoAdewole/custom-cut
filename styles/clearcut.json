@@ -159,12 +159,16 @@
       },
       "core/navigation": {
         "color": {
-          "text": "var(--wp--preset--color--primary)"
-        }
-      },
-      "core/list": {
-        "color": {
           "text": "var(--wp--preset--color--pop)"
+        },
+        "elements": {
+          "link": {
+            ":hover": {
+              "color": {
+                "text": "var(--wp--preset--color--contrast) !important"
+              }
+            }
+          }
         }
       },
       "core/heading": {

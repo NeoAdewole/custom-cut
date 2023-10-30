@@ -1,7 +1,7 @@
 {
-  "name": "sandbox",
+  "name": "custom-cut",
   "version": "1.0.0",
-  "description": "Clear Cut Sandbox scripts",
+  "description": "ClearCut: Custom cut theme scripts",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/9janeo/sandbox.git"
+    "url": "git+https://github.com/9janeo/custom-cut.git"
   },
   "author": "Niyi Adewole",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/9janeo/sandbox/issues"
+    "url": "https://github.com/9janeo/custom-cut/issues"
   },
-  "homepage": "https://github.com/9janeo/sandbox#readme",
+  "homepage": "https://github.com/9janeo/custom-cut#readme",
   "devDependencies": {
     "@wordpress/scripts": "^26.12.0",
     "browser-sync": "^2.29.3",
