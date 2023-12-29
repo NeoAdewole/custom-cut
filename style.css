@@ -3,9 +3,8 @@ Theme Name: Custom Cut
 Description: Custom Child Theme on Beans.
 Author: Niyi Adewole
 Author URI: https://niyiadewole.com
-Template: tm-beans
 Version: 1.0.1
-Text Domain: tm-beans
+Text Domain: custom-cut
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -71,9 +70,9 @@ body {
   display: none;
 }
 
-.tm-article-content > p,
-.tm-article-content > ul,
-.tm-article-content > ol {
+.tm-article-content>p,
+.tm-article-content>ul,
+.tm-article-content>ol {
   font-size: 1.2em;
   /* color: #000; */
   line-height: 2em;
@@ -81,7 +80,7 @@ body {
   text-shadow: #ccc 0.5px 0.5px;
 }
 
-.tm-article-content > h1 > .aligncenter {
+.tm-article-content>h1>.aligncenter {
   background: repeat url(bg1.png);
 }
 
@@ -101,7 +100,7 @@ body {
   background-color: #639;
 }
 
-.tm-hero > img.banner {
+tm-hero>img.banner {
   margin: 0 auto;
   /*background-color: #fff;*/
   padding: 0;
@@ -113,14 +112,15 @@ body {
 }
 
 .hero-text {
-  color: #fff; /* #93c;*/
+  color: #fff;
+  /* #93c;*/
   font-size: 3em;
   list-style: none;
   width: 80%;
   margin: 0 auto;
 }
 
-.tm-hero > .uk-container > .hero-text > a {
+.tm-hero>.uk-container>.hero-text>a {
   padding: 1em;
   font-size: 0.5em;
 }
@@ -157,12 +157,12 @@ a:hover.action {
   /*overflow: hidden;*/
 }
 
-.ben > img {
+.ben>img {
   max-width: 100%;
   max-height: 100%;
 }
 
-.ben > h2 {
+.ben>h2 {
   color: #fff;
 }
 
@@ -180,7 +180,7 @@ a:hover.action {
   transform: translate(-50%, -50%);
 }
 
-.benefits > h1 {
+.benefits>h1 {
   color: #fff;
   line-height: 1em;
   font-size: 3em;
@@ -249,6 +249,6 @@ canvas.particles-js-canvas-el {
 /* On screen widths 650px or less, set the background color to blue */
 @media screen and (max-width: 768px) {
   /*.plug {
-  	float: none;
+    float: none;
   }*/
 }
