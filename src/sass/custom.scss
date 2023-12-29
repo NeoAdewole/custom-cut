@@ -7,3 +7,22 @@ body {
     }
   }
 }
+
+
+.glow-effect {
+  position: relative;
+}
+
+.glow-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  outline: 3px solid white;
+}
+
+.glow-blur, .glow-line {
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+}
