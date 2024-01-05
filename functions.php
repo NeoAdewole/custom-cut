@@ -194,26 +194,27 @@ function custom_head_script()
 add_action('wp_head', 'custom_head_script');
 
 // FB chat script for contact page
-if ( is_page('contact')){
+if (is_page('contact')) {
   add_action('wp_footer', 'custom_add_fb_chat_script');
 }
-function custom_add_fb_chat_script(){
-  ?>
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
+function custom_add_fb_chat_script()
+{
+?>
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
+      js = d.createElement(s);
+      js.id = id;
       js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
 
-    <!-- Your customer chat code -->
-    <div class="fb-customerchat"
-      attribution=setup_tool
-      page_id="180227266069867"
-      theme_color="#9933cc">
-    </div>
-  <?php
+  <!-- Your customer chat code -->
+  <div class="fb-customerchat" attribution=setup_tool page_id="180227266069867" theme_color="#9933cc">
+  </div>
+<?php
 }
