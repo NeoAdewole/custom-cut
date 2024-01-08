@@ -2,10 +2,6 @@
   "version": 2,
   "settings": {
     "appearanceTools": true,
-    "layout": {
-      "contentSize": "840px",
-      "wideSize": "1100px"
-    },
     "color": {
       "text": true,
       "background": true,
@@ -36,6 +32,46 @@
           ],
           "slug": "black-and-white",
           "name": "Black and White"
+        },
+        {
+          "colors": [
+            "#111111",
+            "#ffffff"
+          ],
+          "slug": "duotone-1",
+          "name": "Black and white"
+        },
+        {
+          "colors": [
+            "#111111",
+            "#C2A990"
+          ],
+          "slug": "duotone-2",
+          "name": "Black and sandstone"
+        },
+        {
+          "colors": [
+            "#111111",
+            "#D8613C"
+          ],
+          "slug": "duotone-3",
+          "name": "Black and rust"
+        },
+        {
+          "colors": [
+            "#111111",
+            "#B1C5A4"
+          ],
+          "slug": "duotone-4",
+          "name": "Black and sage"
+        },
+        {
+          "colors": [
+            "#111111",
+            "#B5BDBC"
+          ],
+          "slug": "duotone-5",
+          "name": "Black and pastel blue"
         }
       ],
       "palette": [
@@ -81,6 +117,10 @@
         }
       ]
     },
+    "layout": {
+      "contentSize": "620px",
+      "wideSize": "1280px"
+    },
     "spacing": {
       "padding": true,
       "margin": true,
@@ -96,6 +136,16 @@
         "steps": 0
       },
       "spacingSizes": [
+        {
+          "name": "1",
+          "size": "1rem",
+          "slug": "10"
+        },
+        {
+          "name": "2",
+          "size": "min(1.5rem, 2vw)",
+          "slug": "20"
+        },
         {
           "size": "clamp(1.5rem, 5vw, 2rem)",
           "slug": "30",
@@ -129,8 +179,110 @@
       ]
     },
     "typography": {
-      "dropCap": false
-    }
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "fontFace": [
+            {
+              "fontFamily": "Inter",
+              "fontStretch": "normal",
+              "fontStyle": "normal",
+              "fontWeight": "300 900",
+              "src": [
+                "file:./assets/fonts/inter/Inter-VariableFont_slnt,wght.woff2"
+              ]
+            }
+          ],
+          "fontFamily": "\"Inter\", sans-serif",
+          "name": "Inter",
+          "slug": "body"
+        },
+        {
+          "fontFace": [
+            {
+              "fontFamily": "Cardo",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": [
+                "file:./assets/fonts/cardo/cardo_normal_400.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Cardo",
+              "fontStyle": "italic",
+              "fontWeight": "400",
+              "src": [
+                "file:./assets/fonts/cardo/cardo_italic_400.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Cardo",
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "src": [
+                "file:./assets/fonts/cardo/cardo_normal_700.woff2"
+              ]
+            }
+          ],
+          "fontFamily": "Cardo",
+          "name": "Cardo",
+          "slug": "heading"
+        },
+        {
+          "fontFamily": "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
+          "name": "System Sans-serif",
+          "slug": "system-sans-serif"
+        },
+        {
+          "fontFamily": "Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+          "name": "System Serif",
+          "slug": "system-Serif"
+        }
+      ],
+      "fontSizes": [
+        {
+          "fluid": false,
+          "name": "Small",
+          "size": "0.9rem",
+          "slug": "small"
+        },
+        {
+          "fluid": false,
+          "name": "Medium",
+          "size": "1.05rem",
+          "slug": "medium"
+        },
+        {
+          "fluid": {
+            "min": "1.39rem",
+            "max": "1.85rem"
+          },
+          "name": "Large",
+          "size": "1.85rem",
+          "slug": "large"
+        },
+        {
+          "fluid": {
+            "min": "1.85rem",
+            "max": "2.5rem"
+          },
+          "name": "Extra Large",
+          "size": "2.5rem",
+          "slug": "x-large"
+        },
+        {
+          "fluid": {
+            "min": "2.5rem",
+            "max": "3.27rem"
+          },
+          "name": "Extra Extra Large",
+          "size": "3.27rem",
+          "slug": "xx-large"
+        }
+      ],
+      "writingMode": true
+    },
+    "useRootPaddingAwareAlignments": true
   },
   "styles": {
     "spacing": {
@@ -160,6 +312,12 @@
       "core/paragraph": {
         "typography": {
           "fontSize": "var(--wp--preset--font-size--normal)"
+        }
+      },
+      "core/image": {
+        "lightbox": {
+          "allowEditing": true,
+          "enabled": true
         }
       }
     },
@@ -285,6 +443,41 @@
       "area": "uncategorized",
       "name": "post-meta",
       "title": "Post Meta"
+    },
+    {
+      "area": "uncategorized",
+      "name": "sidebar",
+      "title": "Sidebar"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "page-no-title",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Page No Title"
+    },
+    {
+      "name": "page-with-sidebar",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Page With Sidebar"
+    },
+    {
+      "name": "page-wide",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Page with wide Image"
+    },
+    {
+      "name": "single-with-sidebar",
+      "postTypes": [
+        "post"
+      ],
+      "title": "Single with Sidebar"
     }
   ]
 }

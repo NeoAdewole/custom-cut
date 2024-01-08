@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This core file should strictly be overwritten via your child theme.
  *
@@ -10,5 +11,3 @@
  */
 // Loading from beans single.php
 ?> <!-- <h1>Loading from beans single.php</h1> --> <?php
-
-beans_load_document();

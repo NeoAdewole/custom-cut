@@ -38,7 +38,7 @@
           "slug": "contrast"
         },
         {
-          "color": "#FFFFFF",
+          "color": "#EFEFEF",
           "name": "Primary",
           "slug": "primary"
         },
@@ -95,21 +95,9 @@
   },
   "styles": {
     "blocks": {
-      "core/comment-reply-link": {
-        "elements": {
-          "link": {
-            "color": {
-              "text": "var(--wp--preset--color--primary)"
-            },
-            "typography": {
-              "fontStyle": "italic"
-            }
-          }
-        }
-      },
       "core/group": {
         "border": {
-          "color": "var(--wp--preset--color--contrast)"
+          "color": "var(--wp--preset--color--blackish)"
         }
       },
       "core/navigation": {
