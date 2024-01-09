@@ -377,24 +377,12 @@ body .wp-block-site-title:not(:default) {
 .masthead {
   position: relative;
 }
-.masthead figure, .masthead .wp-block-post-featured-image {
-  width: 100%;
-}
 .masthead figure img, .masthead .wp-block-post-featured-image img {
   border-radius: 5px;
 }
-.masthead figure:before, .masthead figure:after {
+.masthead figure:after {
   content: "";
   position: absolute;
-}
-.masthead figure:before {
-  top: -50px;
-  left: 225px;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: 0px 0px 0px 9999px #000;
-  z-index: -1;
 }
 .masthead figure:after {
   top: 0;
@@ -404,11 +392,9 @@ body .wp-block-site-title:not(:default) {
   box-shadow: inset 0px -300px 600px -300px #fff;
 }
 .masthead .wp-block-group.info {
-  margin-block-start: 0;
   margin-block-start: -4rem;
 }
 .masthead .info {
-  width: 100%;
   background-color: rgba(27, 27, 27, 0.9411764706);
   border-radius: 30px;
   padding: 1rem;
