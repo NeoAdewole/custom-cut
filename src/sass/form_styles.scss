@@ -1,0 +1,69 @@
+// Ninja Forms
+.nf-form-content {
+  div.nf-field {
+    .field-wrap{
+      &.textbox-wrap, &.email-wrap, &.textarea-wrap {
+        div.nf-field-label {
+          // label {
+          //   display: none;
+          // }
+          // display: none;
+        }
+        div.nf-field-element {
+          .ninja-forms-field.nf-element{
+            position: relative;
+            display: block;
+            flex: 1 1 auto;
+            border-radius: .375rem;
+            border-width: 1px;  
+            --tw-border-opacity: 1;
+            border-color: rgb(209 213 219 / var(--tw-border-opacity));
+            padding: .5rem 1rem .5rem 1rem;
+            --tw-text-opacity: 1;
+            color: rgb(31 41 55 / var(--tw-text-opacity));
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            transition-property: all;
+            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+            transition-duration: .15s;
+            
+            &:focus {
+              --tw-border-opacity: 1;
+              border-color: rgb(239 68 68 / var(--tw-border-opacity));
+              --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+              --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+              box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+          }
+        }
+        
+      }
+      &.submit-wrap {
+        div.nf-field-element {
+          .ninja-forms-field.nf-element{
+            position: relative;
+            display: block;
+            flex: 1 1 auto;
+            border-radius: .375rem;
+            border-width: 1px;
+            border-color: var(--wp--preset--color--primary);
+            padding: .5rem 1rem;
+            &:hover {
+              // background-color: $primary;
+              background-color: var(--wp--preset--color--primary);
+              color: #fff;
+            }
+            
+            &:focus {
+              --tw-border-opacity: 1;
+              border-color: rgb(239 68 68 / var(--tw-border-opacity));
+              --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+              --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+              box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+          }
+        }
+      }
+    }
+  } 
+}
