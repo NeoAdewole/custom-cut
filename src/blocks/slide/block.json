@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "title": "Custum Cut Slide",
+  "name": "custom-cut/slide",
+  "version": "0.1.0",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Basic resposive slide ideally loaded using a slider.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "slide",
+  "editorScript": "file:./index.js",
+  "style": "file:./index.css"
+}
