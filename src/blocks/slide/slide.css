@@ -1,0 +1,28 @@
+.wp-block-custom-cut-slide {
+  border: 1px solid #555;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.inner-slide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.inner-slide .slide-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  position: relative;
+}
+
+.inner-slide .slide-copy {
+  width: 100%;
+  padding: 0 20px;
+  position: absolute;
+}
