@@ -19,7 +19,6 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
   // slide can have images, text (media) etc
 
   const selectMedia = (media) => {
-    console.log(media.sizes);
     let newMediaURL = null
     if (isBlobURL(media.url)) {
       newMediaURL = media.url
@@ -54,8 +53,6 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
   })
 
   return (
-    console.log(attributes),
-    console.log(addText),
     <>
       {mediaPreview && (
         <BlockControls group="inline">
@@ -104,6 +101,15 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             onChange={addText => setAttributes({ addText })}
             help={addText ? __('Add some text to this slide', 'custom-cut') : __('Not displaying slide text', 'custom-cut')}
           />
+          {
+            addText &&
+            <TextareaControl
+              label={__('Slide Text', 'custom-cut')}
+              value={slideCopy}
+              onChange={slideCopy => setAttributes({ slideCopy })}
+              help={__('Add text to this slide here:', 'custom-cut')}
+            />
+          }
         </PanelBody>
       </InspectorControls>
       <div {...blockProps}>
@@ -135,8 +141,8 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             {
               addText &&
               <RichText
-                tagName='h2'
-                placeholder={__("Add some text to slide?", "custom-cut")}
+                tagName='p'
+                placeholder={__("Add some text to this slide?", "custom-cut")}
                 onChange={slideCopy => setAttributes({ slideCopy })}
                 value={slideCopy}
               />

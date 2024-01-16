@@ -14,15 +14,38 @@
 }
 
 .inner-slide .slide-image {
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1;
-  position: relative;
+  z-index: -1;
+  position: absolute;
+  visibility: hidden;
 }
 
 .inner-slide .slide-copy {
-  width: 100%;
-  padding: 0 20px;
+  width: 50%;
+  max-height: 100%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
   position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* default to center, make configurable */
+  color: #fff;
+  backdrop-filter: brightness(0.5);
+  text-shadow: 2px 2px 4px black;
+}
+
+.inner-slide .slide-title {
+  text-align: center;
+}
+
+.inner-slide .slide-text {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
 }

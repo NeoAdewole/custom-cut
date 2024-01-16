@@ -11,23 +11,28 @@ export default function ({ attributes }) {
   const blockProps = useBlockProps.save();
 
   const mediaClass = `slide-image wp-image-${mediaID} ${name}`;
+  const copyClass = `slide-copy ${name}`;
 
   return (
-    <div className={mediaClass} {...blockProps} >
-      <div className='inner-slide'>
-        {mediaURL && <img src={mediaURL} alt={mediaAlt} className={mediaClass} />}
-        <div className='slide-copy'>
-          <h2>{name}</h2>
-          {
-            addText ?
+    <>
+      <div className={mediaClass} {...blockProps} >
+        <div
+          className='inner-slide'
+          style={`background: no-repeat center url(${mediaURL}); background-size: cover;`}
+        >
+          {mediaURL && <img src={mediaURL} alt={mediaAlt} className={mediaClass} />}
+          {addText &&
+            (<div className={copyClass}>
+              <h3 className='slide-title'>{__(`${title}`, 'custom-cut')}</h3>
               <RichText.Content
-                tagName='h2'
+                tagName='p'
+                wrapperClassName='slide-text'
                 value={slideCopy}
-              /> :
-              <h2>{__({ title }, 'custom-cut')}</h2>
+              />
+            </div>)
           }
         </div>
-      </div>
-    </div >
+      </div >
+    </>
   )
 }
