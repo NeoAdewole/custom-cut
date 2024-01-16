@@ -18,7 +18,7 @@ export default function ({ attributes }) {
       <div className={mediaClass} {...blockProps} >
         <div
           className='inner-slide'
-          style={`background: no-repeat center url(${mediaURL}); background-size: cover;`}
+          style={mediaURL && `background: no-repeat center url(${mediaURL}); background-size: cover;`}
         >
           {mediaURL && <img src={mediaURL} alt={mediaAlt} className={mediaClass} />}
           {addText &&

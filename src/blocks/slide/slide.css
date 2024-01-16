@@ -15,7 +15,6 @@
 
 .inner-slide .slide-image {
   z-index: -1;
-  position: absolute;
   visibility: hidden;
 }
 
