@@ -13,5 +13,5 @@
   },
   "textdomain": "slider",
   "editorScript": "file:./index.js",
-  "style": "file:./main.css"
+  "style": "file:./index.css"
 }

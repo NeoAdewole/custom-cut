@@ -10,13 +10,16 @@ import { useState } from '@wordpress/element';
 
 export default function ({ attributes, setAttributes, context, isSelected }) {
   const {
-    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL
+    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaStyle: { image, size, position, repeat, url }
   } = attributes;
 
   const blockProps = useBlockProps();
+  // let { backgroundImage, url } = mediaStyle;
 
   const [mediaPreview, setMediaPreview] = useState(mediaURL)
+  const [mediaStyle, setMediaStyle] = useState({ image, size, position, repeat, url })
   // slide can have images, text (media) etc
+
 
   const selectMedia = (media) => {
     let newMediaURL = null
@@ -32,6 +35,17 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
       revokeBlobURL(mediaPreview)
     }
     setMediaPreview(newMediaURL)
+
+    if (mediaURL) {
+      let newStyle = {
+        image: mediaURL ? `url(${mediaURL})` : `url(${media.media_details.sizes.full.source_url})`,
+        url: mediaURL,
+        size: 'cover',
+        position: 'center',
+        repeat: 'no-repeat'
+      }
+      setMediaStyle(newStyle)
+    }
   }
 
   const selectMediaURL = (url) => {
@@ -44,13 +58,8 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
     setMediaPreview(url);
   }
 
-  const imageClass = `wp-image-${mediaID} img-${context["clearblocks/image-shape"]}`;
-
-  // const [activeSocialLink, setActiveSocialLink] = useState(null);
-
-  setAttributes({
-    imageShape: context["custom-cut/slide"]
-  })
+  const mediaClass = `slide-image wp-image-${mediaID}`;
+  const slideStyle = `background: ${mediaStyle.image} ${mediaStyle.size} ${mediaStyle.position} ${mediaStyle.repeat}`
 
   return (
     <>
@@ -107,14 +116,20 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               label={__('Slide Text', 'custom-cut')}
               value={slideCopy}
               onChange={slideCopy => setAttributes({ slideCopy })}
-              help={__('Add text to this slide here:', 'custom-cut')}
+              help={__('Add text to this slide here', 'custom-cut')}
             />
           }
+          <TextControl
+            label={__('Title', 'clearblocks')}
+            help={__('Give this slide a title', 'custom-cut')}
+            value={title}
+            onChange={title => setAttributes({ title })}
+          />
         </PanelBody>
       </InspectorControls>
       <div {...blockProps}>
-        <div className="inner-slide">
-          {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={imageClass} />}
+        <div className="inner-slide" style={{ slideStyle }} >
+          {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />}
           {isBlobURL(mediaPreview) && <Spinner />}
           <MediaPlaceholder
             allowedTypes={['image']}
@@ -134,22 +149,24 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             /> <br />
             <RichText
               placeholder={__('Title', 'clearblocks')}
-              tagName="span"
+              tagName="h3"
+              className="slide-title"
               onChange={title => setAttributes({ title })}
               value={title}
             />
             {
               addText &&
               <RichText
-                tagName='p'
                 placeholder={__("Add some text to this slide?", "custom-cut")}
+                tagName='p'
+                className="slide-text"
                 onChange={slideCopy => setAttributes({ slideCopy })}
                 value={slideCopy}
               />
             }
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }

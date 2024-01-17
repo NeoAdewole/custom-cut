@@ -1,4 +1,4 @@
-import { useBlockProps, RichText, InspectorControls, BlockControls, MediaReplaceFlow } from '@wordpress/block-editor';
+import { useBlockProps, RichText, InspectorControls, BlockControls, MediaReplaceFlow, InnerBlocks } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
@@ -74,7 +74,21 @@ export default function ({ attributes, setAttributes }) {
         </PanelBody>
       </InspectorControls>
       <div {...blockProps}>
-        {/* pull slides in here */}
+        <InnerBlocks
+          orientation="horizontal"
+          allowedBlocks={[
+            'custom-cut/slide'
+          ]}
+          template={[
+            ['custom-cut/slide',
+              {
+                name: 'Example Slide',
+                title: 'Example slide title',
+                slideCopy: ''
+              }
+            ]
+          ]}
+        />
       </div>
     </>
   );
