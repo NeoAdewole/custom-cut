@@ -12,6 +12,52 @@
     "html": false
   },
   "textdomain": "slide",
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Slide"
+    },
+    "title": {
+      "type": "string",
+      "default": "Slide Title"
+    },
+    "addText": {
+      "type": "boolean",
+      "default": true
+    },
+    "slideCopy": {
+      "type": "string",
+      "default": "Slide Copy"
+    },
+    "mediaID": {
+      "type": "number",
+      "default": 0
+    },
+    "mediaURL": {
+      "type": "string",
+      "default": "",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "src"
+    },
+    "mediaAlt": {
+      "type": "string",
+      "default": "",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "alt"
+    },
+    "mediaStyle": {
+      "type": "object",
+      "default": {
+        "image": "url('https://via.placeholder.com/600x400')",
+        "size": "cover",
+        "position": "center",
+        "repeat": "no-repeat",
+        "url": "https://via.placeholder.com/600x400"
+      }
+    }
+  },
   "editorScript": "file:./index.js",
   "style": "file:./index.css"
 }
