@@ -1,5 +1,5 @@
 import {
-  useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow
+  useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl
 } from '@wordpress/block-editor';
 import {
   PanelBody, ToggleControl, TextareaControl, Spinner, ToolbarButton, Tooltip, Icon, TextControl, Button,
@@ -10,16 +10,14 @@ import { useState } from '@wordpress/element';
 
 export default function ({ attributes, setAttributes, context, isSelected }) {
   const {
-    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaStyle: { image, size, position, repeat, url }
+    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaPosition, mediaSize, mediaRepeat, alignCopy
   } = attributes;
 
   const blockProps = useBlockProps();
   // let { backgroundImage, url } = mediaStyle;
 
   const [mediaPreview, setMediaPreview] = useState(mediaURL)
-  const [mediaStyle, setMediaStyle] = useState({ image, size, position, repeat, url })
   // slide can have images, text (media) etc
-
 
   const selectMedia = (media) => {
     let newMediaURL = null
@@ -30,22 +28,14 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
       setAttributes({
         mediaID: media.id,
         mediaAlt: media.alt,
-        mediaURL: newMediaURL
+        mediaURL: newMediaURL,
+        mediaSize: mediaSize,
+        mediaPosition: "center",
+        mediaRepeat: "no-repeat"
       })
       revokeBlobURL(mediaPreview)
     }
     setMediaPreview(newMediaURL)
-
-    if (mediaURL) {
-      let newStyle = {
-        image: mediaURL ? `url(${mediaURL})` : `url(${media.media_details.sizes.full.source_url})`,
-        url: mediaURL,
-        size: 'cover',
-        position: 'center',
-        repeat: 'no-repeat'
-      }
-      setMediaStyle(newStyle)
-    }
   }
 
   const selectMediaURL = (url) => {
@@ -54,12 +44,13 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
       mediaAlt: null,
       mediaURL: url
     });
-
     setMediaPreview(url);
   }
 
-  const mediaClass = `slide-image wp-image-${mediaID}`;
-  const slideStyle = `background: ${mediaStyle.image} ${mediaStyle.size} ${mediaStyle.position} ${mediaStyle.repeat}`
+  const bgCheck = mediaURL ? 'has-background' : ''
+  const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
+  const mediaClass = ` wp-image-${mediaID}`;
+  const slideStyle = `background: ${mediaURL} ${mediaPosition} ${mediaRepeat} background-size: ${mediaSize}`
 
   return (
     <>
@@ -90,7 +81,16 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
           </ToolbarButton>
         </BlockControls>
       )}
-      <InspectorControls>
+
+      {addText &&
+        <BlockControls group="inline">
+          <AlignmentControl
+            value={alignCopy}
+            onChange={alignCopy => setAttributes({ alignCopy })}
+          />
+        </BlockControls>}
+
+      <InspectorControls group="settings">
         <PanelBody title={__('Slide Settings', 'custom-cut')}>
           {
             mediaPreview && !isBlobURL(mediaPreview) &&
@@ -100,7 +100,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               onChange={mediaAlt => setAttributes({ mediaAlt })}
               help={__(
                 'Description of your image for screen readers.',
-                'clearblocks'
+                'custom-cut'
               )}
             />
           }
@@ -120,10 +120,20 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             />
           }
           <TextControl
-            label={__('Title', 'clearblocks')}
+            label={__('Title', 'custom-cut')}
             help={__('Give this slide a title', 'custom-cut')}
             value={title}
             onChange={title => setAttributes({ title })}
+          />
+        </PanelBody>
+      </InspectorControls>
+      <InspectorControls group="styles">
+        <PanelBody title={__('Slide Syles', 'custom-cut')}>
+          <TextControl
+            label={__('Align Slide Copy', 'custom-cut')}
+            help={__('Give this slide some alignment', 'custom-cut')}
+            value={alignCopy}
+            onChange={alignCopy => setAttributes({ alignCopy })}
           />
         </PanelBody>
       </InspectorControls>
@@ -140,7 +150,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             disableMediaButtons={mediaPreview}
             onSelectURL={selectMediaURL}
           />
-          <div className='slide-copy'>
+          <div className={`${copyClass}`}>
             <RichText
               placeholder={__('Slide Name', 'custom-cut')}
               tagName="strong"
@@ -148,7 +158,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               value={name}
             /> <br />
             <RichText
-              placeholder={__('Title', 'clearblocks')}
+              placeholder={__('Title', 'custom-cut')}
               tagName="h3"
               className="slide-title"
               onChange={title => setAttributes({ title })}

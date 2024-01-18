@@ -5,19 +5,20 @@ import { __ } from '@wordpress/i18n';
 
 export default function ({ attributes }) {
   const {
-    slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaStyle
+    slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy
   } = attributes;
   // const title = "Slide one!";
   const blockProps = useBlockProps.save();
 
+  const bgCheck = mediaURL ? 'has-background' : ''
   const mediaClass = `slide-image wp-image-${mediaID} ${name}`;
-  const copyClass = `slide-copy ${name}`;
-  const slideStyle = `background: ${mediaStyle.image} ${mediaStyle.size} ${mediaStyle.position} ${mediaStyle.repeat}`
+  const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
+  const slideStyle = `background: url(${mediaURL}) ${mediaPosition} ${mediaRepeat}; background-size: ${mediaSize}`
 
   return (
     <>
       <div className={mediaClass} {...blockProps} >
-        <div className='inner-slide' style={{ slideStyle }} >
+        <div className='inner-slide' style={slideStyle} >
           {mediaURL && <img src={mediaURL} alt={mediaAlt} className={mediaClass} />}
           {addText &&
             (<div className={copyClass} >

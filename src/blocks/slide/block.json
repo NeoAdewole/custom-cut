@@ -47,15 +47,21 @@
       "selector": "img",
       "attribute": "alt"
     },
-    "mediaStyle": {
-      "type": "object",
-      "default": {
-        "image": "url('https://via.placeholder.com/600x400')",
-        "size": "cover",
-        "position": "center",
-        "repeat": "no-repeat",
-        "url": "https://via.placeholder.com/600x400"
-      }
+    "mediaPosition": {
+      "type": "string",
+      "default": "center center"
+    },
+    "mediaSize": {
+      "type": "string",
+      "default": "cover"
+    },
+    "mediaRepeat": {
+      "type": "string",
+      "default": "no-repeat"
+    },
+    "alignCopy": {
+      "type": "string",
+      "default": "center"
     }
   },
   "editorScript": "file:./index.js",
