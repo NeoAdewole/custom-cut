@@ -2,7 +2,7 @@ import {
   useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl
 } from '@wordpress/block-editor';
 import {
-  PanelBody, ToggleControl, TextareaControl, Spinner, ToolbarButton, Tooltip, Icon, TextControl, Button,
+  Panel, PanelBody, PanelRow, PanelColorSettings, ToggleControl, TextareaControl, Spinner, ToolbarButton, SelectControl, BorderControl, Tooltip, Icon, TextControl, Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
@@ -10,7 +10,7 @@ import { useState } from '@wordpress/element';
 
 export default function ({ attributes, setAttributes, context, isSelected }) {
   const {
-    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaPosition, mediaSize, mediaRepeat, alignCopy
+    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaPosition, mediaSize, mediaRepeat, alignCopy, alignMedia
   } = attributes;
 
   const blockProps = useBlockProps();
@@ -128,14 +128,26 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
         </PanelBody>
       </InspectorControls>
       <InspectorControls group="styles">
-        <PanelBody title={__('Slide Syles', 'custom-cut')}>
-          <TextControl
-            label={__('Align Slide Copy', 'custom-cut')}
-            help={__('Give this slide some alignment', 'custom-cut')}
-            value={alignCopy}
-            onChange={alignCopy => setAttributes({ alignCopy })}
-          />
-        </PanelBody>
+        <Panel header="Custom Slide Styles">
+          <PanelBody title={__('Slide Syles', 'custom-cut')} initialOpen={true} >
+            <PanelRow>
+              {__('Align copy', 'custom-cut')}
+              {addText && <AlignmentControl
+                value={alignCopy}
+                onChange={alignCopy => setAttributes({ alignCopy })}
+              />}
+            </PanelRow>
+            <PanelRow>
+              {__('Align media', 'custom-cut')}
+              {mediaURL &&
+                <AlignmentControl
+                  value={alignMedia}
+                  onChange={alignMedia => setAttributes({ alignMedia })}
+                />
+              }
+            </PanelRow>
+          </PanelBody>
+        </Panel>
       </InspectorControls>
       <div {...blockProps}>
         <div className="inner-slide" style={{ slideStyle }} >
@@ -158,20 +170,24 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               value={name}
             /> <br />
             <RichText
+              {...useBlockProps()}
               placeholder={__('Title', 'custom-cut')}
               tagName="h3"
               className="slide-title"
               onChange={title => setAttributes({ title })}
               value={title}
+              allowedFormats={["core/bold"]}
             />
             {
               addText &&
               <RichText
+                {...useBlockProps()}
                 placeholder={__("Add some text to this slide?", "custom-cut")}
                 tagName='p'
                 className="slide-text"
                 onChange={slideCopy => setAttributes({ slideCopy })}
                 value={slideCopy}
+                allowedFormats={["core/bold"]}
               />
             }
           </div>

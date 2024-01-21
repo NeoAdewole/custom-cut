@@ -9,7 +9,12 @@
   "description": "Basic resposive slide ideally loaded using a slider.",
   "example": {},
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    }
   },
   "textdomain": "slide",
   "attributes": {
@@ -62,6 +67,10 @@
     "alignCopy": {
       "type": "string",
       "default": "center"
+    },
+    "alignMedia": {
+      "type": "string",
+      "default": ""
     }
   },
   "editorScript": "file:./index.js",
