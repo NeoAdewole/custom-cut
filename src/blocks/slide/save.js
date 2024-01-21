@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function ({ attributes }) {
   const {
-    slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy
+    slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy, alignMedia
   } = attributes;
   // const title = "Slide one!";
   const blockProps = useBlockProps.save();
