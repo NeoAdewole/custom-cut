@@ -1,15 +1,10 @@
 // Ninja Forms
 .nf-form-content {
-  div.nf-field {
+  div.nf-field-container {
     .field-wrap{
-      &.textbox-wrap, &.email-wrap, &.textarea-wrap {
-        div.nf-field-label {
-          // label {
-          //   display: none;
-          // }
-          // display: none;
-        }
-        div.nf-field-element {
+      &:not(.submit-wrap) {
+        
+        > .nf-field-element {
           .ninja-forms-field.nf-element{
             position: relative;
             display: block;
