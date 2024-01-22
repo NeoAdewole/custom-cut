@@ -405,7 +405,7 @@ body .wp-block-site-title:not(:default) {
   text-align: center;
 }
 
-.nf-form-content div.nf-field .field-wrap.textbox-wrap div.nf-field-element .ninja-forms-field.nf-element, .nf-form-content div.nf-field .field-wrap.email-wrap div.nf-field-element .ninja-forms-field.nf-element, .nf-form-content div.nf-field .field-wrap.textarea-wrap div.nf-field-element .ninja-forms-field.nf-element {
+.nf-form-content div.nf-field-container .field-wrap:not(.submit-wrap) > .nf-field-element .ninja-forms-field.nf-element {
   position: relative;
   display: block;
   flex: 1 1 auto;
@@ -422,14 +422,14 @@ body .wp-block-site-title:not(:default) {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
 }
-.nf-form-content div.nf-field .field-wrap.textbox-wrap div.nf-field-element .ninja-forms-field.nf-element:focus, .nf-form-content div.nf-field .field-wrap.email-wrap div.nf-field-element .ninja-forms-field.nf-element:focus, .nf-form-content div.nf-field .field-wrap.textarea-wrap div.nf-field-element .ninja-forms-field.nf-element:focus {
+.nf-form-content div.nf-field-container .field-wrap:not(.submit-wrap) > .nf-field-element .ninja-forms-field.nf-element:focus {
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68/var(--tw-border-opacity));
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
 }
-.nf-form-content div.nf-field .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element {
+.nf-form-content div.nf-field-container .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element {
   position: relative;
   display: block;
   flex: 1 1 auto;
@@ -438,11 +438,11 @@ body .wp-block-site-title:not(:default) {
   border-color: var(--wp--preset--color--primary);
   padding: 0.5rem 1rem;
 }
-.nf-form-content div.nf-field .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element:hover {
+.nf-form-content div.nf-field-container .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element:hover {
   background-color: var(--wp--preset--color--primary);
   color: #fff;
 }
-.nf-form-content div.nf-field .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element:focus {
+.nf-form-content div.nf-field-container .field-wrap.submit-wrap div.nf-field-element .ninja-forms-field.nf-element:focus {
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68/var(--tw-border-opacity));
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
