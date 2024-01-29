@@ -88,7 +88,8 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             value={alignCopy}
             onChange={alignCopy => setAttributes({ alignCopy })}
           />
-        </BlockControls>}
+        </BlockControls>
+      }
 
       <InspectorControls group="settings">
         <PanelBody title={__('Slide Settings', 'custom-cut')}>
@@ -108,6 +109,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             label={__('Add Text', 'custom-cut')}
             checked={addText}
             onChange={addText => setAttributes({ addText })}
+            // onChange={addText => console.log({ addText })}
             help={addText ? __('Add some text to this slide', 'custom-cut') : __('Not displaying slide text', 'custom-cut')}
           />
           {
@@ -130,13 +132,15 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
       <InspectorControls group="styles">
         <Panel header="Custom Slide Styles">
           <PanelBody title={__('Slide Syles', 'custom-cut')} initialOpen={true} >
-            <PanelRow>
-              {__('Align copy', 'custom-cut')}
-              {addText && <AlignmentControl
-                value={alignCopy}
-                onChange={alignCopy => setAttributes({ alignCopy })}
-              />}
-            </PanelRow>
+            {addText &&
+              <PanelRow>
+                {__('Align copy', 'custom-cut')}
+                <AlignmentControl
+                  value={alignCopy}
+                  onChange={alignCopy => setAttributes({ alignCopy })}
+                />
+              </PanelRow>
+            }
             <PanelRow>
               {__('Align media', 'custom-cut')}
               {mediaURL &&
@@ -150,8 +154,12 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
         </Panel>
       </InspectorControls>
       <div {...blockProps}>
-        <div className="inner-slide" style={{ slideStyle }} >
-          {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />}
+        <div className="inner-slide" >
+          {mediaPreview &&
+            <div className='backdrop' style={{ slideStyle }}>
+              <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />
+            </div>
+          }
           {isBlobURL(mediaPreview) && <Spinner />}
           <MediaPlaceholder
             allowedTypes={['image']}
@@ -170,7 +178,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               value={name}
             /> <br />
             <RichText
-              {...useBlockProps()}
+              {...blockProps}
               placeholder={__('Title', 'custom-cut')}
               tagName="h3"
               className="slide-title"
@@ -181,7 +189,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             {
               addText &&
               <RichText
-                {...useBlockProps()}
+                {...blockProps}
                 placeholder={__("Add some text to this slide?", "custom-cut")}
                 tagName='p'
                 className="slide-text"

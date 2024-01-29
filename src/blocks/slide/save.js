@@ -18,8 +18,8 @@ export default function ({ attributes }) {
   return (
     <>
       <div className={mediaClass} {...blockProps} >
-        <div className='inner-slide' style={slideStyle} >
-          {mediaURL && <img src={mediaURL} alt={mediaAlt} className={mediaClass} />}
+        <div className='inner-slide'>
+          {mediaURL && <div className='backdrop' style={slideStyle} > <img src={mediaURL} className={mediaClass} alt={mediaAlt} /> </div>}
           {addText &&
             (<div className={copyClass} >
               <RichText.Content
