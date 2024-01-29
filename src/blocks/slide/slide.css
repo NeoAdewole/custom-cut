@@ -11,6 +11,13 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: 1rem;
+}
+
+.inner-slide .backdrop {
+  position: absolute;
+  margin-left: -1rem;
+  min-height: 100%;
 }
 
 .inner-slide .slide-image {
@@ -20,7 +27,6 @@
 
 .inner-slide .slide-copy {
   max-height: 100%;
-  max-width: 40%;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -30,7 +36,6 @@
 }
 
 .inner-slide .slide-copy.has-background {
-  position: absolute;
   z-index: 2;
 }
 
@@ -43,13 +48,13 @@
 
 .inner-slide .slide-copy.left {
   left: 0;
+  margin-right: 50%;
 }
 
 .inner-slide .slide-copy.right {
   right: 0;
+  margin-left: 50%;
 }
-
-
 
 .inner-slide .slide-title {
   text-align: center;
