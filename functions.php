@@ -18,7 +18,7 @@ add_action('wp_footer', 'custom_cut_foot');
 
 
 // Customize the beans child theme
-add_action('init', 'customcut_register_blocks');
+// add_action('init', 'customcut_register_blocks');
 // add_action('beans_before_load_document', 'custom_mods_child_theme');
 function custom_mods_child_theme()
 {

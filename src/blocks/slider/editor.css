@@ -1,0 +1,11 @@
+.block-editor-block-list__block.wp-block-custom-cut-slider {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  border: 2px blue solid;
+  padding: 2rem;
+  min-height: 200px;
+}

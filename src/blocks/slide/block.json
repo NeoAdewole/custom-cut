@@ -40,7 +40,7 @@
     },
     "mediaURL": {
       "type": "string",
-      "default": "",
+      "default": "https://picsum.photos/768/300",
       "source": "attribute",
       "selector": "img",
       "attribute": "src"

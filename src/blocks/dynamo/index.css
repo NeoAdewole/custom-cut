@@ -1,0 +1,9 @@
+wp-block-custom-cut-dynamo {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  background-color: violet;
+}

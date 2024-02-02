@@ -114,19 +114,21 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
           />
           {
             addText &&
-            <TextareaControl
-              label={__('Slide Text', 'custom-cut')}
-              value={slideCopy}
-              onChange={slideCopy => setAttributes({ slideCopy })}
-              help={__('Add text to this slide here', 'custom-cut')}
-            />
+            <>
+              <TextareaControl
+                label={__('Slide Text', 'custom-cut')}
+                value={slideCopy}
+                onChange={slideCopy => setAttributes({ slideCopy })}
+                help={__('Add text to this slide here', 'custom-cut')}
+              />
+              <TextControl
+                label={__('Title', 'custom-cut')}
+                help={__('Give this slide a title', 'custom-cut')}
+                value={title}
+                onChange={title => setAttributes({ title })}
+              />
+            </>
           }
-          <TextControl
-            label={__('Title', 'custom-cut')}
-            help={__('Give this slide a title', 'custom-cut')}
-            value={title}
-            onChange={title => setAttributes({ title })}
-          />
         </PanelBody>
       </InspectorControls>
       <InspectorControls group="styles">
@@ -177,26 +179,28 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
               onChange={name => setAttributes({ name })}
               value={name}
             /> <br />
-            <RichText
-              {...blockProps}
-              placeholder={__('Title', 'custom-cut')}
-              tagName="h3"
-              className="slide-title"
-              onChange={title => setAttributes({ title })}
-              value={title}
-              allowedFormats={["core/bold"]}
-            />
             {
               addText &&
-              <RichText
-                {...blockProps}
-                placeholder={__("Add some text to this slide?", "custom-cut")}
-                tagName='p'
-                className="slide-text"
-                onChange={slideCopy => setAttributes({ slideCopy })}
-                value={slideCopy}
-                allowedFormats={["core/bold"]}
-              />
+              <>
+                <RichText
+                  {...blockProps}
+                  placeholder={__('Title', 'custom-cut')}
+                  tagName="h3"
+                  className="slide-title"
+                  onChange={title => setAttributes({ title })}
+                  value={title}
+                  allowedFormats={["core/bold"]}
+                />
+                <RichText
+                  {...blockProps}
+                  placeholder={__("Add some text to this slide?", "custom-cut")}
+                  tagName='p'
+                  className="slide-text"
+                  onChange={slideCopy => setAttributes({ slideCopy })}
+                  value={slideCopy}
+                  allowedFormats={["core/bold"]}
+                />
+              </>
             }
           </div>
         </div>
