@@ -1,5 +1,19 @@
 .wp-block-custom-cut-slider {
-  border: 1px solid #555;
-  padding: 10px;
   margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
 }
+
+.wp-block-custom-cut-slider .wp-block-custom-cut-slide {
+  min-width: 100%;
+}
+
+.wp-block-custom-cut-slider .wp-block-custom-cut-slide .slide-image {
+  width: 100%;
+  height: auto;
+}
+
+/* transitions */

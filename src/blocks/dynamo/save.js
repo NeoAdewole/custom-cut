@@ -6,6 +6,10 @@ import { __ } from '@wordpress/i18n';
 export default function ({ attributes }) {
   const blockProps = useBlockProps.save();
 
-  return (<InnerBlocks.Content />);
+  return (
+    <div {...blockProps}>
+      <InnerBlocks.Content />
+    </div>
+  );
 
 }

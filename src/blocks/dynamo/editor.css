@@ -1,0 +1,10 @@
+.block-editor-block-list__block.wp-block-custom-cut-dynamo {
+  padding: 20px;
+  background-color: #eee;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.wp-block-custom-cut-dynamo .slides {
+  margin: 1rem;
+}

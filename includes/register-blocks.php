@@ -3,8 +3,10 @@
 function customcut_register_blocks()
 {
   $blocks = [
-    ['name' => 'slider', 'options' => ['render_callback' => 'customcut_slider_render_cb']],
+    ['name' => 'slider'],
+    // ['name' => 'slider', 'options' => ['render_callback' => 'customcut_slider_render_cb']],
     ['name' => 'slide'],
+    ['name' => 'dynamo'],
   ];
 
   foreach ($blocks as $block) {
@@ -14,3 +16,4 @@ function customcut_register_blocks()
     );
   }
 }
+add_action('init', 'customcut_register_blocks');
