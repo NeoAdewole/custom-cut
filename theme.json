@@ -477,6 +477,15 @@
         "post"
       ],
       "title": "Single with Sidebar"
+    },
+    {
+      "name": "service-page",
+      "postTypes": [
+        "page",
+        "post",
+        "service"
+      ],
+      "title": "Single Service Page"
     }
   ]
 }
