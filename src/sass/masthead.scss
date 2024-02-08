@@ -1,22 +1,14 @@
 .masthead {
   position: relative;
   figure, .wp-block-post-featured-image {
-    width: 100%;
     img {
       border-radius: 5px;
     }
   }
   
-  figure:before,figure:after{
+  figure:after{
     content:'';
     position:absolute;    
-  }
-  figure:before{   
-      top:-50px; left:225px;
-      width:150px; height:150px;
-      border-radius:50%;
-      box-shadow: 0px 0px 0px 9999px #000;
-      z-index:-1;
   }
   figure:after{
       top:0;left:0;
@@ -24,22 +16,15 @@
       box-shadow: inset 0px -300px 600px -300px #fff;
   }
 
-
   .wp-block-group.info {
-    margin-block-start: 0;
     margin-block-start: -4rem;    
   }
 
-  .info {    
-    // position: absolute;
-    // bottom: -5rem;
-    width: 100%;
+  .info {
     background-color: #1B1B1BF0;
+    color: var(--wp--preset--color--whiteish);
     border-radius: 30px;
     padding: 1rem;
-    // z-index: 2;
-    // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 
-    //   0px 0px 6px rgba(235,178,234, 0.4);
   }
 
   .wp-block-post-title {    

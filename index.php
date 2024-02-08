@@ -1,2 +1,2 @@
 <?php
- /* Template Name: Clear eyes */
+/* Template Name: Clear eyes */
