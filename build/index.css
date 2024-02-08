@@ -450,6 +450,57 @@ body .wp-block-site-title:not(:default) {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
 }
 
+.page-template-service-page .wp-block-cover .wp-block-heading {
+  text-shadow: 4px 4px 10px black;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item {
+  flex: 1;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item:hover {
+  box-shadow: 0 0 10px 5px rgba(176, 72, 207, 0.274);
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item figure {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item figure img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item p {
+  font-size: large;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item .wp-block-createwithrani-superlist-item-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item .wp-block-createwithrani-superlist-item-description {
+  margin-bottom: 1rem;
+}
+.page-template-service-page .wp-block-createwithrani-superlist-block .wp-block-createwithrani-superlist-item .wp-block-createwithrani-superlist-item-button {
+  margin-top: auto;
+}
+
 *,
 :before,
 :after {
