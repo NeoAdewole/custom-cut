@@ -1,42 +1,41 @@
-import {
-  useBlockProps, InnerBlocks
-} from '@wordpress/block-editor';
-import { render, useState, useEffect } from '@wordpress/element'
-import { __ } from '@wordpress/i18n';
-// slider
-export default function ({ attributes }) {
-  const {
-    slideCopy, addText, mediaURL, mediaAlt, mediaID
-  } = attributes;
-  const blockProps = useBlockProps.save();
-  // const innerBlockProps = useInnerBlockProps.save()
-
-  return (
-    <div {...blockProps}>
-      <InnerBlocks.Content />
-    </div>
-  );
-
-}
-
+// slider front end
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Frontend slider script loaded")
-  const slider = document.querySelector('#slider')
-  if (slider) {
+  // Run this for all carousels loaded
+  // Get every carousel on page
+  var sliders = document.querySelectorAll('.wp-block-custom-cut-slider');
 
-    const slides = document.querySelectorAll('.wp-block-custom-cut-slide')
+  // run transitions for each carousel instance on page
+  sliders.forEach((carousel, index) => {
+    var slider = carousel
+    var slideCount = slider.getAttribute('slide-count');
+    var interval = slider.getAttribute('data-interval');
+    var slides = slider.querySelectorAll('.wp-block-custom-cut-slide');
+    var currentSlide = parseInt(slider.getAttribute('current'));
 
-    const slide_count = 0
-    slides.forEach(slide => {
-      slide.addEventListener('click', event => {
-        event.preventDefault()
-        slide_count = + 1
-        console.log('This is slide ' + slide_count)
-        console.log(slide)
-      })
+    // set initial active slide from current attribute
+    slides.forEach((slide, index) => {
+      if (index === currentSlide) {
+        slide.classList.toggle("active")
+      }
     })
 
-  }
+    // remove active class from previous slide and add to current slide
+    function updateCurrent() {
+      // Update the front-end UI based on the current slide
+      slides[currentSlide].classList.toggle("active")
+      currentSlide = (currentSlide + 1) % slideCount
+      slides[currentSlide].classList.toggle("active")
+      return currentSlide
+    }
 
+    const transition = () => {
+      // toggle active class for element
+      //  ToDo: Pass a transition animation to updateCurrent
+      updateCurrent();
+      return clearTimeout()
+    }
+    setInterval(transition, interval, currentSlide)
+  })
 })

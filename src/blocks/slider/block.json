@@ -23,6 +23,14 @@
       "type": "boolean",
       "default": true
     },
+    "current": {
+      "type": "number",
+      "default": 0
+    },
+    "slideInterval": {
+      "type": "number",
+      "default": 5000
+    },
     "slides": {
       "type": "array",
       "default": [
@@ -42,5 +50,6 @@
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "render": "file:./render.php",
-  "style": "file:./index.css"
+  "style": "file:./index.css",
+  "viewScript": "file:./frontend.js"
 }

@@ -7,13 +7,16 @@ import {
 import { __ } from '@wordpress/i18n';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
 import { useState } from '@wordpress/element';
+import './editor.css'
 
-export default function ({ attributes, setAttributes, context, isSelected }) {
+export default function (props) {
   const {
-    name, title, addText, slideCopy, mediaID, mediaAlt, mediaURL, mediaPosition, mediaSize, mediaRepeat, alignCopy, alignMedia
-  } = attributes;
+    attributes: {
+      slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy, alignMedia, slideIndex
+    },
+    setAttributes, context, isSelected, style
+  } = props;
 
-  const blockProps = useBlockProps();
   // let { backgroundImage, url } = mediaStyle;
 
   const [mediaPreview, setMediaPreview] = useState(mediaURL)
@@ -50,7 +53,15 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
   const bgCheck = mediaURL ? 'has-background' : ''
   const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
   const mediaClass = ` wp-image-${mediaID}`;
-  const slideStyle = `background: ${mediaURL} ${mediaPosition} ${mediaRepeat} background-size: ${mediaSize}`
+  const slideStyle = `background: ${mediaURL} ${mediaPosition} ${mediaRepeat} background-size: ${mediaSize}`;
+  const isActive = (slideIndex == 0) ? 'active' : '';
+
+  const blockProps = useBlockProps({
+    dataSlide: slideIndex
+  });
+  // console.log("Slide Props", blockProps)
+  // console.log("Slide className", blockProps.className)
+  // console.log("Slide style", blockProps.style)
 
   return (
     <>
@@ -109,7 +120,6 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
             label={__('Add Text', 'custom-cut')}
             checked={addText}
             onChange={addText => setAttributes({ addText })}
-            // onChange={addText => console.log({ addText })}
             help={addText ? __('Add some text to this slide', 'custom-cut') : __('Not displaying slide text', 'custom-cut')}
           />
           {
@@ -133,7 +143,7 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
       </InspectorControls>
       <InspectorControls group="styles">
         <Panel header="Custom Slide Styles">
-          <PanelBody title={__('Slide Syles', 'custom-cut')} initialOpen={true} >
+          <PanelBody title={__('Slide Styles', 'custom-cut')} initialOpen={true} >
             {addText &&
               <PanelRow>
                 {__('Align copy', 'custom-cut')}
@@ -155,56 +165,51 @@ export default function ({ attributes, setAttributes, context, isSelected }) {
           </PanelBody>
         </Panel>
       </InspectorControls>
-      <div {...blockProps}>
-        <div className="inner-slide" >
-          {mediaPreview &&
-            <div className='backdrop' style={{ slideStyle }}>
-              <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />
-            </div>
+      <div {...blockProps} >
+        {mediaPreview && <div className='backdrop' style={{ slideStyle }}><img src={mediaPreview} alt={mediaAlt} className={mediaClass} /></div>}
+        {/* {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />} */}
+        {isBlobURL(mediaPreview) && <Spinner />}
+        <MediaPlaceholder
+          allowedTypes={['image']}
+          accept={'image/*'}
+          icon="admin-users"
+          onSelect={selectMedia}
+          onError={error => console.error(error)}
+          disableMediaButtons={mediaPreview}
+          onSelectURL={selectMediaURL}
+        />
+        <div className={`${copyClass}`}>
+          <RichText
+            placeholder={__('Slide Name', 'custom-cut')}
+            tagName="strong"
+            onChange={name => setAttributes({ name })}
+            value={name}
+          /> <br />
+          {
+            addText &&
+            <>
+              <RichText
+                {...blockProps}
+                placeholder={__('Title', 'custom-cut')}
+                tagName="h3"
+                className="slide-title"
+                onChange={title => setAttributes({ title })}
+                value={title}
+                allowedFormats={["core/bold"]}
+              />
+              <RichText
+                {...blockProps}
+                placeholder={__("Add some text to this slide?", "custom-cut")}
+                tagName='p'
+                className="slide-text"
+                onChange={slideCopy => setAttributes({ slideCopy })}
+                value={slideCopy}
+                allowedFormats={["core/bold"]}
+              />
+            </>
           }
-          {isBlobURL(mediaPreview) && <Spinner />}
-          <MediaPlaceholder
-            allowedTypes={['image']}
-            accept={'image/*'}
-            icon="admin-users"
-            onSelect={selectMedia}
-            onError={error => console.error(error)}
-            disableMediaButtons={mediaPreview}
-            onSelectURL={selectMediaURL}
-          />
-          <div className={`${copyClass}`}>
-            <RichText
-              placeholder={__('Slide Name', 'custom-cut')}
-              tagName="strong"
-              onChange={name => setAttributes({ name })}
-              value={name}
-            /> <br />
-            {
-              addText &&
-              <>
-                <RichText
-                  {...blockProps}
-                  placeholder={__('Title', 'custom-cut')}
-                  tagName="h3"
-                  className="slide-title"
-                  onChange={title => setAttributes({ title })}
-                  value={title}
-                  allowedFormats={["core/bold"]}
-                />
-                <RichText
-                  {...blockProps}
-                  placeholder={__("Add some text to this slide?", "custom-cut")}
-                  tagName='p'
-                  className="slide-text"
-                  onChange={slideCopy => setAttributes({ slideCopy })}
-                  value={slideCopy}
-                  allowedFormats={["core/bold"]}
-                />
-              </>
-            }
-          </div>
         </div>
-      </div >
+      </div>
     </>
   );
 }

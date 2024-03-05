@@ -71,8 +71,13 @@
     "alignMedia": {
       "type": "string",
       "default": ""
+    },
+    "slideIndex": {
+      "type": "number",
+      "default": null
     }
   },
   "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
   "style": "file:./index.css"
 }

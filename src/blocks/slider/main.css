@@ -5,15 +5,9 @@
   flex-direction: row;
   align-items: center;
   overflow: hidden;
-}
-
-.wp-block-custom-cut-slider .wp-block-custom-cut-slide {
-  min-width: 100%;
-}
-
-.wp-block-custom-cut-slider .wp-block-custom-cut-slide .slide-image {
-  width: 100%;
-  height: auto;
+  /* width: 1280px;
+  height: 450px; */
+  border: 1px solid #000;
 }
 
 /* transitions */

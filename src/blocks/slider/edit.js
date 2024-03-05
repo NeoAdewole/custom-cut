@@ -1,79 +1,50 @@
-import { useBlockProps, RichText, InspectorControls, BlockControls, MediaReplaceFlow, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps, RichText, InspectorControls, BlockControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, dispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import './editor.css'
 
 export default function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderId, slides, slideCount } = attributes;
-  const blockProps = useBlockProps();
+  const { showImage, sliderId, slides, slideCount, start = 0, slideInterval } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
-  const [initialCount, setSlideCount] = useState(slideCount)
-  const countSlides = () => {
-    let counter = useSelect(
-      (select) => select('core/block-editor').getBlockCount(clientId)
-    )
-    setSlideCount(counter)
-  }
+  const [current, setCurrent] = useState(start)
 
-  const childNames = useSelect(
-    (select) => select(blockStore).getBlock(clientId).innerBlocks
-  )
+  const { count } = useSelect(select => ({
+    count: select("core/block-editor").getBlockCount(clientId)
+  }));
 
-  // console.log({ slideCount })
-  // childNames.map((slide) => {
-  //   console.log(slide.attributes.title)
-  // })
+  setAttributes({ sliderId: clientId })
+  setAttributes({ slideCount: count })
+
+  const blockProps = useBlockProps({
+    dataCurrent: current ? current : start,
+    dataInterval: slideInterval,
+    count: slideCount
+  });
 
   return (
     <>
-      <div {...blockProps}>
-        <div className='slider-tins'>
-          <InnerBlocks
-            allowedBlocks={[
-              'custom-cut/slide'
-            ]}
-            template={[
-              ['custom-cut/slide',
-                {
-                  name: 'Example Slide',
-                  title: 'Example slide title',
-                  slideCopy: 'Empty copy for the slider dem',
-                  image: 'https://picsum.photos/768/300'
-                }
-              ]
-            ]}
-          />
-        </div>
+      {/* {slideCount > 0 && console.log("Slide Count:", slideCount)} */}
+      <h3>Current Slide edit: {current && current}</h3>
+      <div {...blockProps} >
+        <InnerBlocks
+          allowedBlocks={[
+            'custom-cut/slide'
+          ]}
+          template={[
+            ['custom-cut/slide',
+              {
+                name: 'Example Slide',
+                title: 'Example slide title',
+                slideCopy: 'Empty copy for the slider dem',
+                image: 'https://picsum.photos/768/300'
+              }
+            ]
+          ]}
+        />
       </div>
-      {/* {mediaPreview && (
-        <BlockControls group="inline">
-          <MediaReplaceFlow
-            name={__('Replace Slide Media', 'custom-cut')}
-            mediaID={mediaID}
-            mediaURL={mediaURL}
-            allowedTypes={['image', 'video']}
-            accept={['image/*', 'video/*']}
-            onError={error => console.error(error)}
-            onSelect={selectMedia}
-            onSelectURL={selectMediaUrl}
-          />
-          <ToolbarButton
-            onClick={() => {
-              setAttributes({
-                mediaID: 0,
-                mediaAlt: "",
-                mediaURL: ""
-              });
-              setMediaPreview("");
-            }}
-          >
-            {__('Remove Media', 'custom-cut')}
-          </ToolbarButton>
-        </BlockControls>
-      )} */}
       <InspectorControls>
         <PanelBody title={__('Slider Settings', 'custom-cut')}>
           <ToggleControl
@@ -83,14 +54,13 @@ export default function ({ attributes, setAttributes, clientId }) {
             help={showImage ? __('Displaying images(hard-coded)', 'custom-cut') : __('Not displaying images', 'custom-cut')}
           />
           <NumberControl
+            label={__('Number of Slides', 'custom-count')}
             isShiftStepEnabled={false}
             onChange={slideCount => setAttributes({ slideCount })}
             shitStep={1}
             value={slideCount}
           />
-
         </PanelBody>
-
       </InspectorControls>
     </>
   );
