@@ -1,5 +1,5 @@
-import { useBlockProps, useInnerBlocksProps, RichText, InspectorControls, BlockControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
+import { BorderRadiusControl, useBlockProps, useInnerBlocksProps, RichText, InspectorControls, BlockControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
+import { PanelBody, ToggleControl, TextControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useSelect, dispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
@@ -14,6 +14,9 @@ export default function ({ attributes, setAttributes, clientId }) {
   const { count } = useSelect(select => ({
     count: select("core/block-editor").getBlockCount(clientId)
   }));
+
+  // ToDo: Add border controls to slider
+  // ToDo: Add opacity/alpha controls to slide bacgrounds
 
   setAttributes({ sliderId: clientId })
   setAttributes({ slideCount: count })
@@ -59,6 +62,17 @@ export default function ({ attributes, setAttributes, clientId }) {
             onChange={slideCount => setAttributes({ slideCount })}
             shitStep={1}
             value={slideCount}
+          />
+          <NumberControl
+            label={__('Slide Interval', 'custom-cut')}
+            help="Interval between slide transitions in milliseconds"
+            isShiftStepEnabled={true}
+            shitStep={1000}
+            step={100}
+            min={200}
+            max={99999}
+            onChange={slideInterval => setAttributes({ slideInterval })}
+            value={slideInterval}
           />
         </PanelBody>
       </InspectorControls>

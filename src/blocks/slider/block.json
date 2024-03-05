@@ -44,7 +44,16 @@
     }
   },
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true,
+      "gradient": true
+    },
+    "border": true,
+    "dimensions": {
+      "aspectRatio": true,
+      "minHeight": true
+    }
   },
   "textdomain": "custom-cut",
   "editorScript": "file:./index.js",
