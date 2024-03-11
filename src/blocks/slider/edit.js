@@ -1,8 +1,8 @@
-import { BorderRadiusControl, useBlockProps, useInnerBlocksProps, RichText, InspectorControls, BlockControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, TextControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
+import { useBlockProps, InspectorControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
+import { PanelBody, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useSelect, dispatch } from '@wordpress/data';
-import { useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 import './editor.css'
 
 export default function ({ attributes, setAttributes, clientId }) {
@@ -16,7 +16,7 @@ export default function ({ attributes, setAttributes, clientId }) {
   }));
 
   // ToDo: Add border controls to slider
-  // ToDo: Add opacity/alpha controls to slide bacgrounds
+  // ToDo: Add opacity/alpha controls to slide backgrounds
 
   setAttributes({ sliderId: clientId })
   setAttributes({ slideCount: count })
@@ -29,8 +29,6 @@ export default function ({ attributes, setAttributes, clientId }) {
 
   return (
     <>
-      {/* {slideCount > 0 && console.log("Slide Count:", slideCount)} */}
-      <h3>Current Slide edit: {current && current}</h3>
       <div {...blockProps} >
         <InnerBlocks
           allowedBlocks={[
