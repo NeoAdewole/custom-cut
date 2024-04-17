@@ -4,6 +4,8 @@ import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import './editor.css'
+import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
+import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
 export default function ({ attributes, setAttributes, clientId }) {
   const { showImage, sliderId, slides, slideCount, start = 0, slideInterval } = attributes;
@@ -30,21 +32,40 @@ export default function ({ attributes, setAttributes, clientId }) {
   return (
     <>
       <div {...blockProps} >
-        <InnerBlocks
-          allowedBlocks={[
-            'custom-cut/slide'
-          ]}
-          template={[
-            ['custom-cut/slide',
-              {
-                name: 'Example Slide',
-                title: 'Example slide title',
-                slideCopy: 'Empty copy for the slider dem',
-                image: 'https://picsum.photos/768/300'
-              }
-            ]
-          ]}
-        />
+        <div className='carousel'>
+          <InnerBlocks
+            allowedBlocks={[
+              'custom-cut/slide'
+            ]}
+            template={[
+              ['custom-cut/slide',
+                {
+                  name: 'Example Slide',
+                  title: 'Example slide title',
+                  slideCopy: 'Empty copy for the slider dem',
+                  image: 'https://picsum.photos/768/300'
+                }
+              ]
+            ]}
+          />
+        </div>
+        <div className='controls'>
+          <button className='btn left'>
+            <span className='previous'>
+              < PrevSvg />
+              <span className='hidden'>Prev</span>
+            </span>
+          </button>
+          <button className='btn center'>
+            <span className='pause'>Pause</span>
+          </button>
+          <button className='btn right'>
+            <span className='next'>
+              < NextSvg />
+              <span className='hidden'>Next</span>
+            </span>
+          </button>
+        </div>
       </div>
       <InspectorControls>
         <PanelBody title={__('Slider Settings', 'custom-cut')}>

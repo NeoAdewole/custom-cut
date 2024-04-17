@@ -1,4 +1,5 @@
 .wp-block-custom-cut-slider {
+  position: relative;
   margin-bottom: 20px;
   width: 100%;
   display: flex;
@@ -6,6 +7,95 @@
   align-items: center;
   overflow: hidden;
   border-radius: 10px;
+}
+
+/* carousel */
+
+
+
+/* Controls */
+.wp-block-custom-cut-slider .controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wp-block-custom-cut-slider .btn {
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 10;
+  background: #ffffff50;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.wp-block-custom-cut-slider .indicators {
+  position: absolute;
+  z-index: 10;
+  /* background: #ffffff50; */
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.wp-block-custom-cut-slider .indicators .dot {
+  width: 1rem;
+  height: 1rem;
+  background: #fff5;
+  box-shadow: #0004 2px 2px;
+  border-radius: 50%;
+}
+
+.wp-block-custom-cut-slider .indicators .dot.current,
+.wp-block-custom-cut-slider .indicators .dot:hover {
+  background-color: #fff;
+  box-shadow: #000 1px 1px;
+}
+
+.hidden {
+  display: none;
+}
+
+.previous,
+.next,
+.pause {
+  top: 50%;
+  bottom: 50%;
+}
+
+.wp-block-custom-cut-slider .btn svg {
+  width: 2.5rem;
+}
+
+.wp-block-custom-cut-slider .btn.left {
+  float: left;
+  left: 0;
+}
+
+.wp-block-custom-cut-slider .btn.right {
+  float: right;
+  right: 0;
+}
+
+.wp-block-custom-cut-slider .btn.bottom {
+  bottom: 0;
+}
+
+.wp-block-custom-cut-slider .btn.center {
+  margin: 0 auto;
+  left: 40%;
+  right: 40%;
+  top: 40%;
+  bottom: 40%;
+  width: 20%;
+  height: 20%;
 }
 
 /* transitions */

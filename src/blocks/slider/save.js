@@ -9,13 +9,19 @@ export default function ({ attributes }) {
     dataInterval: slideInterval,
     count: slideCount
   });
-  console.log("slider block props from save", blockProps)
 
   return (
     <>
       {current && `{<h3>Current Slide save: ${current}</h3>}`}
       <div {...blockProps}>
-        <InnerBlocks.Content />
+        <div className='controls'>
+          <span className='btn previous'>Prev</span>
+          <span className='btn pause'>Pause</span>
+          <span className='btn next'>Next</span>
+        </div>
+        <div className='carousel'>
+          <InnerBlocks.Content />
+        </div>
       </div>
     </>
   );
