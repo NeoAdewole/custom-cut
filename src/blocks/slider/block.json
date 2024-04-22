@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "title": "Custom Cut Slider",
+  "name": "custom-cut/slider",
+  "version": "0.1.0",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Basic resposive slider for the custom-cut theme.",
+  "allowedBlocks": [
+    "custom-cut/slide"
+  ],
+  "attributes": {
+    "slideCount": {
+      "type": "number",
+      "default": 0
+    },
+    "sliderId": {
+      "type": "string",
+      "default": "slider-1"
+    },
+    "showImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "current": {
+      "type": "number",
+      "default": 0
+    },
+    "slideInterval": {
+      "type": "number",
+      "default": 5000
+    },
+    "slides": {
+      "type": "array",
+      "default": [
+        {
+          "slideId": "01",
+          "title": "Slide 1",
+          "content": "Slide 1 content",
+          "image": "https://picsum.photos/200/300"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "gradient": true
+    },
+    "border": true,
+    "dimensions": {
+      "aspectRatio": true,
+      "minHeight": true
+    }
+  },
+  "textdomain": "custom-cut",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "render": "file:./render.php",
+  "style": "file:./index.css",
+  "viewScript": "file:./frontend.js"
+}

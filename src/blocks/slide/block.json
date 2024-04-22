@@ -1,0 +1,83 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "title": "Custum Cut Slide",
+  "name": "custom-cut/slide",
+  "version": "0.1.0",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Basic resposive slide ideally loaded using a slider.",
+  "example": {},
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    }
+  },
+  "textdomain": "slide",
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Slide"
+    },
+    "title": {
+      "type": "string",
+      "default": "Slide Title"
+    },
+    "addText": {
+      "type": "boolean",
+      "default": true
+    },
+    "slideCopy": {
+      "type": "string",
+      "default": "Slide Copy"
+    },
+    "mediaID": {
+      "type": "number",
+      "default": 0
+    },
+    "mediaURL": {
+      "type": "string",
+      "default": "https://picsum.photos/768/300",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "src"
+    },
+    "mediaAlt": {
+      "type": "string",
+      "default": "",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "alt"
+    },
+    "mediaPosition": {
+      "type": "string",
+      "default": "center center"
+    },
+    "mediaSize": {
+      "type": "string",
+      "default": "cover"
+    },
+    "mediaRepeat": {
+      "type": "string",
+      "default": "no-repeat"
+    },
+    "alignCopy": {
+      "type": "string",
+      "default": "center"
+    },
+    "alignMedia": {
+      "type": "string",
+      "default": ""
+    },
+    "slideIndex": {
+      "type": "number",
+      "default": null
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./index.css"
+}

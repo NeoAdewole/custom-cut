@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "title": "Custom Cut Dynamo",
+  "name": "custom-cut/dynamo",
+  "version": "0.1.0",
+  "category": "widgets",
+  "icon": "generic",
+  "description": "Basic resposive slider for the custom-cut theme.",
+  "allowedBlocks": [
+    "custom-cut/slide"
+  ],
+  "attributes": {
+    "isDynamo": {
+      "type": "boolean",
+      "default": false
+    },
+    "slides": {
+      "type": "array",
+      "default": [
+        {
+          "slideId": "01",
+          "title": "Slide 1",
+          "content": "Slide placeholder content",
+          "image": "https://picsum.photos/200/300"
+        },
+        {
+          "slideId": "02",
+          "title": "Slide 2",
+          "content": "Slide placeholder content",
+          "image": "https://picsum.photos/200/300"
+        },
+        {
+          "slideId": "03",
+          "title": "Slide 3",
+          "content": "Slide placeholder content",
+          "image": "https://picsum.photos/200/300"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "custom-cut",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "render": "file:./render.php",
+  "style": "file:./index.css"
+}
