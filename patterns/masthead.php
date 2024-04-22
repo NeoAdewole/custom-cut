@@ -12,11 +12,10 @@
 <div class="wp-block-group masthead">
   <!-- wp:post-featured-image {"aspectRatio":"auto","align":"full","style":{"layout":{"selfStretch":"fit","flexSize":null}}} /-->
   <!-- wp:group {"className":"info glow-effect","align":"full"} -->
-  <div class="wp-block-group info glow-effect">
+  <div class="wp-block-group alignfull info glow-effect">
     <!-- wp:post-title {"align":"full"} /-->
     <!-- wp:template-part {"slug":"post-meta","theme":"custom-cut","area":"uncategorized"} /-->
-    <svg class="glow-container"></svg>
-    <svg class="glow-line"></svg>
   </div>
+  <!-- /wp:group -->
 </div>
 <!-- /wp:group -->
