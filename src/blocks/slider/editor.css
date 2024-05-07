@@ -10,10 +10,21 @@
   max-height: 300px;
 }
 
+.wp-block-custom-cut-slider>.carousel>.block-editor-inner-blocks>.block-editor-block-list__layout {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  justify-content: flex-start;
+}
+
+.block-editor-block-list__block>.wp-block-custom-cut-slider>.block-editor-inner-blocks>.controls {
+  display: none;
+}
+
 .block-editor-block-list__block>.wp-block-custom-cut-slider>.block-editor-inner-blocks>.wp-block-custom-cut-slide {
   display: flex;
 }
 
 .wp-block-custom-cut-slider>.block-editor-inner-blocks>.wp-block-custom-cut-slide {
-  min-width: 100%;
+  /* min-width: 100%; */
 }
