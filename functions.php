@@ -196,6 +196,26 @@ function custom_head_script()
 }
 add_action('wp_head', 'custom_head_script');
 
+function custom_tc_analytics()
+{
+  // True conversion tracking script
+  $tc_script = '';
+  $tc_script .= '<!-- TruConversion for clearcutcomms.ca -->
+  <script type="text/javascript">
+      var _tip = _tip || [];
+      (function(d,s,id){
+          var js, tjs = d.getElementsByTagName(s)[0];
+          if(d.getElementById(id)) { return; }
+          js = d.createElement(s); js.id = id;
+          js.async = true;
+          js.src = d.location.protocol + "//app.truconversion.com/ti-js/38156/6ac86.js";
+          tjs.parentNode.insertBefore(js, tjs);
+      }(document, "script", "ti-js"));
+  </script>';
+  echo $tc_script;
+}
+add_action('wp_head', 'custom_tc_analytics');
+
 // FB chat script for contact page
 if (is_page('contact')) {
   add_action('wp_footer', 'custom_add_fb_chat_script');
