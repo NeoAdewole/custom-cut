@@ -1,22 +1,38 @@
 import { useBlockProps, InspectorControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
+import { PanelBody, SelectControl, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import './editor.css'
 import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
 import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
 export default function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderId, slides, slideCount, start = 0, slideInterval } = attributes;
+  const { showImage, sliderId, slides, slideCount, start = 0, slideInterval, autoplay } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
+  const [isPlaying, setIsPlaying] = useState(autoplay);
 
   const { count } = useSelect(select => ({
     count: select("core/block-editor").getBlockCount(clientId)
   }));
 
+  useEffect(() => {
+
+  }, [autoplay]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const timer = setInterval(() => {
+      setCurrent(prev => (prev + 1) % slideCount);
+    }, slideInterval || 5000);
+    setIsPlaying(autoplay)
+    console.log("Autoplay is:", autoplay)
+    return () => clearInterval(timer);
+  }, [isPlaying, slideCount, slideInterval, autoplay]);
+
+  // ToDo: Add dimension controls to slider
   // ToDo: Add border controls to slider
   // ToDo: Add opacity/alpha controls to slide backgrounds
 
@@ -24,7 +40,11 @@ export default function ({ attributes, setAttributes, clientId }) {
   setAttributes({ slideCount: count })
 
   const blockProps = useBlockProps({
-    dataCurrent: current ? current : start,
+    'data-current': current ? current : start,
+    'data-slide-interval': slideInterval,
+    'data-autoplay': autoplay,
+    'data-slide-count': slideCount,
+    count: slideCount,
     dataInterval: slideInterval,
     count: slideCount
   });
@@ -56,8 +76,13 @@ export default function ({ attributes, setAttributes, clientId }) {
               <span className='hidden'>Prev</span>
             </span>
           </button>
-          <button className='btn center'>
-            <span className='pause'>Pause</span>
+          <button
+            className='btn center'
+            type="button"
+            onClick={() => setIsPlaying(!isPlaying)}
+            aria-pressed={isPlaying}
+          >
+            <span className='pause'>{isPlaying ? 'Pause' : 'Play'}</span>
           </button>
           <button className='btn right'>
             <span className='next'>
@@ -92,6 +117,22 @@ export default function ({ attributes, setAttributes, clientId }) {
             max={99999}
             onChange={slideInterval => setAttributes({ slideInterval })}
             value={slideInterval}
+          />
+          <SelectControl
+            label={__('Dimension Control', 'custom-cut')}
+            help={__("Manage the responsiveness of the carousel", "custom-cut")}
+            options={[
+              { label: 'Full Width', value: 'full-width' },
+              { label: 'Full Height', value: 'full-height' },
+              { label: 'Screen Width', value: 'w-screen' },
+              { label: 'Screen Height', value: 'h-screen' },
+            ]}
+          />
+          <ToggleControl
+            label={__('Autoplay', 'custom-cut')}
+            checked={attributes.autoplay}
+            onChange={autoplay => setAttributes({ autoplay })}
+            help={attributes.autoplay ? __('Slider will autoplay', 'custom-cut') : __('Slider will not autoplay', 'custom-cut')}
           />
         </PanelBody>
       </InspectorControls>

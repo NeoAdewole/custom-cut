@@ -32,7 +32,6 @@
 
 .wp-block-custom-cut-slide .backdrop {
   width: 100%;
-  min-height: 100%;
 }
 
 .wp-block-custom-cut-slide .slide-image {
@@ -57,7 +56,6 @@
   z-index: 2;
   top: 0;
   bottom: 0;
-  padding: 1em;
 }
 
 .wp-block-custom-cut-slide .slide-copy.center {
@@ -78,7 +76,7 @@
 .wp-block-custom-cut-slide .slide-title {
   text-align: center;
   margin-bottom: 0;
-  padding: 1rem;
+  /* padding: 1rem; */
   backdrop-filter: brightness(0.5);
   text-shadow: 2px 2px 4px black;
 }

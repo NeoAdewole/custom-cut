@@ -41,6 +41,10 @@
           "image": "https://picsum.photos/200/300"
         }
       ]
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": true
     }
   },
   "supports": {

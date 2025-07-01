@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // run transitions for each carousel instance on page
   sliders.forEach((carousel, index) => {
     var slider = carousel
-    var slideCount = slider.getAttribute('slide-count');
-    var interval = slider.getAttribute('data-interval');
+    var slideCount = slider.getAttribute('data-slide-count');
+    var interval = parseInt(slider.getAttribute('data-interval')) || 5000;
     var slides = slider.querySelectorAll('.wp-block-custom-cut-slide');
-    var currentSlide = parseInt(slider.getAttribute('current'));
+    var currentSlide = parseInt(slider.getAttribute('data-current')) || 0;
     var controls = slider.querySelectorAll('.btn');
     var indicators = slider.querySelectorAll('.indicators button');
+    var autoplay = slider.getAttribute('data-autoplay') === "true";
+    var timer = null;
+    var isPlaying = false;
 
     // set initial active slide from current attribute
     slides.forEach((slide, index) => {
@@ -27,15 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
       indicator.addEventListener('click', (event) => {
         const target = parseInt(event.target.getAttribute('data-carousel-slide-to'))
         slideTo(target);
+        // stopAutoplay();
       })
     })
 
     function indicate() {
       indicators.forEach((indicator, index) => {
-        indicator.classList.remove("current")
-        if (index === currentSlide) {
-          indicator.classList.add("current")
-        }
+        indicator.classList.toggle("current", index === currentSlide)
       })
     }
 
@@ -44,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update the front-end UI based on the current slide
       slides[currentSlide].classList.toggle("active")
       currentSlide = (currentSlide + 1) % slideCount
-      slides[currentSlide].classList.toggle("active")
       carousel.setAttribute('current', currentSlide);
+      slides[currentSlide].classList.toggle("active")
       indicate()
       return currentSlide
     }
@@ -78,6 +79,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // --- Autoplay logic ---
+    function startAutoplay() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        updateCurrent();
+      }, interval);
+      isPlaying = true;
+      updatePauseButton();
+    }
+
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+      isPlaying = false;
+      updatePauseButton();
+    }
+
+    function updatePauseButton() {
+      const pauseBtn = slider.querySelector('.btn.center .pause');
+      if (pauseBtn) {
+        pauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+      }
+    }
+
     /*
     * Handle carousel controls
     */
@@ -87,14 +111,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = setting.classList;
         if (type.contains('previous')) {
           previousSlide();
+          stopAutoplay();
         } else if (type.contains('next')) {
-          updateCurrent()
+          updateCurrent();
+          stopAutoplay();
         } else if (type.contains('pause')) {
           // console.log('Clicked on pause, toDo: Implement transistion pause');
+          if (isPlaying) {
+            stopAutoplay();
+          } else {
+            startAutoplay();
+          }
         }
       });
     });
 
+    // Initialize indicators and pause button
+    indicate();
+    updatePauseButton();
+
+    // Start autoplay if enabled
+    if (autoplay) {
+      startAutoplay();
+    }
   });
 
 })

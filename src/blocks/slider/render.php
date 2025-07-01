@@ -10,6 +10,7 @@ $slider_id = isset($block_attributes['sliderId']) ? $block_attributes['sliderId'
 $slideCount = isset($block_attributes['slideCount']) ? $block_attributes['slideCount'] : 0;
 $currentSlide = isset($block_attributes['current']) ? $block_attributes['current'] : 0;
 $slideInterval = isset($block_attributes['slideInterval']) ? $block_attributes['slideInterval'] : 5000;
+$autoplay = isset($block_attributes['autoplay']) ? $block_attributes['autoplay'] : true;
 $inner_blocks_html = '';
 foreach ($block->inner_blocks as $inner_block) {
   $inner_blocks_html .= $inner_block->render();
@@ -19,8 +20,9 @@ $inner_blocks_html .= '';
 $slider_attributes = [
   'id' => $slider_id,
   'current' => $currentSlide,
-  'data-interval' => $slideInterval,
-  'slide-count' => $slideCount,
+  'data-slide-interval' => $slideInterval,
+  'data-autoplay' => ($autoplay == true) ? "true" : "false",
+  'data-slide-count' => $slideCount,
   'class' => 'carousel'
 ];
 

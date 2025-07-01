@@ -5,9 +5,9 @@
   flex-direction: row;
   align-items: center;
   overflow: hidden;
-  padding: 2rem;
+  /* padding: 2rem; */
   min-height: 200px;
-  max-height: 300px;
+  /* max-height: 300px; */
 }
 
 .wp-block-custom-cut-slider>.carousel>.block-editor-inner-blocks>.block-editor-block-list__layout {
@@ -17,14 +17,25 @@
   justify-content: flex-start;
 }
 
+.wp-block-custom-cut-slider>.carousel>.block-editor-inner-blocks>.block-editor-block-list__layout .block-list-appender {
+  /* TODO Make appear in top left and not affected by scroll */
+  right: 0;
+}
+
 .block-editor-block-list__block>.wp-block-custom-cut-slider>.block-editor-inner-blocks>.controls {
-  display: none;
+  /* display: none; */
 }
 
 .block-editor-block-list__block>.wp-block-custom-cut-slider>.block-editor-inner-blocks>.wp-block-custom-cut-slide {
-  display: flex;
+  /* display: flex; */
+  /* min-width: 33%; */
 }
 
-.wp-block-custom-cut-slider>.block-editor-inner-blocks>.wp-block-custom-cut-slide {
-  /* min-width: 100%; */
+.block-editor-block-list__block>.wp-block-custom-cut-slider>.block-editor-inner-blocks>.block-editor-block-list__layout {
+  overflow-x: scroll;
+}
+
+/* Controls */
+.block-editor-block-list__block.wp-block-custom-cut-slider .controls {
+  display: none;
 }
