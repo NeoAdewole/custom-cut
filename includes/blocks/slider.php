@@ -19,7 +19,12 @@ function customcut_slider_render_cb($atts, $content, $block)
 
   ob_start();
 ?>
-  <div class="wp-block-customcut-slider dynamic" id="slider" data-post-id="<?php echo $sliderID; ?>">
+  <div
+    class="wp-block-customcut-slider dynamic"
+    id="slider"
+    data-post-id="<?php echo $sliderID; ?>"
+    data-autoplay="<?php echo esc_attr($atts['autoplay'] ?? false); ?>"
+    data-slide-interval="<?php echo esc_attr($atts['slideInterval'] ?? 5000); ?>">
     <?php
     echo ('Load inner blocks here');
     echo do_blocks($content);

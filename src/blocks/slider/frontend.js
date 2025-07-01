@@ -9,10 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // run transitions for each carousel instance on page
   sliders.forEach((carousel, index) => {
     var slider = carousel
-    var slideCount = slider.getAttribute('slide-count');
-    var interval = slider.getAttribute('data-interval');
+    var slideCount = slider.getAttribute('data-slide-count');
+    var interval = parseInt(slider.getAttribute('data-interval')) || 5000;
     var slides = slider.querySelectorAll('.wp-block-custom-cut-slide');
-    var currentSlide = parseInt(slider.getAttribute('current'));
+    var currentSlide = parseInt(slider.getAttribute('data-current')) || 0;
+    var controls = slider.querySelectorAll('.btn');
+    var indicators = slider.querySelectorAll('.indicators button');
+    var autoplay = slider.getAttribute('data-autoplay') === "true";
+    var timer = null;
+    var isPlaying = false;
 
     // set initial active slide from current attribute
     slides.forEach((slide, index) => {
@@ -21,21 +26,114 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
 
+    indicators.forEach((indicator) => {
+      indicator.addEventListener('click', (event) => {
+        const target = parseInt(event.target.getAttribute('data-carousel-slide-to'))
+        slideTo(target);
+        // stopAutoplay();
+      })
+    })
+
+    function indicate() {
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle("current", index === currentSlide)
+      })
+    }
+
     // remove active class from previous slide and add to current slide
     function updateCurrent() {
       // Update the front-end UI based on the current slide
       slides[currentSlide].classList.toggle("active")
       currentSlide = (currentSlide + 1) % slideCount
+      carousel.setAttribute('current', currentSlide);
       slides[currentSlide].classList.toggle("active")
+      indicate()
       return currentSlide
     }
 
-    const transition = () => {
-      // toggle active class for element
-      //  ToDo: Pass a transition animation to updateCurrent
-      updateCurrent();
-      return clearTimeout()
+    function previousSlide() {
+      slides[currentSlide].classList.toggle("active")
+      if ((currentSlide) <= 0) {
+        currentSlide = (slideCount - currentSlide - 1) % slideCount
+      } else {
+        currentSlide = (currentSlide - 1) % slideCount
+      }
+      slides[currentSlide].classList.toggle("active")
+      carousel.setAttribute('current', currentSlide)
+      indicate()
+      return currentSlide
     }
-    setInterval(transition, interval, currentSlide)
-  })
+
+    const slideTo = (target) => {
+      const currentIndex = (currentSlide || 0);
+      indicators.forEach(d => d.classList.remove("current"));
+
+      if ((currentIndex !== target)) {
+        slides[currentSlide].classList.toggle("active")
+        slides[target].classList.add("active")
+        currentSlide = target;
+        carousel.setAttribute('current', currentSlide)
+        // Update indicators
+        indicate()
+        return currentSlide;
+      }
+    }
+
+    // --- Autoplay logic ---
+    function startAutoplay() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        updateCurrent();
+      }, interval);
+      isPlaying = true;
+      updatePauseButton();
+    }
+
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+      isPlaying = false;
+      updatePauseButton();
+    }
+
+    function updatePauseButton() {
+      const pauseBtn = slider.querySelector('.btn.center .pause');
+      if (pauseBtn) {
+        pauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+      }
+    }
+
+    /*
+    * Handle carousel controls
+    */
+    controls.forEach((control) => {
+      control.addEventListener('click', (event) => {
+        const setting = control.querySelector('span');
+        const type = setting.classList;
+        if (type.contains('previous')) {
+          previousSlide();
+          stopAutoplay();
+        } else if (type.contains('next')) {
+          updateCurrent();
+          stopAutoplay();
+        } else if (type.contains('pause')) {
+          // console.log('Clicked on pause, toDo: Implement transistion pause');
+          if (isPlaying) {
+            stopAutoplay();
+          } else {
+            startAutoplay();
+          }
+        }
+      });
+    });
+
+    // Initialize indicators and pause button
+    indicate();
+    updatePauseButton();
+
+    // Start autoplay if enabled
+    if (autoplay) {
+      startAutoplay();
+    }
+  });
+
 })
