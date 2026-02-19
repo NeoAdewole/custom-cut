@@ -1,10 +1,10 @@
-@import './sass/editor';
-@import './sass/custom';
-@import './sass/menu';
-@import './sass/header';
-@import './sass/block_styles';
-@import './sass/form_styles';
-@import './sass/service_styles';
+@use './sass/editor';
+@use './sass/custom';
+@use './sass/menu';
+@use './sass/header';
+@use './sass/block_styles';
+@use './sass/form_styles';
+@use './sass/service_styles';
 
 *,
 :before,

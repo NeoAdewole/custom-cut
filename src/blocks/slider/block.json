@@ -45,6 +45,10 @@
     "autoplay": {
       "type": "boolean",
       "default": true
+    },
+    "uniformHeight": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

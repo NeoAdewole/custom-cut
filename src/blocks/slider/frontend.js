@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var autoplay = slider.getAttribute('data-autoplay') === "true";
     var timer = null;
     var isPlaying = false;
+    var uniformHeight = slider.getAttribute('data-uniform-height') === "true";
 
     // set initial active slide from current attribute
     slides.forEach((slide, index) => {
@@ -135,5 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
       startAutoplay();
     }
   });
+
+  // --- Uniform Height ---
+  if (uniformHeight) {
+    function setUniformHeight() {
+      let maxHeight = 0;
+      slides.forEach(slide => {
+        slide.style.height = ''; // reset
+        maxHeight = Math.max(maxHeight, slide.offsetHeight);
+      });
+      slides.forEach(slide => {
+        slide.style.height = maxHeight + 'px';
+      });
+      slider.style.height = maxHeight + 'px';
+    }
+    setUniformHeight();
+    window.addEventListener('resize', setUniformHeight);
+  }
 
 })
