@@ -134,6 +134,11 @@ export default function ({ attributes, setAttributes, clientId }) {
             onChange={autoplay => setAttributes({ autoplay })}
             help={attributes.autoplay ? __('Slider will autoplay', 'custom-cut') : __('Slider will not autoplay', 'custom-cut')}
           />
+          <ToggleControl
+            label={__('Uniform Slide Height', 'custom-cut')}
+            checked={attributes.uniformHeight}
+            onChange={uniformHeight => setAttributes({ uniformHeight })}
+          />
         </PanelBody>
       </InspectorControls>
     </>
