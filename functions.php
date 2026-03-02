@@ -1,14 +1,18 @@
 <?php
 // Include Beans. Do not remove the line below.
 // require_once( get_template_directory() . '/lib/init.php' );
-define('CUSTOMCUT__BLOCK_DIR', get_template_directory());
-
+// Use the active theme directory (child theme if applicable).
+// Block registration relies on filesystem paths under this directory.
+define('CUSTOMCUT__BLOCK_DIR', get_theme_file_path());
+// PRINT CUSTOMCUT__BLOCK_DIR;
 // Includes
 include(get_theme_file_path('/includes/front/enqueue.php'));
 include(get_theme_file_path('/includes/front/head.php'));
 include(get_theme_file_path('/includes/front/foot.php'));
 include(get_theme_file_path('/includes/setup.php'));
 include(get_theme_file_path('/includes/register-blocks.php'));
+// include(get_theme_file_path('/includes/register-assets.php'));
+// add_action('init', 'customcut_register_assets');
 
 // Hooks
 add_action('wp_enqueue_scripts', 'custom_cut_enqueue');
