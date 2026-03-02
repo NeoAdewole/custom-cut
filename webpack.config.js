@@ -4,8 +4,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 export default {
   ...defaultConfig,
   entry: {
-    ...defaultConfig.entry(),
-    "index": "./src/index.js"
+    ...defaultConfig.entry()
+    ,"index": "./src/index.js"
   },
   optimization: {
     minimize: true,
