@@ -7,7 +7,8 @@ function customcut_slider_render_cb($atts, $content, $block)
   $mediaAlt = isset($atts['mediaAlt']) ? $atts['mediaAlt'] : '';
   $mediaID = isset($atts['mediaID']) ? $atts['mediaID'] : '';
 
-  $heading = esc_html($atts['content']);
+  // $heading = esc_html($atts['content']);
+  echo $atts['content'];
 
   $sliderID = $block->context['postId'];
 

@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "custom-cut/control",
+    "version": "0.1.0",
+    "title": "Control Demo Block",
+    "category": "widgets",
+    "icon": "smiley",
+    "description": "Control block scaffolded without Create Block tool.",
+    "example": {},
+    "supports": {
+        "html": false
+    },
+    "editorScript": "file:./index.js"
+}

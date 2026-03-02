@@ -5,6 +5,7 @@
   "name": "custom-cut/slide",
   "version": "0.1.0",
   "category": "widgets",
+  "parent": ["custom-cut/slider"],
   "icon": "smiley",
   "description": "Basic resposive slide ideally loaded using a slider.",
   "example": {},

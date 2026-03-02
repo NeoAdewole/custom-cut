@@ -1,24 +1,38 @@
 <?php
 // Include Beans. Do not remove the line below.
 // require_once( get_template_directory() . '/lib/init.php' );
-define('CUSTOMCUT__BLOCK_DIR', get_template_directory());
+// Use the active theme directory (child theme if applicable).
+// Block registration relies on filesystem paths under this directory.
+
+define('CUSTOMCUT__THEME_DIR', get_theme_file_path());
+define('CUSTOMCUT__BLOCK_DIR', get_theme_file_path() . '/build/blocks');
 
 // Includes
-include(get_theme_file_path('/includes/front/enqueue.php'));
+$ThemeSubIncludes = glob(CUSTOMCUT__THEME_DIR . '/includes/**/*.php');
+$ThemeIncludes = glob(CUSTOMCUT__THEME_DIR . '/includes/*.php');
+$AllThemeIncludes = array_merge($ThemeIncludes, $ThemeSubIncludes);
+foreach ($AllThemeIncludes as $filename) {
+  include_once($filename);
+}
+
+
+/* include(get_theme_file_path('/includes/front/enqueue.php'));
 include(get_theme_file_path('/includes/front/head.php'));
 include(get_theme_file_path('/includes/front/foot.php'));
 include(get_theme_file_path('/includes/setup.php'));
 include(get_theme_file_path('/includes/register-blocks.php'));
+include(get_theme_file_path('/includes/register-info.php')); */
+
 
 // Hooks
 add_action('wp_enqueue_scripts', 'custom_cut_enqueue');
 add_action('wp_enqueue_scripts', 'custom_cut_head', 5);
 add_action('after_setup_theme', 'custom_cut_setup_theme');
 add_action('wp_footer', 'custom_cut_foot');
+// add_action('init', 'customcut_register_assets');
 
 
 // Customize the beans child theme
-// add_action('init', 'customcut_register_blocks');
 // add_action('beans_before_load_document', 'custom_mods_child_theme');
 function custom_mods_child_theme()
 {

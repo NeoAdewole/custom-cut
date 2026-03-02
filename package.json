@@ -7,6 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "wp-scripts build",
     "start": "wp-scripts start",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js",
     "build:custom": "wp-scripts build entry-one.js entry-two.js --output-path=custom",
     "build:copy-php": "wp-scripts build --webpack-copy-php",
     "build:custom-directory": "wp-scripts build --webpack-src-dir=custom-directory",
@@ -25,11 +36,14 @@
   },
   "homepage": "https://github.com/9janeo/custom-cut#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^30.19.0",
+    "@wordpress/scripts": "^31.5.0",
     "browser-sync": "^3.0.4",
     "font-awesome": "^4.7.0",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.1.14",
     "npm-run-all": "^4.1.5"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "serialize-javascript": "^7.0.3"
+  }
 }
