@@ -13,6 +13,7 @@ export default function ({ attributes, setAttributes, clientId }) {
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
   const [isPlaying, setIsPlaying] = useState(autoplay);
+  // const [randomId, setRandomNumber] = useState(1);
 
   const { count } = useSelect(select => ({
     count: select("core/block-editor").getBlockCount(clientId)
@@ -49,6 +50,23 @@ export default function ({ attributes, setAttributes, clientId }) {
     count: slideCount
   });
 
+  const randomNumberInRange = (min, max) => {
+    // Ensure min and max are treated as integers
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled + 1)) + minCeiled; // The maximum is inclusive and the minimum is inclusive.
+  };
+
+  const randomId = () => {
+    // Generate a number between 1 and 100
+    const newNumber = randomNumberInRange(1, 100);
+    return setRandomNumber(newNumber);
+  };
+
+  // console.log("Random ID generated as: ", randomId);
+  // console.log("Slider ID", sliderId);
+  // console.log("Slide count: ", slideCount);
+
   return (
     <>
       <div {...blockProps} >
@@ -60,10 +78,10 @@ export default function ({ attributes, setAttributes, clientId }) {
             template={[
               ['custom-cut/slide',
                 {
-                  name: 'Example Slide',
-                  title: 'Example slide title',
+                  name: 'Placeholder Slide',
+                  title: 'Placehholder title',
                   slideCopy: 'Empty copy for the slider dem',
-                  image: 'https://picsum.photos/768/300'
+                  image: 'https://picsum.photos/768/300?random=' + { slideCount }
                 }
               ]
             ]}
@@ -99,6 +117,7 @@ export default function ({ attributes, setAttributes, clientId }) {
             checked={showImage}
             onChange={showImage => setAttributes({ showImage })}
             help={showImage ? __('Displaying images(hard-coded)', 'custom-cut') : __('Not displaying images', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
           />
           <NumberControl
             label={__('Number of Slides', 'custom-count')}
@@ -106,6 +125,7 @@ export default function ({ attributes, setAttributes, clientId }) {
             onChange={slideCount => setAttributes({ slideCount })}
             shitStep={1}
             value={slideCount}
+            __nextHasNoMarginBottom={true}
           />
           <NumberControl
             label={__('Slide Interval', 'custom-cut')}
@@ -117,6 +137,7 @@ export default function ({ attributes, setAttributes, clientId }) {
             max={99999}
             onChange={slideInterval => setAttributes({ slideInterval })}
             value={slideInterval}
+            __nextHasNoMarginBottom={true}
           />
           <SelectControl
             label={__('Dimension Control', 'custom-cut')}
@@ -127,17 +148,20 @@ export default function ({ attributes, setAttributes, clientId }) {
               { label: 'Screen Width', value: 'w-screen' },
               { label: 'Screen Height', value: 'h-screen' },
             ]}
+            __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Autoplay', 'custom-cut')}
             checked={attributes.autoplay}
             onChange={autoplay => setAttributes({ autoplay })}
             help={attributes.autoplay ? __('Slider will autoplay', 'custom-cut') : __('Slider will not autoplay', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Uniform Slide Height', 'custom-cut')}
             checked={attributes.uniformHeight}
             onChange={uniformHeight => setAttributes({ uniformHeight })}
+            __nextHasNoMarginBottom={true}
           />
         </PanelBody>
       </InspectorControls>

@@ -31,17 +31,6 @@
       "type": "number",
       "default": 5000
     },
-    "slides": {
-      "type": "array",
-      "default": [
-        {
-          "slideId": "01",
-          "title": "Slide 1",
-          "content": "Slide 1 content",
-          "image": "https://picsum.photos/200/300"
-        }
-      ]
-    },
     "autoplay": {
       "type": "boolean",
       "default": true
@@ -50,6 +39,9 @@
       "type": "boolean",
       "default": false
     }
+  },
+  "providesContext": {
+    "custom-cut/slider": "sliderId"
   },
   "supports": {
     "html": false,

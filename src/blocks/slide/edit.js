@@ -2,17 +2,20 @@ import {
   useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl
 } from '@wordpress/block-editor';
 import {
-  Panel, PanelBody, PanelRow, PanelColorSettings, ToggleControl, TextareaControl, Spinner, ToolbarButton, SelectControl, BorderControl, Tooltip, Icon, TextControl, Button,
+  Panel, PanelBody, PanelRow, ToggleControl, TextControl, TextareaControl, Spinner, ToolbarButton
+  // ,SelectControl, BorderControl, Tooltip, Icon, PanelColorSettings, Button
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
 import { useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 import './editor.css'
 
 export default function (props) {
   const {
     attributes: {
       slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy, alignMedia, slideIndex
+      , sliderId
     },
     setAttributes, context, isSelected, style
   } = props;
@@ -20,7 +23,7 @@ export default function (props) {
   // let { backgroundImage, url } = mediaStyle;
 
   const [mediaPreview, setMediaPreview] = useState(mediaURL)
-  // slide can have images, text (media) etc
+  // A slide can have images, text (media) etc
 
   const selectMedia = (media) => {
     let newMediaURL = null
@@ -50,6 +53,12 @@ export default function (props) {
     setMediaPreview(url);
   }
 
+  // var parent = select('core/block-editor').getBlockParents(clientId)
+  // const parentAtts = select('core/block-editor').getBlockAttributes(parent);
+  // console.log("Slide media url: ", selectMediaURL.mediaURL);
+  console.log("Slide context: ", context["custom-cut/slider"]);
+  console.log("Slider id: ", sliderId);
+
   const bgCheck = mediaURL ? 'has-background' : ''
   const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
   const mediaClass = ` wp-image-${mediaID}`;
@@ -59,6 +68,7 @@ export default function (props) {
   const blockProps = useBlockProps({
     dataSlide: slideIndex
   });
+
   // console.log("Slide Props", blockProps)
   // console.log("Slide className", blockProps.className)
   // console.log("Slide style", blockProps.style)
@@ -114,6 +124,7 @@ export default function (props) {
                 'Description of your image for screen readers.',
                 'custom-cut'
               )}
+              __nextHasNoMarginBottom={true}
             />
           }
           <ToggleControl
@@ -121,6 +132,7 @@ export default function (props) {
             checked={addText}
             onChange={addText => setAttributes({ addText })}
             help={addText ? __('Add some text to this slide', 'custom-cut') : __('Not displaying slide text', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
           />
           {
             addText &&
@@ -130,12 +142,14 @@ export default function (props) {
                 value={slideCopy}
                 onChange={slideCopy => setAttributes({ slideCopy })}
                 help={__('Add text to this slide here', 'custom-cut')}
+                __nextHasNoMarginBottom={true}
               />
               <TextControl
                 label={__('Title', 'custom-cut')}
                 help={__('Give this slide a title', 'custom-cut')}
                 value={title}
                 onChange={title => setAttributes({ title })}
+                __nextHasNoMarginBottom={true}
               />
             </>
           }
@@ -166,7 +180,15 @@ export default function (props) {
         </Panel>
       </InspectorControls>
       <div {...blockProps} >
-        {mediaPreview && <div className='backdrop' style={{ slideStyle }}><img src={mediaPreview} alt={mediaAlt} className={mediaClass} /></div>}
+        {console.log("Media Preview", mediaPreview)}
+        {
+          mediaPreview &&
+          <div
+            className='backdrop'
+            style={{ slideStyle }}>
+            <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />
+          </div>
+        }
         {/* {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />} */}
         {isBlobURL(mediaPreview) && <Spinner />}
         <MediaPlaceholder

@@ -5,7 +5,9 @@
   "name": "custom-cut/slide",
   "version": "0.1.0",
   "category": "widgets",
-  "parent": ["custom-cut/slider"],
+  "parent": [
+    "custom-cut/slider"
+  ],
   "icon": "smiley",
   "description": "Basic resposive slide ideally loaded using a slider.",
   "example": {},
@@ -19,6 +21,10 @@
   },
   "textdomain": "slide",
   "attributes": {
+    "sliderId": {
+      "type": "string",
+      "default": "slide-slider-1"
+    },
     "name": {
       "type": "string",
       "default": "Slide"
@@ -41,7 +47,7 @@
     },
     "mediaURL": {
       "type": "string",
-      "default": "https://picsum.photos/768/300",
+      "default": "https://picsum.photos/768/300?random=",
       "source": "attribute",
       "selector": "img",
       "attribute": "src"
@@ -78,6 +84,9 @@
       "default": null
     }
   },
+  "usesContext": [
+    "custom-cut/slider"
+  ],
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./index.css"
