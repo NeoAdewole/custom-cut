@@ -11,13 +11,16 @@
     "custom-cut/slide"
   ],
   "attributes": {
-    "slideCount": {
+    "sliderIndex": {
       "type": "number",
       "default": 0
     },
     "sliderId": {
-      "type": "string",
-      "default": "slider-1"
+      "type": "string"
+    },
+    "slideCount": {
+      "type": "number",
+      "default": 0
     },
     "showImage": {
       "type": "boolean",

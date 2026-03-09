@@ -1,4 +1,4 @@
-import { useBlockProps, InspectorControls, InnerBlocks, store as blockStore } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, InnerBlocks, store as blockStore, useInnerBlocksProps } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -7,21 +7,46 @@ import './editor.css'
 import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
 import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
-export default function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderId, slides, slideCount, start = 0, slideInterval, autoplay } = attributes;
+const edit = function ({ attributes, setAttributes, clientId }) {
+  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
   const [isPlaying, setIsPlaying] = useState(autoplay);
-  // const [randomId, setRandomNumber] = useState(1);
 
   const { count } = useSelect(select => ({
     count: select("core/block-editor").getBlockCount(clientId)
   }));
 
-  useEffect(() => {
+  // Select all blocks once per relevant change, not on every render.
+  const sliderBlocks = useSelect(
+    (select) => {
+      const blocks = select('core/block-editor').getBlocks();
+      return blocks.filter(
+        (block) => block.name === 'custom-cut/slider'
+      );
+    },
+    [] // no external dependencies: we recompute only when editor state changes internally
+  );
 
-  }, [autoplay]);
+  // Compute this block's index among all slider blocks.
+  const computedIndex = sliderBlocks.findIndex(
+    (block) => block.clientId === clientId
+  ) + 1; // +1 so first is 1, not 0
+
+  useEffect(() => {
+    // Guard 1: if we can't compute an index yet, do nothing.
+    if (!computedIndex || computedIndex < 1) {
+      return;
+    }
+    // Guard 2: only update when the index actually changes.
+    if (sliderIndex !== computedIndex) {
+      setAttributes({
+        sliderIndex: computedIndex,
+        sliderId: `slider-${sliderIndex || computedIndex || 1}`
+      });
+    }
+  }, [computedIndex, sliderIndex, setAttributes]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -37,7 +62,6 @@ export default function ({ attributes, setAttributes, clientId }) {
   // ToDo: Add border controls to slider
   // ToDo: Add opacity/alpha controls to slide backgrounds
 
-  setAttributes({ sliderId: clientId })
   setAttributes({ slideCount: count })
 
   const blockProps = useBlockProps({
@@ -168,3 +192,5 @@ export default function ({ attributes, setAttributes, clientId }) {
     </>
   );
 }
+
+export default edit;

@@ -22,8 +22,7 @@
   "textdomain": "slide",
   "attributes": {
     "sliderId": {
-      "type": "string",
-      "default": "slide-slider-1"
+      "type": "string"
     },
     "name": {
       "type": "string",

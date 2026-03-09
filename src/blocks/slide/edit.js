@@ -56,8 +56,9 @@ export default function (props) {
   // var parent = select('core/block-editor').getBlockParents(clientId)
   // const parentAtts = select('core/block-editor').getBlockAttributes(parent);
   // console.log("Slide media url: ", selectMediaURL.mediaURL);
-  console.log("Slide context: ", context["custom-cut/slider"]);
-  console.log("Slider id: ", sliderId);
+  // console.log("Slide context: ", context["custom-cut/slider"]);
+  // console.log("Slider id: ", sliderId);
+  // console.log("Media Preview", mediaPreview);
 
   const bgCheck = mediaURL ? 'has-background' : ''
   const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
@@ -68,10 +69,6 @@ export default function (props) {
   const blockProps = useBlockProps({
     dataSlide: slideIndex
   });
-
-  // console.log("Slide Props", blockProps)
-  // console.log("Slide className", blockProps.className)
-  // console.log("Slide style", blockProps.style)
 
   return (
     <>
@@ -180,7 +177,6 @@ export default function (props) {
         </Panel>
       </InspectorControls>
       <div {...blockProps} >
-        {console.log("Media Preview", mediaPreview)}
         {
           mediaPreview &&
           <div
