@@ -45,30 +45,23 @@ export default function (props) {
   }
 
   const selectMediaURL = (url) => {
-    setAttributes({
-      mediaID: null,
-      mediaAlt: null,
-      mediaURL: url
-    });
+    setAttributes({ mediaID: null, mediaAlt: null, mediaURL: url });
     setMediaPreview(url);
   }
 
-  // var parent = select('core/block-editor').getBlockParents(clientId)
-  // const parentAtts = select('core/block-editor').getBlockAttributes(parent);
-  // console.log("Slide media url: ", selectMediaURL.mediaURL);
-  // console.log("Slide context: ", context["custom-cut/slider"]);
-  // console.log("Slider id: ", sliderId);
-  // console.log("Media Preview", mediaPreview);
-
   const bgCheck = mediaURL ? 'has-background' : ''
   const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
-  const mediaClass = ` wp-image-${mediaID}`;
-  const slideStyle = `background: ${mediaURL} ${mediaPosition} ${mediaRepeat} background-size: ${mediaSize}`;
-  const isActive = (slideIndex == 0) ? 'active' : '';
+  const mediaClass = `slide-image wp-image-${mediaID}`;
+  const isActive = slideIndex == 0 ? 'active' : '';
 
-  const blockProps = useBlockProps({
-    dataSlide: slideIndex
-  });
+  const slideStyle = mediaURL ? {
+    backgroundImage: `url(${mediaURL})`,
+    backgroundPosition: mediaPosition || 'center',
+    backgroundRepeat: mediaRepeat || 'no-repeat',
+    backgroundSize: mediaSize || 'cover'
+  } : {};
+
+  const blockProps = useBlockProps({ dataSlide: slideIndex });
 
   return (
     <>
@@ -86,12 +79,7 @@ export default function (props) {
           />
           <ToolbarButton
             onClick={() => {
-              setAttributes({
-                mediaID: 0,
-                mediaAlt: "",
-                mediaURL: ""
-              });
-
+              setAttributes({ mediaID: 0, mediaAlt: "", mediaURL: "" });
               setMediaPreview("");
             }}
           >
@@ -111,19 +99,15 @@ export default function (props) {
 
       <InspectorControls group="settings">
         <PanelBody title={__('Slide Settings', 'custom-cut')}>
-          {
-            mediaPreview && !isBlobURL(mediaPreview) &&
+          {mediaPreview && !isBlobURL(mediaPreview) && (
             <TextareaControl
               label={__('Alt Attribute', 'custom-cut')}
               value={mediaAlt}
               onChange={mediaAlt => setAttributes({ mediaAlt })}
-              help={__(
-                'Description of your image for screen readers.',
-                'custom-cut'
-              )}
+              help={__('Description of your image for screen readers.', 'custom-cut')}
               __nextHasNoMarginBottom={true}
             />
-          }
+          )}
           <ToggleControl
             label={__('Add Text', 'custom-cut')}
             checked={addText}
@@ -131,8 +115,7 @@ export default function (props) {
             help={addText ? __('Add some text to this slide', 'custom-cut') : __('Not displaying slide text', 'custom-cut')}
             __nextHasNoMarginBottom={true}
           />
-          {
-            addText &&
+          {addText && (
             <>
               <TextareaControl
                 label={__('Slide Text', 'custom-cut')}
@@ -149,13 +132,14 @@ export default function (props) {
                 __nextHasNoMarginBottom={true}
               />
             </>
-          }
+          )}
         </PanelBody>
       </InspectorControls>
+
       <InspectorControls group="styles">
         <Panel header="Custom Slide Styles">
           <PanelBody title={__('Slide Styles', 'custom-cut')} initialOpen={true} >
-            {addText &&
+            {addText && (
               <PanelRow>
                 {__('Align copy', 'custom-cut')}
                 <AlignmentControl
@@ -163,29 +147,26 @@ export default function (props) {
                   onChange={alignCopy => setAttributes({ alignCopy })}
                 />
               </PanelRow>
-            }
-            <PanelRow>
-              {__('Align media', 'custom-cut')}
-              {mediaURL &&
+            )}
+            {mediaURL && (
+              <PanelRow>
+                {__('Align media', 'custom-cut')}
                 <AlignmentControl
                   value={alignMedia}
                   onChange={alignMedia => setAttributes({ alignMedia })}
                 />
-              }
-            </PanelRow>
+              </PanelRow>
+            )}
           </PanelBody>
         </Panel>
       </InspectorControls>
+
       <div {...blockProps} >
-        {
-          mediaPreview &&
-          <div
-            className='backdrop'
-            style={{ slideStyle }}>
+        {mediaPreview && (
+          <div className='backdrop' style={slideStyle}>
             <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />
           </div>
-        }
-        {/* {mediaPreview && <img src={mediaPreview} alt={mediaAlt} className={mediaClass} />} */}
+        )}
         {isBlobURL(mediaPreview) && <Spinner />}
         <MediaPlaceholder
           allowedTypes={['image']}
@@ -196,15 +177,15 @@ export default function (props) {
           disableMediaButtons={mediaPreview}
           onSelectURL={selectMediaURL}
         />
-        <div className={`${copyClass}`}>
+        <div className={copyClass}>
           <RichText
             placeholder={__('Slide Name', 'custom-cut')}
             tagName="strong"
             onChange={name => setAttributes({ name })}
             value={name}
-          /> <br />
-          {
-            addText &&
+          />
+          <br />
+          {addText && (
             <>
               <RichText
                 {...blockProps}
@@ -225,7 +206,7 @@ export default function (props) {
                 allowedFormats={["core/bold"]}
               />
             </>
-          }
+          )}
         </div>
       </div>
     </>
