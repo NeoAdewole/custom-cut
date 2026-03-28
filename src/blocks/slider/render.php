@@ -1,8 +1,8 @@
 <?php
-/* 
+/*
 * Path: src/blocks/slider/render.php
 * Slider block template file
-* 
+*
 */
 
 $block_attributes = $block->attributes;
@@ -11,6 +11,10 @@ $slideCount = isset($block_attributes['slideCount']) ? $block_attributes['slideC
 $currentSlide = isset($block_attributes['current']) ? $block_attributes['current'] : 0;
 $slideInterval = isset($block_attributes['slideInterval']) ? $block_attributes['slideInterval'] : 5000;
 $autoplay = isset($block_attributes['autoplay']) ? $block_attributes['autoplay'] : true;
+$keyboardNav = isset($block_attributes['keyboardNav']) ? $block_attributes['keyboardNav'] : true;
+$swipeNav = isset($block_attributes['swipeNav']) ? $block_attributes['swipeNav'] : true;
+$indicatorPosition = isset($block_attributes['indicatorPosition']) ? $block_attributes['indicatorPosition'] : 'bottom';
+$indicatorStyle = isset($block_attributes['indicatorStyle']) ? $block_attributes['indicatorStyle'] : 'dots';
 $inner_blocks_html = '';
 foreach ($block->inner_blocks as $inner_block) {
   $inner_blocks_html .= $inner_block->render();
@@ -23,6 +27,8 @@ $slider_attributes = [
   'data-slide-interval' => $slideInterval,
   'data-autoplay' => ($autoplay == true) ? "true" : "false",
   'data-slide-count' => $slideCount,
+  'data-keyboard-nav' => ($keyboardNav == true) ? "true" : "false",
+  'data-swipe-nav' => ($swipeNav == true) ? "true" : "false",
   'class' => 'carousel'
 ];
 
@@ -51,11 +57,20 @@ $slider_attributes = [
       </span>
     </button>
     <!-- Slider indicators -->
-    <div class='indicators flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2'>
+    <div class='indicators indicators-<?php echo esc_attr($indicatorPosition); ?> indicators-<?php echo esc_attr($indicatorStyle); ?>'>
       <?php if ($slideCount > 0) {
         for ($i = 0; $i < $slideCount; $i++) {
+          $is_current = ($currentSlide == $i);
+          $label = 'Slide ' . ($i + 1) . ' of ' . $slideCount;
+          $content = ($indicatorStyle === 'numbers') ? ($i + 1) : '';
       ?>
-          <button type='button' class='dot <?php echo ($currentSlide == $i) ? "current " : ""  ?>w-3 h-3 rounded-full' aria-current='false' aria-label='Slide <?= $i ?>' data-carousel-slide-to='<?= $i ?>'></button>
+          <button
+            type='button'
+            class='indicator <?php echo $is_current ? 'current' : ''; ?>'
+            aria-current='<?php echo $is_current ? 'true' : 'false'; ?>'
+            aria-label='<?php echo esc_attr($label); ?>'
+            data-carousel-slide-to='<?php echo $i; ?>'
+          ><?php echo $content; ?></button>
       <?php }
       } ?>
     </div>
@@ -68,5 +83,5 @@ $slider_attributes = [
 //   get_block_wrapper_attributes($slider_attributes),
 //   $inner_blocks_html,
 //   $slider_controls
-// ); 
+// );
 ?>

@@ -33,30 +33,104 @@
   cursor: pointer;
 }
 
+/* --- Indicators base --- */
 .wp-block-custom-cut-slider .indicators {
   position: absolute;
   z-index: 10;
-  /* background: #ffffff50; */
-  bottom: 0;
-  height: 10%;
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.25rem;
 }
 
-.wp-block-custom-cut-slider .indicators .dot {
-  width: 1rem;
-  height: 1rem;
+/* Position variants */
+.wp-block-custom-cut-slider .indicators-bottom {
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: row;
+}
+
+.wp-block-custom-cut-slider .indicators-top {
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: row;
+}
+
+.wp-block-custom-cut-slider .indicators-left {
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+.wp-block-custom-cut-slider .indicators-right {
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+/* --- Indicator buttons base --- */
+.wp-block-custom-cut-slider .indicators .indicator {
   background: #fff5;
-  box-shadow: #0004 2px 2px;
+  box-shadow: #0004 1px 1px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.wp-block-custom-cut-slider .indicators .indicator.current,
+.wp-block-custom-cut-slider .indicators .indicator:hover {
+  background-color: #fff;
+  box-shadow: #0003 1px 1px;
+  transform: scale(1.2);
+}
+
+/* Dots style */
+.wp-block-custom-cut-slider .indicators-dots .indicator {
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
 }
 
-.wp-block-custom-cut-slider .indicators .dot.current,
-.wp-block-custom-cut-slider .indicators .dot:hover {
-  background-color: #fff;
-  box-shadow: #000 1px 1px;
+/* Numbers style */
+.wp-block-custom-cut-slider .indicators-numbers .indicator {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wp-block-custom-cut-slider .indicators-numbers .indicator.current,
+.wp-block-custom-cut-slider .indicators-numbers .indicator:hover {
+  color: #000;
+}
+
+/* Bars style */
+.wp-block-custom-cut-slider .indicators-bars .indicator {
+  border-radius: 0.2rem;
+}
+
+.wp-block-custom-cut-slider .indicators-bottom.indicators-bars .indicator,
+.wp-block-custom-cut-slider .indicators-top.indicators-bars .indicator {
+  width: 1.5rem;
+  height: 0.4rem;
+}
+
+.wp-block-custom-cut-slider .indicators-left.indicators-bars .indicator,
+.wp-block-custom-cut-slider .indicators-right.indicators-bars .indicator {
+  width: 0.4rem;
+  height: 1.5rem;
 }
 
 .hidden {

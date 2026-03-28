@@ -8,7 +8,7 @@ import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
 import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
 const edit = function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay } = attributes;
+  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay, keyboardNav, swipeNav, indicatorPosition, indicatorStyle } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
@@ -34,19 +34,22 @@ const edit = function ({ attributes, setAttributes, clientId }) {
     (block) => block.clientId === clientId
   ) + 1; // +1 so first is 1, not 0
 
-  useEffect(() => {
-    // Guard 1: if we can't compute an index yet, do nothing.
-    if (!computedIndex || computedIndex < 1) {
-      return;
-    }
-    // Guard 2: only update when the index actually changes.
-    if (sliderIndex !== computedIndex) {
+  useEffect(() => {// Guard 1: if we can't compute an index yet, do nothing.
+    if (!computedIndex || computedIndex < 1) return;
+    if (sliderIndex !== computedIndex) {// Guard 2: only update when the index actually changes.
       setAttributes({
         sliderIndex: computedIndex,
-        sliderId: `slider-${sliderIndex || computedIndex || 1}`
+        sliderId: `slider-${computedIndex}`
       });
     }
   }, [computedIndex, sliderIndex, setAttributes]);
+
+  // Sync slideCount inside a useEffect so it doesn't fire on every render.
+  useEffect(() => {
+    if (count !== slideCount) {
+      setAttributes({ slideCount: count });
+    }
+  }, [count]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -54,7 +57,6 @@ const edit = function ({ attributes, setAttributes, clientId }) {
       setCurrent(prev => (prev + 1) % slideCount);
     }, slideInterval || 5000);
     setIsPlaying(autoplay)
-    console.log("Autoplay is:", autoplay)
     return () => clearInterval(timer);
   }, [isPlaying, slideCount, slideInterval, autoplay]);
 
@@ -62,16 +64,11 @@ const edit = function ({ attributes, setAttributes, clientId }) {
   // ToDo: Add border controls to slider
   // ToDo: Add opacity/alpha controls to slide backgrounds
 
-  setAttributes({ slideCount: count })
-
   const blockProps = useBlockProps({
     'data-current': current ? current : start,
     'data-slide-interval': slideInterval,
     'data-autoplay': autoplay,
-    'data-slide-count': slideCount,
-    count: slideCount,
-    dataInterval: slideInterval,
-    count: slideCount
+    'data-slide-count': slideCount
   });
 
   const randomNumberInRange = (min, max) => {
@@ -105,7 +102,7 @@ const edit = function ({ attributes, setAttributes, clientId }) {
                   name: 'Placeholder Slide',
                   title: 'Placehholder title',
                   slideCopy: 'Empty copy for the slider dem',
-                  image: 'https://picsum.photos/768/300?random=' + { slideCount }
+                  image: 'https://picsum.photos/768/300?random=' + `${randomId}`
                 }
               ]
             ]}
@@ -153,7 +150,7 @@ const edit = function ({ attributes, setAttributes, clientId }) {
           />
           <NumberControl
             label={__('Slide Interval', 'custom-cut')}
-            help="Interval between slide transitions in milliseconds"
+            help={__('Interval between slide transitions in milliseconds', 'custom-cut')}
             isShiftStepEnabled={true}
             shitStep={1000}
             step={100}
@@ -165,26 +162,66 @@ const edit = function ({ attributes, setAttributes, clientId }) {
           />
           <SelectControl
             label={__('Dimension Control', 'custom-cut')}
-            help={__("Manage the responsiveness of the carousel", "custom-cut")}
+            help={__('Manage the responsiveness of the carousel', 'custom-cut')}
             options={[
               { label: 'Full Width', value: 'full-width' },
               { label: 'Full Height', value: 'full-height' },
               { label: 'Screen Width', value: 'w-screen' },
               { label: 'Screen Height', value: 'h-screen' },
             ]}
+            onChange={dimensionControl => setAttributes({ dimensionControl })}
             __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Autoplay', 'custom-cut')}
             checked={attributes.autoplay}
             onChange={autoplay => setAttributes({ autoplay })}
-            help={attributes.autoplay ? __('Slider will autoplay', 'custom-cut') : __('Slider will not autoplay', 'custom-cut')}
+            help={attributes.autoplay
+              ? __('Slider will autoplay', 'custom-cut')
+              : __('Slider will not autoplay', 'custom-cut')}
             __nextHasNoMarginBottom={true}
           />
           <ToggleControl
             label={__('Uniform Slide Height', 'custom-cut')}
             checked={attributes.uniformHeight}
             onChange={uniformHeight => setAttributes({ uniformHeight })}
+            __nextHasNoMarginBottom={true}
+          />
+          <ToggleControl
+            label={__('Keyboard Navigation', 'custom-cut')}
+            checked={keyboardNav}
+            onChange={keyboardNav => setAttributes({ keyboardNav })}
+            help={keyboardNav ? __('Arrow keys navigate slides, Space toggles play/pause', 'custom-cut') : __('Keyboard navigation disabled', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
+          />
+          <ToggleControl
+            label={__('Swipe Navigation', 'custom-cut')}
+            checked={swipeNav}
+            onChange={swipeNav => setAttributes({ swipeNav })}
+            help={swipeNav ? __('Touch swipe gestures enabled', 'custom-cut') : __('Swipe navigation disabled', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
+          />
+          <SelectControl
+            label={__('Indicator Position', 'custom-cut')}
+            value={indicatorPosition}
+            options={[
+              { label: 'Bottom', value: 'bottom' },
+              { label: 'Top', value: 'top' },
+              { label: 'Left', value: 'left' },
+              { label: 'Right', value: 'right' },
+            ]}
+            onChange={indicatorPosition => setAttributes({ indicatorPosition })}
+            __nextHasNoMarginBottom={true}
+          />
+          <SelectControl
+            label={__('Indicator Style', 'custom-cut')}
+            value={indicatorStyle}
+            options={[
+              { label: 'Dots', value: 'dots' },
+              { label: 'Numbers', value: 'numbers' },
+              { label: 'Bars', value: 'bars' },
+            ]}
+            onChange={indicatorStyle => setAttributes({ indicatorStyle })}
             __nextHasNoMarginBottom={true}
           />
         </PanelBody>

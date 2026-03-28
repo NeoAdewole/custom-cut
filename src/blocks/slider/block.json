@@ -41,6 +41,22 @@
     "uniformHeight": {
       "type": "boolean",
       "default": false
+    },
+    "keyboardNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "swipeNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "indicatorPosition": {
+      "type": "string",
+      "default": "bottom"
+    },
+    "indicatorStyle": {
+      "type": "string",
+      "default": "dots"
     }
   },
   "providesContext": {

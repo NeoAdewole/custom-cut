@@ -10,15 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
   sliders.forEach((carousel, index) => {
     var slider = carousel
     var slideCount = slider.getAttribute('data-slide-count');
-    var interval = parseInt(slider.getAttribute('data-interval')) || 5000;
+    var interval = parseInt(slider.getAttribute('data-slide-interval')) || 5000;
     var slides = slider.querySelectorAll('.wp-block-custom-cut-slide');
     var currentSlide = parseInt(slider.getAttribute('data-current')) || 0;
     var controls = slider.querySelectorAll('.btn');
-    var indicators = slider.querySelectorAll('.indicators button');
+    var indicators = slider.querySelectorAll('.indicators .indicator');
     var autoplay = slider.getAttribute('data-autoplay') === "true";
+    var keyboardNav = slider.getAttribute('data-keyboard-nav') === "true";
+    var swipeNav = slider.getAttribute('data-swipe-nav') === "true";
     var timer = null;
     var isPlaying = false;
     var uniformHeight = slider.getAttribute('data-uniform-height') === "true";
+    var touchStartX = 0;
 
     // set initial active slide from current attribute
     slides.forEach((slide, index) => {
@@ -31,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
       indicator.addEventListener('click', (event) => {
         const target = parseInt(event.target.getAttribute('data-carousel-slide-to'))
         slideTo(target);
-        // stopAutoplay();
       })
     })
 
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentIndex = (currentSlide || 0);
       indicators.forEach(d => d.classList.remove("current"));
 
-      if ((currentIndex !== target)) {
+      if (currentIndex !== target) {
         slides[currentSlide].classList.toggle("active")
         slides[target].classList.add("active")
         currentSlide = target;
@@ -127,6 +129,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // --- Keyboard Navigation ---
+    if (keyboardNav) {
+      slider.setAttribute('tabindex', '0');
+      slider.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          previousSlide();
+          stopAutoplay();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          updateCurrent();
+          stopAutoplay();
+        } else if (e.code === 'Space') {
+          e.preventDefault();
+          isPlaying ? stopAutoplay() : startAutoplay();
+        }
+      });
+    }
+
+    // --- Touch/Swipe Navigation ---
+    if (swipeNav) {
+      slider.style.touchAction = 'pan-y';
+      slider.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      slider.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+          diff > 0 ? updateCurrent() : previousSlide();
+        }
+      }, { passive: true });
+    }
+
     // Initialize indicators and pause button
     indicate();
     updatePauseButton();
@@ -135,23 +170,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (autoplay) {
       startAutoplay();
     }
-  });
 
-  // --- Uniform Height ---
-  if (uniformHeight) {
-    function setUniformHeight() {
-      let maxHeight = 0;
-      slides.forEach(slide => {
-        slide.style.height = ''; // reset
-        maxHeight = Math.max(maxHeight, slide.offsetHeight);
-      });
-      slides.forEach(slide => {
-        slide.style.height = maxHeight + 'px';
-      });
-      slider.style.height = maxHeight + 'px';
+    // --- Uniform Height ---
+    if (uniformHeight) {
+      function setUniformHeight() {
+        let maxHeight = 0;
+        slides.forEach(slide => {
+          slide.style.height = ''; // reset
+          maxHeight = Math.max(maxHeight, slide.offsetHeight);
+        });
+        slides.forEach(slide => {
+          slide.style.height = maxHeight + 'px';
+        });
+        slider.style.height = maxHeight + 'px';
+      }
+      setUniformHeight();
+      window.addEventListener('resize', setUniformHeight);
     }
-    setUniformHeight();
-    window.addEventListener('resize', setUniformHeight);
-  }
 
+  });
 })
