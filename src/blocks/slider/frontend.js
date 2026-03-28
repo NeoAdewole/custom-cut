@@ -83,17 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Autoplay logic ---
+    // Uses setTimeout chain so each slide can specify its own duration via data-slide-interval.
+    function scheduleNext() {
+      const slideInterval = parseInt(slides[currentSlide].getAttribute('data-slide-interval')) || interval;
+      timer = setTimeout(() => {
+        if (isPlaying) {
+          updateCurrent();
+          scheduleNext();
+        }
+      }, slideInterval);
+    }
+
     function startAutoplay() {
-      if (timer) clearInterval(timer);
-      timer = setInterval(() => {
-        updateCurrent();
-      }, interval);
+      if (timer) clearTimeout(timer);
       isPlaying = true;
       updatePauseButton();
+      scheduleNext();
     }
 
     function stopAutoplay() {
-      if (timer) clearInterval(timer);
+      if (timer) clearTimeout(timer);
       isPlaying = false;
       updatePauseButton();
     }

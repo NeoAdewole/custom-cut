@@ -2,8 +2,8 @@ import {
   useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl
 } from '@wordpress/block-editor';
 import {
-  Panel, PanelBody, PanelRow, ToggleControl, TextControl, TextareaControl, Spinner, ToolbarButton
-  // ,SelectControl, BorderControl, Tooltip, Icon, PanelColorSettings, Button
+  Panel, PanelBody, PanelRow, ToggleControl, TextControl, TextareaControl, Spinner, ToolbarButton,
+  SelectControl, RangeControl, __experimentalNumberControl as NumberControl
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
@@ -14,8 +14,8 @@ import './editor.css'
 export default function (props) {
   const {
     attributes: {
-      slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy, alignMedia, slideIndex
-      , sliderId
+      slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize, alignCopy, alignMedia, slideIndex,
+      sliderId, slideInterval, backdropOpacity, showCta, ctaText, ctaUrl, ctaOpenNewTab, ctaStyle
     },
     setAttributes, context, isSelected, style
   } = props;
@@ -58,7 +58,8 @@ export default function (props) {
     backgroundImage: `url(${mediaURL})`,
     backgroundPosition: mediaPosition || 'center',
     backgroundRepeat: mediaRepeat || 'no-repeat',
-    backgroundSize: mediaSize || 'cover'
+    backgroundSize: mediaSize || 'cover',
+    opacity: (backdropOpacity ?? 100) / 100
   } : {};
 
   const blockProps = useBlockProps({ dataSlide: slideIndex });
@@ -133,6 +134,57 @@ export default function (props) {
               />
             </>
           )}
+          <NumberControl
+            label={__('Custom Slide Duration (ms)', 'custom-cut')}
+            help={__('Override the slider interval for this slide. Leave blank to use slider default.', 'custom-cut')}
+            value={slideInterval ?? ''}
+            min={500}
+            max={99999}
+            step={100}
+            onChange={val => setAttributes({ slideInterval: val ? parseInt(val) : undefined })}
+            __nextHasNoMarginBottom={true}
+          />
+        </PanelBody>
+        <PanelBody title={__('Call to Action', 'custom-cut')} initialOpen={false}>
+          <ToggleControl
+            label={__('Show CTA Button', 'custom-cut')}
+            checked={showCta}
+            onChange={showCta => setAttributes({ showCta })}
+            __nextHasNoMarginBottom={true}
+          />
+          {showCta && (
+            <>
+              <TextControl
+                label={__('Button Text', 'custom-cut')}
+                value={ctaText}
+                onChange={ctaText => setAttributes({ ctaText })}
+                __nextHasNoMarginBottom={true}
+              />
+              <TextControl
+                label={__('Button URL', 'custom-cut')}
+                value={ctaUrl}
+                onChange={ctaUrl => setAttributes({ ctaUrl })}
+                __nextHasNoMarginBottom={true}
+              />
+              <ToggleControl
+                label={__('Open in new tab', 'custom-cut')}
+                checked={ctaOpenNewTab}
+                onChange={ctaOpenNewTab => setAttributes({ ctaOpenNewTab })}
+                __nextHasNoMarginBottom={true}
+              />
+              <SelectControl
+                label={__('Button Style', 'custom-cut')}
+                value={ctaStyle}
+                options={[
+                  { label: 'Primary', value: 'primary' },
+                  { label: 'Secondary', value: 'secondary' },
+                  { label: 'Outline', value: 'outline' },
+                ]}
+                onChange={ctaStyle => setAttributes({ ctaStyle })}
+                __nextHasNoMarginBottom={true}
+              />
+            </>
+          )}
         </PanelBody>
       </InspectorControls>
 
@@ -156,6 +208,16 @@ export default function (props) {
                   onChange={alignMedia => setAttributes({ alignMedia })}
                 />
               </PanelRow>
+            )}
+            {mediaURL && (
+              <RangeControl
+                label={__('Background Opacity', 'custom-cut')}
+                value={backdropOpacity ?? 100}
+                onChange={backdropOpacity => setAttributes({ backdropOpacity })}
+                min={0}
+                max={100}
+                __nextHasNoMarginBottom={true}
+              />
             )}
           </PanelBody>
         </Panel>
@@ -206,6 +268,17 @@ export default function (props) {
                 allowedFormats={["core/bold"]}
               />
             </>
+          )}
+          {showCta && (
+            <a
+              className={`slide-cta slide-cta-${ctaStyle}`}
+              href={ctaUrl || '#'}
+              target={ctaOpenNewTab ? '_blank' : '_self'}
+              rel={ctaOpenNewTab ? 'noopener noreferrer' : undefined}
+              onClick={e => e.preventDefault()}
+            >
+              {ctaText || __('Learn More', 'custom-cut')}
+            </a>
           )}
         </div>
       </div>

@@ -96,3 +96,39 @@
   transition: opacity 2s ease-in-out, trans 0s 2s;
   /* display: none; */
 }
+
+/* --- CTA Button --- */
+.wp-block-custom-cut-slide .slide-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.wp-block-custom-cut-slide .slide-cta:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.wp-block-custom-cut-slide .slide-cta-primary {
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #fff;
+}
+
+.wp-block-custom-cut-slide .slide-cta-secondary {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.wp-block-custom-cut-slide .slide-cta-outline {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}

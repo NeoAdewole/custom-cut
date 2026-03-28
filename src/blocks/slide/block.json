@@ -81,6 +81,33 @@
     "slideIndex": {
       "type": "number",
       "default": null
+    },
+    "slideInterval": {
+      "type": "number"
+    },
+    "backdropOpacity": {
+      "type": "number",
+      "default": 100
+    },
+    "showCta": {
+      "type": "boolean",
+      "default": false
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Learn More"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaOpenNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "ctaStyle": {
+      "type": "string",
+      "default": "primary"
     }
   },
   "usesContext": [
