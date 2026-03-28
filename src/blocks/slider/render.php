@@ -15,6 +15,10 @@ $keyboardNav = isset($block_attributes['keyboardNav']) ? $block_attributes['keyb
 $swipeNav = isset($block_attributes['swipeNav']) ? $block_attributes['swipeNav'] : true;
 $indicatorPosition = isset($block_attributes['indicatorPosition']) ? $block_attributes['indicatorPosition'] : 'bottom';
 $indicatorStyle = isset($block_attributes['indicatorStyle']) ? $block_attributes['indicatorStyle'] : 'dots';
+$transitionType = isset($block_attributes['transitionType']) ? $block_attributes['transitionType'] : 'fade';
+$transitionDuration = isset($block_attributes['transitionDuration']) ? $block_attributes['transitionDuration'] : 800;
+$autoplayMode = isset($block_attributes['autoplayMode']) ? $block_attributes['autoplayMode'] : 'forward';
+$enableLoop = isset($block_attributes['enableLoop']) ? $block_attributes['enableLoop'] : true;
 $inner_blocks_html = '';
 foreach ($block->inner_blocks as $inner_block) {
   $inner_blocks_html .= $inner_block->render();
@@ -29,6 +33,10 @@ $slider_attributes = [
   'data-slide-count' => $slideCount,
   'data-keyboard-nav' => ($keyboardNav == true) ? "true" : "false",
   'data-swipe-nav' => ($swipeNav == true) ? "true" : "false",
+  'data-transition-type' => $transitionType,
+  'data-transition-duration' => $transitionDuration,
+  'data-autoplay-mode' => $autoplayMode,
+  'data-enable-loop' => ($enableLoop == true) ? "true" : "false",
   'class' => 'carousel'
 ];
 

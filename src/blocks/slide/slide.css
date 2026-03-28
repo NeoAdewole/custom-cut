@@ -4,22 +4,86 @@
   width: 100%;
 }
 
-.wp-block-custom-cut-slide:not(.active) {
+/* Fade transition — scoped to sliders not using the slide transition type */
+.wp-block-custom-cut-slider:not([data-transition-type="slide"]) .wp-block-custom-cut-slide:not(.active) {
   animation: fadeOut 0.8s ease-in-out forwards;
-  /* transition: opacity 0.5s 0s ease-in-out, display 0s 0.4s allow-discrete; */
 }
 
-.active,
-.edit {
+.wp-block-custom-cut-slider:not([data-transition-type="slide"]) .wp-block-custom-cut-slide.active {
   display: block;
   opacity: 1;
   transition: opacity 0.8s ease-in-out, display 0.5s allow-discrete;
 }
 
 @starting-style {
-  .active {
+  .wp-block-custom-cut-slider:not([data-transition-type="slide"]) .wp-block-custom-cut-slide.active {
     opacity: 0;
   }
+}
+
+/* Editor preview still shows active slide */
+.edit {
+  display: block;
+  opacity: 1;
+}
+
+/* Slide transition */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideOutToLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+@keyframes slideOutToRight {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+/* Base: disable fade animations for slide-type sliders */
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide {
+  animation: none;
+}
+
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide.active {
+  display: block;
+}
+
+/* Entering slides sit on top and animate in */
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide.slide-enter-from-right {
+  display: block !important;
+  position: relative;
+  z-index: 2;
+  animation: slideInFromRight var(--slide-transition-duration, 800ms) ease-in-out forwards;
+}
+
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide.slide-enter-from-left {
+  display: block !important;
+  position: relative;
+  z-index: 2;
+  animation: slideInFromLeft var(--slide-transition-duration, 800ms) ease-in-out forwards;
+}
+
+/* Exiting slides are absolutely positioned so they don't affect layout */
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide.slide-exit-to-left {
+  display: block !important;
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  z-index: 1;
+  animation: slideOutToLeft var(--slide-transition-duration, 800ms) ease-in-out forwards;
+}
+
+.wp-block-custom-cut-slider[data-transition-type="slide"] .wp-block-custom-cut-slide.slide-exit-to-right {
+  display: block !important;
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  z-index: 1;
+  animation: slideOutToRight var(--slide-transition-duration, 800ms) ease-in-out forwards;
 }
 
 .wp-block-custom-cut-slide {

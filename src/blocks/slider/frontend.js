@@ -18,10 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
     var autoplay = slider.getAttribute('data-autoplay') === "true";
     var keyboardNav = slider.getAttribute('data-keyboard-nav') === "true";
     var swipeNav = slider.getAttribute('data-swipe-nav') === "true";
+    var transitionType = slider.getAttribute('data-transition-type') || 'fade';
+    var transitionDuration = parseInt(slider.getAttribute('data-transition-duration')) || 800;
+    var autoplayMode = slider.getAttribute('data-autoplay-mode') || 'forward';
+    var enableLoop = slider.getAttribute('data-enable-loop') !== 'false';
     var timer = null;
     var isPlaying = false;
     var uniformHeight = slider.getAttribute('data-uniform-height') === "true";
     var touchStartX = 0;
+
+    // Expose transition duration to CSS for animation timing
+    slider.style.setProperty('--slide-transition-duration', transitionDuration + 'ms');
 
     // set initial active slide from current attribute
     slides.forEach((slide, index) => {
@@ -43,54 +50,79 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
 
-    // remove active class from previous slide and add to current slide
-    function updateCurrent() {
-      // Update the front-end UI based on the current slide
-      slides[currentSlide].classList.toggle("active")
-      currentSlide = (currentSlide + 1) % slideCount
+    // Central transition handler — all navigation goes through here
+    function goToSlide(target, direction) {
+      if (target === currentSlide) return;
+      const prev = currentSlide;
+      currentSlide = target;
+
+      if (transitionType === 'slide') {
+        const enterClass = direction === 'forward' ? 'slide-enter-from-right' : 'slide-enter-from-left';
+        const exitClass  = direction === 'forward' ? 'slide-exit-to-left'    : 'slide-exit-to-right';
+        slides[target].classList.add(enterClass);
+        slides[prev].classList.add(exitClass);
+        slides[prev].classList.remove('active');
+        setTimeout(() => {
+          slides[target].classList.remove(enterClass);
+          slides[target].classList.add('active');
+          slides[prev].classList.remove(exitClass);
+        }, transitionDuration);
+      } else {
+        slides[prev].classList.remove('active');
+        slides[target].classList.add('active');
+      }
+
       carousel.setAttribute('current', currentSlide);
-      slides[currentSlide].classList.toggle("active")
-      indicate()
-      return currentSlide
+      indicate();
+      updateLoopButtons();
+    }
+
+    function nextSlide() {
+      if (!enableLoop && currentSlide >= slideCount - 1) return;
+      goToSlide((currentSlide + 1) % slideCount, 'forward');
     }
 
     function previousSlide() {
-      slides[currentSlide].classList.toggle("active")
-      if ((currentSlide) <= 0) {
-        currentSlide = (slideCount - currentSlide - 1) % slideCount
-      } else {
-        currentSlide = (currentSlide - 1) % slideCount
-      }
-      slides[currentSlide].classList.toggle("active")
-      carousel.setAttribute('current', currentSlide)
-      indicate()
-      return currentSlide
+      if (!enableLoop && currentSlide <= 0) return;
+      const prev = currentSlide <= 0 ? slideCount - 1 : currentSlide - 1;
+      goToSlide(prev, 'backward');
     }
 
-    const slideTo = (target) => {
-      const currentIndex = (currentSlide || 0);
-      indicators.forEach(d => d.classList.remove("current"));
+    function randomSlide() {
+      if (slideCount <= 1) return;
+      let next;
+      do { next = Math.floor(Math.random() * slideCount); } while (next === currentSlide);
+      goToSlide(next, 'forward');
+    }
 
-      if (currentIndex !== target) {
-        slides[currentSlide].classList.toggle("active")
-        slides[target].classList.add("active")
-        currentSlide = target;
-        carousel.setAttribute('current', currentSlide)
-        // Update indicators
-        indicate()
-        return currentSlide;
-      }
+    function slideTo(target) {
+      if (target === currentSlide) return;
+      goToSlide(target, target > currentSlide ? 'forward' : 'backward');
+    }
+
+    function updateLoopButtons() {
+      if (enableLoop) return;
+      const prevBtn = slider.querySelector('.btn.left');
+      const nextBtn = slider.querySelector('.btn.right');
+      if (prevBtn) prevBtn.disabled = currentSlide <= 0;
+      if (nextBtn) nextBtn.disabled = currentSlide >= slideCount - 1;
     }
 
     // --- Autoplay logic ---
     // Uses setTimeout chain so each slide can specify its own duration via data-slide-interval.
     function scheduleNext() {
+      // Stop at boundary when loop is disabled
+      if (!enableLoop && autoplayMode !== 'random') {
+        if (autoplayMode === 'backward' && currentSlide <= 0) return stopAutoplay();
+        if (autoplayMode !== 'backward' && currentSlide >= slideCount - 1) return stopAutoplay();
+      }
       const slideInterval = parseInt(slides[currentSlide].getAttribute('data-slide-interval')) || interval;
       timer = setTimeout(() => {
-        if (isPlaying) {
-          updateCurrent();
-          scheduleNext();
-        }
+        if (!isPlaying) return;
+        if (autoplayMode === 'backward') previousSlide();
+        else if (autoplayMode === 'random') randomSlide();
+        else nextSlide();
+        scheduleNext();
       }, slideInterval);
     }
 
@@ -125,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
           previousSlide();
           stopAutoplay();
         } else if (type.contains('next')) {
-          updateCurrent();
+          nextSlide();
           stopAutoplay();
         } else if (type.contains('pause')) {
           // console.log('Clicked on pause, toDo: Implement transistion pause');
@@ -148,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
           stopAutoplay();
         } else if (e.key === 'ArrowRight') {
           e.preventDefault();
-          updateCurrent();
+          nextSlide();
           stopAutoplay();
         } else if (e.code === 'Space') {
           e.preventDefault();
@@ -166,14 +198,15 @@ document.addEventListener('DOMContentLoaded', () => {
       slider.addEventListener('touchend', (e) => {
         const diff = touchStartX - e.changedTouches[0].screenX;
         if (Math.abs(diff) > 50) {
-          diff > 0 ? updateCurrent() : previousSlide();
+          diff > 0 ? nextSlide() : previousSlide();
         }
       }, { passive: true });
     }
 
-    // Initialize indicators and pause button
+    // Initialize indicators, pause button, and loop button states
     indicate();
     updatePauseButton();
+    updateLoopButtons();
 
     // Start autoplay if enabled
     if (autoplay) {

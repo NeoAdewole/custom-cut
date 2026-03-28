@@ -8,7 +8,7 @@ import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
 import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
 const edit = function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay, keyboardNav, swipeNav, indicatorPosition, indicatorStyle } = attributes;
+  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay, keyboardNav, swipeNav, indicatorPosition, indicatorStyle, transitionType, transitionDuration, autoplayMode, enableLoop } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
@@ -222,6 +222,46 @@ const edit = function ({ attributes, setAttributes, clientId }) {
               { label: 'Bars', value: 'bars' },
             ]}
             onChange={indicatorStyle => setAttributes({ indicatorStyle })}
+            __nextHasNoMarginBottom={true}
+          />
+          <SelectControl
+            label={__('Transition Type', 'custom-cut')}
+            value={transitionType}
+            options={[
+              { label: 'Fade', value: 'fade' },
+              { label: 'Slide', value: 'slide' },
+            ]}
+            onChange={transitionType => setAttributes({ transitionType })}
+            __nextHasNoMarginBottom={true}
+          />
+          <NumberControl
+            label={__('Transition Duration (ms)', 'custom-cut')}
+            help={__('Duration of the slide transition animation', 'custom-cut')}
+            value={transitionDuration}
+            min={100}
+            max={3000}
+            step={100}
+            onChange={val => setAttributes({ transitionDuration: val ? parseInt(val) : 800 })}
+            __nextHasNoMarginBottom={true}
+          />
+          {autoplay && (
+            <SelectControl
+              label={__('Autoplay Mode', 'custom-cut')}
+              value={autoplayMode}
+              options={[
+                { label: 'Forward', value: 'forward' },
+                { label: 'Backward', value: 'backward' },
+                { label: 'Random', value: 'random' },
+              ]}
+              onChange={autoplayMode => setAttributes({ autoplayMode })}
+              __nextHasNoMarginBottom={true}
+            />
+          )}
+          <ToggleControl
+            label={__('Loop', 'custom-cut')}
+            checked={enableLoop}
+            onChange={enableLoop => setAttributes({ enableLoop })}
+            help={enableLoop ? __('Slider loops continuously', 'custom-cut') : __('Slider stops at first and last slide', 'custom-cut')}
             __nextHasNoMarginBottom={true}
           />
         </PanelBody>

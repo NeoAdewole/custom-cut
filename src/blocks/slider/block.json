@@ -57,6 +57,22 @@
     "indicatorStyle": {
       "type": "string",
       "default": "dots"
+    },
+    "transitionType": {
+      "type": "string",
+      "default": "fade"
+    },
+    "transitionDuration": {
+      "type": "number",
+      "default": 800
+    },
+    "autoplayMode": {
+      "type": "string",
+      "default": "forward"
+    },
+    "enableLoop": {
+      "type": "boolean",
+      "default": true
     }
   },
   "providesContext": {
