@@ -108,6 +108,42 @@
     "ctaStyle": {
       "type": "string",
       "default": "primary"
+    },
+    "mediaType": {
+      "type": "string",
+      "default": "image"
+    },
+    "videoID": {
+      "type": "number",
+      "default": 0
+    },
+    "videoURL": {
+      "type": "string",
+      "default": ""
+    },
+    "videoAutoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoMuted": {
+      "type": "boolean",
+      "default": true
+    },
+    "videoControls": {
+      "type": "boolean",
+      "default": true
+    },
+    "videoLoop": {
+      "type": "boolean",
+      "default": false
+    },
+    "videoPoster": {
+      "type": "string",
+      "default": ""
+    },
+    "embedURL": {
+      "type": "string",
+      "default": ""
     }
   },
   "usesContext": [

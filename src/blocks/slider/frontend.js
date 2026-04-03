@@ -50,6 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     }
 
+    // Pause all videos inside a slide
+    function pauseSlideVideos(slide) {
+      slide.querySelectorAll('video').forEach(v => v.pause());
+    }
+
+    // Resume autoplay videos inside a slide
+    function resumeSlideVideos(slide) {
+      slide.querySelectorAll('video[autoplay]').forEach(v => v.play().catch(() => {}));
+    }
+
     // Central transition handler — all navigation goes through here
     function goToSlide(target, direction) {
       if (target === currentSlide) return;
@@ -62,14 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
         slides[target].classList.add(enterClass);
         slides[prev].classList.add(exitClass);
         slides[prev].classList.remove('active');
+        pauseSlideVideos(slides[prev]);
         setTimeout(() => {
           slides[target].classList.remove(enterClass);
           slides[target].classList.add('active');
           slides[prev].classList.remove(exitClass);
+          resumeSlideVideos(slides[target]);
         }, transitionDuration);
       } else {
         slides[prev].classList.remove('active');
+        pauseSlideVideos(slides[prev]);
         slides[target].classList.add('active');
+        resumeSlideVideos(slides[target]);
       }
 
       carousel.setAttribute('current', currentSlide);
