@@ -369,10 +369,14 @@ export default function (props) {
         {mediaType === 'embed' && (
           <div className='backdrop backdrop-embed' style={{ opacity }}>
             {embedURL ? (
-              <div className='embed-editor-preview'>
-                <p>{__('Embedded content:', 'custom-cut')}</p>
-                <small>{embedURL}</small>
-              </div>
+              <iframe
+                className='slide-embed'
+                src={embedURL}
+                style={{ border: 'none' }}
+                allowFullScreen
+                allow="autoplay; encrypted-media"
+                title={title || name || 'Embedded content'}
+              />
             ) : (
               <p className='embed-prompt'>{__('Add an embed URL in the Slide Settings panel.', 'custom-cut')}</p>
             )}

@@ -20,6 +20,12 @@
   bottom: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+}
+
+.wp-block-custom-cut-slider .btn,
+.wp-block-custom-cut-slider .indicators {
+  pointer-events: auto;
 }
 
 .wp-block-custom-cut-slider .btn {
@@ -162,14 +168,70 @@
   bottom: 0;
 }
 
-.wp-block-custom-cut-slider .btn.center {
-  margin: 0 auto;
-  left: 40%;
-  right: 40%;
-  top: 40%;
-  bottom: 40%;
-  width: 20%;
-  height: 20%;
+/* --- Pause/play indicator button --- */
+.wp-block-custom-cut-slider .indicators .pause-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* Separate pause-play from the slide indicator dots */
+.wp-block-custom-cut-slider .indicators-bottom .pause-play,
+.wp-block-custom-cut-slider .indicators-top .pause-play {
+  margin-right: 0.375rem;
+}
+
+.wp-block-custom-cut-slider .indicators-left .pause-play,
+.wp-block-custom-cut-slider .indicators-right .pause-play {
+  margin-bottom: 0.375rem;
+}
+
+.wp-block-custom-cut-slider .indicators .pause-play:hover {
+  background: rgba(0, 0, 0, 0.72);
+  transform: scale(1.1);
+}
+
+.wp-block-custom-cut-slider .indicators .pause-play svg {
+  width: 55%;
+  height: 55%;
+  color: #fff;
+  display: block;
+  overflow: visible;
+}
+
+/* Show pause icon when playing, play icon when paused */
+.wp-block-custom-cut-slider .indicators .pause-play .play-icon { display: none; }
+.wp-block-custom-cut-slider .indicators .pause-play .pause-icon { display: flex; }
+.wp-block-custom-cut-slider .indicators .pause-play.is-paused .play-icon { display: flex; }
+.wp-block-custom-cut-slider .indicators .pause-play.is-paused .pause-icon { display: none; }
+
+/* 150% of indicator size — always circular */
+.wp-block-custom-cut-slider .indicators-dots .pause-play {
+  width: 1.125rem;   /* 0.75rem × 1.5 */
+  height: 1.125rem;
+}
+
+.wp-block-custom-cut-slider .indicators-numbers .pause-play {
+  width: 2.25rem;    /* 1.5rem × 1.5 */
+  height: 2.25rem;
+}
+
+/* Bars: use the short dimension (dot equivalent) as base since thin bars can't hold an icon */
+.wp-block-custom-cut-slider .indicators-bottom.indicators-bars .pause-play,
+.wp-block-custom-cut-slider .indicators-top.indicators-bars .pause-play,
+.wp-block-custom-cut-slider .indicators-left.indicators-bars .pause-play,
+.wp-block-custom-cut-slider .indicators-right.indicators-bars .pause-play {
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 /* transitions */

@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var slides = slider.querySelectorAll('.wp-block-custom-cut-slide');
     var currentSlide = parseInt(slider.getAttribute('data-current')) || 0;
     var controls = slider.querySelectorAll('.btn');
-    var indicators = slider.querySelectorAll('.indicators .indicator');
+    var indicators = slider.querySelectorAll('.indicators .indicator:not(.pause-play)');
+    var pausePlayBtn = slider.querySelector('.indicator.pause-play');
     var autoplay = slider.getAttribute('data-autoplay') === "true";
     var keyboardNav = slider.getAttribute('data-keyboard-nav') === "true";
     var swipeNav = slider.getAttribute('data-swipe-nav') === "true";
@@ -86,9 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
         resumeSlideVideos(slides[target]);
       }
 
+      // Reset embed overlay on both leaving and entering slides
+      clearEmbedOverlay(slides[prev]);
+      clearEmbedOverlay(slides[target]);
+
       carousel.setAttribute('current', currentSlide);
       indicate();
       updateLoopButtons();
+    }
+
+    function clearEmbedOverlay(slide) {
+      const copy = slide.querySelector('.slide-copy');
+      if (copy) copy.classList.remove('embed-playing');
     }
 
     function nextSlide() {
@@ -154,14 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updatePauseButton() {
-      const pauseBtn = slider.querySelector('.btn.center .pause');
-      if (pauseBtn) {
-        pauseBtn.textContent = isPlaying ? 'Pause' : 'Play';
+      if (pausePlayBtn) {
+        pausePlayBtn.classList.toggle('is-paused', !isPlaying);
+        pausePlayBtn.setAttribute('aria-label', isPlaying ? 'Pause slideshow' : 'Play slideshow');
       }
     }
 
     /*
-    * Handle carousel controls
+    * Handle carousel controls (prev/next buttons)
     */
     controls.forEach((control) => {
       control.addEventListener('click', (event) => {
@@ -173,16 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (type.contains('next')) {
           nextSlide();
           stopAutoplay();
-        } else if (type.contains('pause')) {
-          // console.log('Clicked on pause, toDo: Implement transistion pause');
-          if (isPlaying) {
-            stopAutoplay();
-          } else {
-            startAutoplay();
-          }
         }
       });
     });
+
+    // Pause/play indicator button
+    if (pausePlayBtn) {
+      pausePlayBtn.addEventListener('click', () => {
+        if (isPlaying) stopAutoplay();
+        else startAutoplay();
+      });
+    }
 
     // --- Keyboard Navigation ---
     if (keyboardNav) {
@@ -226,6 +237,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (autoplay) {
       startAutoplay();
     }
+
+    // --- Embed video overlay hide on play ---
+    // Inject enablejsapi=1 into YouTube iframes so they post state messages
+    slides.forEach(slide => {
+      const iframe = slide.querySelector('.slide-embed');
+      if (!iframe) return;
+      if (iframe.src.includes('youtube.com') && !iframe.src.includes('enablejsapi')) {
+        iframe.src += (iframe.src.includes('?') ? '&' : '?') + 'enablejsapi=1';
+      }
+    });
+
+    window.addEventListener('message', (e) => {
+      slides.forEach(slide => {
+        const iframe = slide.querySelector('.slide-embed');
+        if (!iframe || iframe.contentWindow !== e.source) return;
+        const copy = slide.querySelector('.slide-copy');
+        if (!copy) return;
+        try {
+          const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+          // YouTube: info 1=playing, 0=ended, 2=paused
+          if (data.event === 'onStateChange') {
+            if (data.info === 1) copy.classList.add('embed-playing');
+            if (data.info === 0 || data.info === 2) copy.classList.remove('embed-playing');
+          }
+          // Vimeo
+          if (data.event === 'play') copy.classList.add('embed-playing');
+          if (data.event === 'pause' || data.event === 'ended') copy.classList.remove('embed-playing');
+        } catch (err) {}
+      });
+    });
 
     // --- Uniform Height ---
     if (uniformHeight) {
