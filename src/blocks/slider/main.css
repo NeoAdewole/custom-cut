@@ -9,6 +9,19 @@
   border-radius: 10px;
 }
 
+/* Screen-reader-only live region */
+.wp-block-custom-cut-slider .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* carousel */
 
 
@@ -232,6 +245,14 @@
 .wp-block-custom-cut-slider .indicators-right.indicators-bars .pause-play {
   width: 1.125rem;
   height: 1.125rem;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-custom-cut-slider .indicators .indicator,
+  .wp-block-custom-cut-slider .indicators .pause-play {
+    transition: none;
+  }
 }
 
 /* transitions */

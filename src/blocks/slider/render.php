@@ -19,6 +19,7 @@ $transitionType = isset($block_attributes['transitionType']) ? $block_attributes
 $transitionDuration = isset($block_attributes['transitionDuration']) ? $block_attributes['transitionDuration'] : 800;
 $autoplayMode = isset($block_attributes['autoplayMode']) ? $block_attributes['autoplayMode'] : 'forward';
 $enableLoop = isset($block_attributes['enableLoop']) ? $block_attributes['enableLoop'] : true;
+$uniformHeight = isset($block_attributes['uniformHeight']) ? $block_attributes['uniformHeight'] : false;
 $inner_blocks_html = '';
 foreach ($block->inner_blocks as $inner_block) {
   $inner_blocks_html .= $inner_block->render();
@@ -37,15 +38,20 @@ $slider_attributes = [
   'data-transition-duration' => $transitionDuration,
   'data-autoplay-mode' => $autoplayMode,
   'data-enable-loop' => ($enableLoop == true) ? "true" : "false",
+  'data-uniform-height' => ($uniformHeight == true) ? "true" : "false",
+  'role' => 'region',
+  'aria-roledescription' => 'carousel',
+  'aria-label' => 'Image slideshow',
   'class' => 'carousel'
 ];
 
 // print_r($slider_controls);
 ?>
 <div <?php echo get_block_wrapper_attributes($slider_attributes) ?>>
+  <div class='sr-only' aria-live='polite' aria-atomic='true' id='<?php echo esc_attr($slider_id); ?>-live'></div>
   <?php echo $inner_blocks_html ?>
   <div class='controls'>
-    <button class='btn left'>
+    <button class='btn left' aria-label='<?php esc_attr_e('Previous slide', 'custom-cut'); ?>'>
       <span class='previous'>
         <svg fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
           <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'></path>
@@ -53,7 +59,7 @@ $slider_attributes = [
         <span class='hidden'>Previous</span>
       </span>
     </button>
-    <button class='btn right'>
+    <button class='btn right' aria-label='<?php esc_attr_e('Next slide', 'custom-cut'); ?>'>
       <span class='next'>
         <svg fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
           <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'></path>

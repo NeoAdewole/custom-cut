@@ -31,11 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose transition duration to CSS for animation timing
     slider.style.setProperty('--slide-transition-duration', transitionDuration + 'ms');
 
-    // set initial active slide from current attribute
+    // set initial active slide and aria-hidden states
     slides.forEach((slide, index) => {
       if (index === currentSlide) {
         slide.classList.toggle("active")
       }
+      slide.setAttribute('aria-hidden', index === currentSlide ? 'false' : 'true');
     })
 
     indicators.forEach((indicator) => {
@@ -90,6 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Reset embed overlay on both leaving and entering slides
       clearEmbedOverlay(slides[prev]);
       clearEmbedOverlay(slides[target]);
+
+      // Update aria-hidden and announce to screen readers
+      slides.forEach((slide, i) => {
+        slide.setAttribute('aria-hidden', i === currentSlide ? 'false' : 'true');
+      });
+      const liveRegion = slider.querySelector('[aria-live]');
+      if (liveRegion) liveRegion.textContent = `Slide ${currentSlide + 1} of ${slideCount}`;
 
       carousel.setAttribute('current', currentSlide);
       indicate();
@@ -281,8 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         slider.style.height = maxHeight + 'px';
       }
+      function debounce(fn, delay) {
+        let t;
+        return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+      }
       setUniformHeight();
-      window.addEventListener('resize', setUniformHeight);
+      window.addEventListener('resize', debounce(setUniformHeight, 150));
     }
 
   });

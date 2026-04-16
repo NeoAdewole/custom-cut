@@ -31,11 +31,13 @@ export default function ({ attributes }) {
       {...blockProps}
       data-slide={slideIndex}
       {...(slideInterval ? { 'data-slide-interval': slideInterval } : {})}
+      aria-roledescription="slide"
+      aria-label={`Slide ${(slideIndex ?? 0) + 1}`}
     >
       {/* Image backdrop */}
       {(!mediaType || mediaType === 'image') && mediaURL && (
         <div className='backdrop' style={slideStyle}>
-          <img src={mediaURL} className={mediaClass} alt={mediaAlt} />
+          <img src={mediaURL} className={mediaClass} alt={mediaAlt} loading="lazy" />
         </div>
       )}
 
