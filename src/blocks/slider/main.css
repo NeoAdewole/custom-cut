@@ -247,6 +247,17 @@
   height: 1.125rem;
 }
 
+/* Mobile responsive options */
+@media (max-width: 768px) {
+  .wp-block-custom-cut-slider.slider-hide-indicators-mobile .indicators {
+    display: none;
+  }
+  .wp-block-custom-cut-slider.slider-mobile-swipe-only .btn.left,
+  .wp-block-custom-cut-slider.slider-mobile-swipe-only .btn.right {
+    display: none;
+  }
+}
+
 /* Respect reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   .wp-block-custom-cut-slider .indicators .indicator,

@@ -1,9 +1,10 @@
 import {
-  useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl
+  useBlockProps, InspectorControls, RichText, MediaPlaceholder, BlockControls, MediaReplaceFlow, AlignmentControl,
+  ColorPalette
 } from '@wordpress/block-editor';
 import {
   Panel, PanelBody, PanelRow, ToggleControl, TextControl, TextareaControl, Spinner, ToolbarButton,
-  SelectControl, RangeControl, __experimentalNumberControl as NumberControl
+  SelectControl, RangeControl, __experimentalNumberControl as NumberControl, BaseControl
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
@@ -17,7 +18,9 @@ export default function (props) {
       slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize,
       alignCopy, alignMedia, slideIndex, sliderId, slideInterval, backdropOpacity,
       showCta, ctaText, ctaUrl, ctaOpenNewTab, ctaStyle,
-      mediaType, videoID, videoURL, videoAutoplay, videoMuted, videoControls, videoLoop, videoPoster, embedURL
+      mediaType, videoID, videoURL, videoAutoplay, videoMuted, videoControls, videoLoop, videoPoster, embedURL,
+      copyVerticalAlign, titleTag, gradientOverlay, gradientDirection, gradientStartColor, gradientEndColor,
+      titleColor, copyColor, titleSize, copySize
     },
     setAttributes, context, isSelected, style
   } = props;
@@ -77,9 +80,14 @@ export default function (props) {
 
   // --- Derived styles ---
   const bgCheck = mediaURL ? 'has-background' : '';
-  const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
+  const copyClass = `slide-copy ${alignCopy} ${bgCheck} valign-${copyVerticalAlign || 'center'}`;
   const mediaClass = `slide-image wp-image-${mediaID}`;
   const opacity = (backdropOpacity ?? 100) / 100;
+
+  const hasMedia = mediaURL || videoURL || embedURL;
+  const gradientStyle = gradientOverlay && hasMedia ? {
+    background: `linear-gradient(${gradientDirection || 'to top'}, ${gradientEndColor || 'rgba(0,0,0,0.65)'}, ${gradientStartColor || 'rgba(0,0,0,0)'})`
+  } : null;
 
   const slideStyle = mediaURL ? {
     backgroundImage: `url(${mediaURL})`,
@@ -291,12 +299,25 @@ export default function (props) {
       {/* --- Inspector: Styles --- */}
       <InspectorControls group="styles">
         <Panel header="Custom Slide Styles">
-          <PanelBody title={__('Slide Styles', 'custom-cut')} initialOpen={true}>
+          <PanelBody title={__('Layout', 'custom-cut')} initialOpen={true}>
             {addText && (
               <PanelRow>
                 {__('Align copy', 'custom-cut')}
                 <AlignmentControl value={alignCopy} onChange={alignCopy => setAttributes({ alignCopy })} />
               </PanelRow>
+            )}
+            {addText && (
+              <SelectControl
+                label={__('Vertical copy position', 'custom-cut')}
+                value={copyVerticalAlign || 'center'}
+                options={[
+                  { label: 'Top', value: 'top' },
+                  { label: 'Center', value: 'center' },
+                  { label: 'Bottom', value: 'bottom' },
+                ]}
+                onChange={copyVerticalAlign => setAttributes({ copyVerticalAlign })}
+                __nextHasNoMarginBottom={true}
+              />
             )}
             {mediaType === 'image' && mediaURL && (
               <PanelRow>
@@ -313,6 +334,99 @@ export default function (props) {
               __nextHasNoMarginBottom={true}
             />
           </PanelBody>
+
+          <PanelBody title={__('Gradient Overlay', 'custom-cut')} initialOpen={false}>
+            <ToggleControl
+              label={__('Enable gradient overlay', 'custom-cut')}
+              checked={!!gradientOverlay}
+              onChange={gradientOverlay => setAttributes({ gradientOverlay })}
+              help={__('Adds a gradient between the media and the text for legibility.', 'custom-cut')}
+              __nextHasNoMarginBottom={true}
+            />
+            {gradientOverlay && (
+              <>
+                <SelectControl
+                  label={__('Direction', 'custom-cut')}
+                  value={gradientDirection || 'to top'}
+                  options={[
+                    { label: 'Bottom → Top', value: 'to top' },
+                    { label: 'Top → Bottom', value: 'to bottom' },
+                    { label: 'Right → Left', value: 'to left' },
+                    { label: 'Left → Right', value: 'to right' },
+                  ]}
+                  onChange={gradientDirection => setAttributes({ gradientDirection })}
+                  __nextHasNoMarginBottom={true}
+                />
+                <TextControl
+                  label={__('Start color (transparent end)', 'custom-cut')}
+                  value={gradientStartColor || 'rgba(0,0,0,0)'}
+                  onChange={gradientStartColor => setAttributes({ gradientStartColor })}
+                  help={__('CSS color value, e.g. rgba(0,0,0,0)', 'custom-cut')}
+                  __nextHasNoMarginBottom={true}
+                />
+                <TextControl
+                  label={__('End color (solid end)', 'custom-cut')}
+                  value={gradientEndColor || 'rgba(0,0,0,0.65)'}
+                  onChange={gradientEndColor => setAttributes({ gradientEndColor })}
+                  help={__('CSS color value, e.g. rgba(0,0,0,0.65)', 'custom-cut')}
+                  __nextHasNoMarginBottom={true}
+                />
+              </>
+            )}
+          </PanelBody>
+
+          {addText && (
+            <PanelBody title={__('Text Styles', 'custom-cut')} initialOpen={false}>
+              <SelectControl
+                label={__('Title heading level', 'custom-cut')}
+                value={titleTag || 'h2'}
+                options={['h1','h2','h3','h4','h5','h6'].map(t => ({ label: t.toUpperCase(), value: t }))}
+                onChange={titleTag => setAttributes({ titleTag })}
+                __nextHasNoMarginBottom={true}
+              />
+              <SelectControl
+                label={__('Title size', 'custom-cut')}
+                value={titleSize || ''}
+                options={[
+                  { label: 'Default', value: '' },
+                  { label: 'Small (0.9rem)', value: '0.9rem' },
+                  { label: 'Medium (1.25rem)', value: '1.25rem' },
+                  { label: 'Large (1.75rem)', value: '1.75rem' },
+                  { label: 'XL (2.25rem)', value: '2.25rem' },
+                  { label: 'XXL (3rem)', value: '3rem' },
+                ]}
+                onChange={titleSize => setAttributes({ titleSize })}
+                __nextHasNoMarginBottom={true}
+              />
+              <BaseControl label={__('Title color', 'custom-cut')} __nextHasNoMarginBottom={true}>
+                <ColorPalette
+                  value={titleColor || ''}
+                  onChange={titleColor => setAttributes({ titleColor: titleColor || '' })}
+                  clearable={true}
+                />
+              </BaseControl>
+              <SelectControl
+                label={__('Body text size', 'custom-cut')}
+                value={copySize || ''}
+                options={[
+                  { label: 'Default', value: '' },
+                  { label: 'Small (0.85rem)', value: '0.85rem' },
+                  { label: 'Medium (1rem)', value: '1rem' },
+                  { label: 'Large (1.25rem)', value: '1.25rem' },
+                  { label: 'XL (1.5rem)', value: '1.5rem' },
+                ]}
+                onChange={copySize => setAttributes({ copySize })}
+                __nextHasNoMarginBottom={true}
+              />
+              <BaseControl label={__('Body text color', 'custom-cut')} __nextHasNoMarginBottom={true}>
+                <ColorPalette
+                  value={copyColor || ''}
+                  onChange={copyColor => setAttributes({ copyColor: copyColor || '' })}
+                  clearable={true}
+                />
+              </BaseControl>
+            </PanelBody>
+          )}
         </Panel>
       </InspectorControls>
 
@@ -383,6 +497,11 @@ export default function (props) {
           </div>
         )}
 
+        {/* Gradient overlay */}
+        {gradientStyle && (
+          <div className='slide-gradient' style={gradientStyle} aria-hidden="true" />
+        )}
+
         {/* Text & CTA overlay */}
         <div className={copyClass}>
           <RichText
@@ -395,22 +514,28 @@ export default function (props) {
           {addText && (
             <>
               <RichText
-                {...blockProps}
                 placeholder={__('Title', 'custom-cut')}
-                tagName="h3"
+                tagName={titleTag || 'h2'}
                 className="slide-title"
                 onChange={title => setAttributes({ title })}
                 value={title}
                 allowedFormats={['core/bold']}
+                style={{
+                  ...(titleColor ? { color: titleColor } : {}),
+                  ...(titleSize ? { fontSize: titleSize } : {}),
+                }}
               />
               <RichText
-                {...blockProps}
                 placeholder={__('Add some text to this slide?', 'custom-cut')}
                 tagName='p'
                 className="slide-text"
                 onChange={slideCopy => setAttributes({ slideCopy })}
                 value={slideCopy}
                 allowedFormats={['core/bold']}
+                style={{
+                  ...(copyColor ? { color: copyColor } : {}),
+                  ...(copySize ? { fontSize: copySize } : {}),
+                }}
               />
             </>
           )}

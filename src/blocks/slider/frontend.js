@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var transitionDuration = parseInt(slider.getAttribute('data-transition-duration')) || 800;
     var autoplayMode = slider.getAttribute('data-autoplay-mode') || 'forward';
     var enableLoop = slider.getAttribute('data-enable-loop') !== 'false';
+    var clickToPause = slider.getAttribute('data-click-to-pause') === 'true';
     var timer = null;
     var isPlaying = false;
     var uniformHeight = slider.getAttribute('data-uniform-height') === "true";
@@ -244,6 +245,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start autoplay if enabled
     if (autoplay) {
       startAutoplay();
+    }
+
+    // --- Click-to-pause ---
+    if (clickToPause) {
+      slides.forEach(slide => {
+        slide.addEventListener('click', (e) => {
+          if (e.target.closest('.slide-cta') || e.target.closest('.controls')) return;
+          if (isPlaying) stopAutoplay();
+          else startAutoplay();
+        });
+      });
     }
 
     // --- Embed video overlay hide on play ---

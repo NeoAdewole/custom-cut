@@ -5,15 +5,17 @@ import { __ } from '@wordpress/i18n';
 
 export default function ({ attributes }) {
   const {
-    slideCopy, addText, name, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize,
-    alignCopy, alignMedia, slideIndex, slideInterval, backdropOpacity,
+    slideCopy, addText, title, mediaURL, mediaAlt, mediaID, mediaPosition, mediaRepeat, mediaSize,
+    alignCopy, slideIndex, slideInterval, backdropOpacity,
     showCta, ctaText, ctaUrl, ctaOpenNewTab, ctaStyle,
-    mediaType, videoID, videoURL, videoAutoplay, videoMuted, videoControls, videoLoop, videoPoster, embedURL
+    mediaType, videoID, videoURL, videoAutoplay, videoMuted, videoControls, videoLoop, videoPoster, embedURL,
+    copyVerticalAlign, titleTag, gradientOverlay, gradientDirection, gradientStartColor, gradientEndColor,
+    titleColor, copyColor, titleSize, copySize
   } = attributes;
 
   const bgCheck = mediaURL ? 'has-background' : '';
-  const mediaClass = `slide-image wp-image-${mediaID} ${name}`;
-  const copyClass = `slide-copy ${alignCopy} ${bgCheck} ${name}`;
+  const mediaClass = `slide-image wp-image-${mediaID}`;
+  const copyClass = `slide-copy ${alignCopy} ${bgCheck} valign-${copyVerticalAlign || 'center'}`;
   const opacity = (backdropOpacity ?? 100) / 100;
 
   const slideStyle = mediaURL ? {
@@ -23,6 +25,11 @@ export default function ({ attributes }) {
     backgroundSize: mediaSize || 'cover',
     opacity
   } : {};
+
+  const hasMedia = mediaURL || videoURL || embedURL;
+  const gradientStyle = gradientOverlay && hasMedia ? {
+    background: `linear-gradient(${gradientDirection || 'to top'}, ${gradientEndColor || 'rgba(0,0,0,0.65)'}, ${gradientStartColor || 'rgba(0,0,0,0)'})`
+  } : null;
 
   const blockProps = useBlockProps.save();
 
@@ -66,9 +73,14 @@ export default function ({ attributes }) {
             frameBorder="0"
             allowFullScreen
             allow="autoplay; encrypted-media"
-            title={title || name || 'Embedded content'}
+            title={title || 'Embedded content'}
           />
         </div>
+      )}
+
+      {/* Gradient overlay (between backdrop and copy) */}
+      {gradientStyle && (
+        <div className='slide-gradient' style={gradientStyle} aria-hidden="true" />
       )}
 
       {/* Text & CTA overlay */}
@@ -76,8 +88,24 @@ export default function ({ attributes }) {
         <div className={copyClass}>
           {addText && (
             <>
-              <RichText.Content tagName='h3' className="slide-title" value={title} />
-              <RichText.Content tagName='p' className="slide-text" value={slideCopy} />
+              <RichText.Content
+                tagName={titleTag || 'h2'}
+                className="slide-title"
+                value={title}
+                style={{
+                  ...(titleColor ? { color: titleColor } : {}),
+                  ...(titleSize ? { fontSize: titleSize } : {}),
+                }}
+              />
+              <RichText.Content
+                tagName='p'
+                className="slide-text"
+                value={slideCopy}
+                style={{
+                  ...(copyColor ? { color: copyColor } : {}),
+                  ...(copySize ? { fontSize: copySize } : {}),
+                }}
+              />
             </>
           )}
           {showCta && (

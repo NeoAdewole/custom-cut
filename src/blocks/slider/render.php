@@ -20,6 +20,9 @@ $transitionDuration = isset($block_attributes['transitionDuration']) ? $block_at
 $autoplayMode = isset($block_attributes['autoplayMode']) ? $block_attributes['autoplayMode'] : 'forward';
 $enableLoop = isset($block_attributes['enableLoop']) ? $block_attributes['enableLoop'] : true;
 $uniformHeight = isset($block_attributes['uniformHeight']) ? $block_attributes['uniformHeight'] : false;
+$hideIndicatorsMobile = isset($block_attributes['hideIndicatorsMobile']) ? $block_attributes['hideIndicatorsMobile'] : false;
+$mobileSwipeOnly = isset($block_attributes['mobileSwipeOnly']) ? $block_attributes['mobileSwipeOnly'] : false;
+$clickToPause = isset($block_attributes['clickToPause']) ? $block_attributes['clickToPause'] : false;
 $inner_blocks_html = '';
 foreach ($block->inner_blocks as $inner_block) {
   $inner_blocks_html .= $inner_block->render();
@@ -39,10 +42,13 @@ $slider_attributes = [
   'data-autoplay-mode' => $autoplayMode,
   'data-enable-loop' => ($enableLoop == true) ? "true" : "false",
   'data-uniform-height' => ($uniformHeight == true) ? "true" : "false",
+  'data-click-to-pause' => ($clickToPause == true) ? "true" : "false",
   'role' => 'region',
   'aria-roledescription' => 'carousel',
   'aria-label' => 'Image slideshow',
   'class' => 'carousel'
+    . ($hideIndicatorsMobile ? ' slider-hide-indicators-mobile' : '')
+    . ($mobileSwipeOnly ? ' slider-mobile-swipe-only' : ''),
 ];
 
 // print_r($slider_controls);

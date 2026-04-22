@@ -73,6 +73,18 @@
     "enableLoop": {
       "type": "boolean",
       "default": true
+    },
+    "hideIndicatorsMobile": {
+      "type": "boolean",
+      "default": false
+    },
+    "mobileSwipeOnly": {
+      "type": "boolean",
+      "default": false
+    },
+    "clickToPause": {
+      "type": "boolean",
+      "default": false
     }
   },
   "providesContext": {

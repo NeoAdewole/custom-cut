@@ -139,6 +139,19 @@
   pointer-events: none;
 }
 
+/* Vertical alignment */
+.wp-block-custom-cut-slide .slide-copy.valign-top    { justify-content: flex-start; }
+.wp-block-custom-cut-slide .slide-copy.valign-center { justify-content: center; }
+.wp-block-custom-cut-slide .slide-copy.valign-bottom { justify-content: flex-end; }
+
+/* Gradient overlay — sits between backdrop and copy */
+.wp-block-custom-cut-slide .slide-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .wp-block-custom-cut-slide .slide-copy.has-background {
   position: absolute;
   z-index: 2;

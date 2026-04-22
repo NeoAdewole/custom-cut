@@ -8,7 +8,7 @@ import { ReactComponent as PrevSvg } from '../../../assets/images/previous.svg'
 import { ReactComponent as NextSvg } from '../../../assets/images/next.svg'
 
 const edit = function ({ attributes, setAttributes, clientId }) {
-  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay, keyboardNav, swipeNav, indicatorPosition, indicatorStyle, transitionType, transitionDuration, autoplayMode, enableLoop } = attributes;
+  const { showImage, sliderIndex, sliderId, slideCount, start = 0, slideInterval, autoplay, keyboardNav, swipeNav, indicatorPosition, indicatorStyle, transitionType, transitionDuration, autoplayMode, enableLoop, hideIndicatorsMobile, mobileSwipeOnly, clickToPause } = attributes;
 
   // figure out how to set initialCount/slideCount variable based on useSelect
   const [current, setCurrent] = useState(start)
@@ -262,6 +262,25 @@ const edit = function ({ attributes, setAttributes, clientId }) {
             checked={enableLoop}
             onChange={enableLoop => setAttributes({ enableLoop })}
             help={enableLoop ? __('Slider loops continuously', 'custom-cut') : __('Slider stops at first and last slide', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
+          />
+          <ToggleControl
+            label={__('Click slide to pause', 'custom-cut')}
+            checked={!!clickToPause}
+            onChange={clickToPause => setAttributes({ clickToPause })}
+            help={__('Clicking the slide area toggles autoplay.', 'custom-cut')}
+            __nextHasNoMarginBottom={true}
+          />
+          <ToggleControl
+            label={__('Hide indicators on mobile', 'custom-cut')}
+            checked={!!hideIndicatorsMobile}
+            onChange={hideIndicatorsMobile => setAttributes({ hideIndicatorsMobile })}
+            __nextHasNoMarginBottom={true}
+          />
+          <ToggleControl
+            label={__('Hide prev/next on mobile (swipe only)', 'custom-cut')}
+            checked={!!mobileSwipeOnly}
+            onChange={mobileSwipeOnly => setAttributes({ mobileSwipeOnly })}
             __nextHasNoMarginBottom={true}
           />
         </PanelBody>

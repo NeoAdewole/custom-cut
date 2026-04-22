@@ -144,6 +144,46 @@
     "embedURL": {
       "type": "string",
       "default": ""
+    },
+    "copyVerticalAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "h2"
+    },
+    "gradientOverlay": {
+      "type": "boolean",
+      "default": false
+    },
+    "gradientDirection": {
+      "type": "string",
+      "default": "to top"
+    },
+    "gradientStartColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0)"
+    },
+    "gradientEndColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.65)"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": ""
+    },
+    "copyColor": {
+      "type": "string",
+      "default": ""
+    },
+    "titleSize": {
+      "type": "string",
+      "default": ""
+    },
+    "copySize": {
+      "type": "string",
+      "default": ""
     }
   },
   "usesContext": [
