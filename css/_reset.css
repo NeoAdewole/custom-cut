@@ -1,0 +1,248 @@
+/**
+ * Modern CSS Reset
+ *
+ * Establishes sensible defaults for the redesigned theme.
+ * Removes outdated patterns and prepares for semantic HTML structure.
+ */
+
+/* ========================================
+   FUNDAMENTAL RESET
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  /* Use border-box for predictable sizing */
+  box-sizing: border-box;
+  /* Remove default margins and padding */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Ensure smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Apply root font styles */
+  font-family: var(--ff-base);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--clr-text);
+  background-color: var(--clr-background);
+  /* Remove text size adjustment on device rotation */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Improve font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   TYPOGRAPHY RESETS
+   ======================================== */
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: inherit;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+}
+
+h5 {
+  font-size: var(--fs-h5);
+}
+
+h6 {
+  font-size: var(--fs-body);
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: var(--sp-m);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Links */
+a {
+  color: var(--clr-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--clr-dark-purple);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--clr-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Lists */
+ol, ul {
+  list-style-position: inside;
+  margin-bottom: var(--sp-m);
+  margin-left: var(--sp-m);
+}
+
+li {
+  margin-bottom: var(--sp-s);
+}
+
+/* Code elements */
+code, pre {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: var(--clr-background-secondary);
+  border-radius: var(--radius-md);
+}
+
+code {
+  padding: var(--sp-s) var(--sp-m);
+  display: inline-block;
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--sp-m);
+  margin-bottom: var(--sp-m);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  display: block;
+}
+
+/* Blockquote */
+blockquote {
+  margin: var(--sp-l) 0;
+  padding-left: var(--sp-l);
+  border-left: 4px solid var(--clr-primary-purple);
+  font-style: italic;
+  color: var(--clr-text-secondary);
+}
+
+/* ========================================
+   FORM ELEMENTS RESET
+   ======================================== */
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+input, textarea, select {
+  padding: var(--form-input-padding);
+  border: var(--form-input-border);
+  border-radius: var(--form-input-border-radius);
+  background-color: var(--clr-background);
+  color: var(--clr-text);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border: var(--form-input-focus-border);
+  box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ========================================
+   MEDIA ELEMENTS
+   ======================================== */
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make SVG scalable by default */
+svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ========================================
+   TABLE RESET
+   ======================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--sp-l);
+}
+
+th, td {
+  padding: var(--sp-m);
+  text-align: left;
+  border-bottom: 1px solid var(--clr-light-gray-bg);
+}
+
+th {
+  font-weight: var(--fw-semibold);
+  background-color: var(--clr-background-secondary);
+  color: var(--clr-dark-gray-text);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Clear floats (legacy support) */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}

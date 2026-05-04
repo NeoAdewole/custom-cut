@@ -1,0 +1,84 @@
+/**
+ * Utilities
+ *
+ * Low-specificity helper classes for one-off layout and style needs.
+ * Keeps component files clean of single-use concerns.
+ */
+
+/* ========================================
+   DISPLAY
+   ======================================== */
+
+.hidden       { display: none !important; }
+.block        { display: block; }
+.flex         { display: flex; }
+.inline-block { display: inline-block; }
+
+/* ========================================
+   TEXT
+   ======================================== */
+
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+.text-small  { font-size: var(--fs-small); }
+.text-muted  { color: var(--clr-text-secondary); }
+.text-bold   { font-weight: var(--fw-bold); }
+.text-normal { font-weight: var(--fw-normal); }
+
+/* ========================================
+   SPACING — mapped to token scale
+   ======================================== */
+
+.mt-0   { margin-top: 0; }
+.mt-xs  { margin-top: var(--sp-xs); }
+.mt-s   { margin-top: var(--sp-s); }
+.mt-m   { margin-top: var(--sp-m); }
+.mt-l   { margin-top: var(--sp-l); }
+.mt-xl  { margin-top: var(--sp-xl); }
+.mt-2xl { margin-top: var(--sp-2xl); }
+.mt-3xl { margin-top: var(--sp-3xl); }
+
+.mb-0   { margin-bottom: 0; }
+.mb-xs  { margin-bottom: var(--sp-xs); }
+.mb-s   { margin-bottom: var(--sp-s); }
+.mb-m   { margin-bottom: var(--sp-m); }
+.mb-l   { margin-bottom: var(--sp-l); }
+.mb-xl  { margin-bottom: var(--sp-xl); }
+.mb-2xl { margin-bottom: var(--sp-2xl); }
+.mb-3xl { margin-bottom: var(--sp-3xl); }
+
+.py-xs  { padding-block: var(--sp-xs); }
+.py-s   { padding-block: var(--sp-s); }
+.py-m   { padding-block: var(--sp-m); }
+.py-l   { padding-block: var(--sp-l); }
+.py-xl  { padding-block: var(--sp-xl); }
+
+.px-xs  { padding-inline: var(--sp-xs); }
+.px-s   { padding-inline: var(--sp-s); }
+.px-m   { padding-inline: var(--sp-m); }
+.px-l   { padding-inline: var(--sp-l); }
+.px-xl  { padding-inline: var(--sp-xl); }
+
+/* ========================================
+   BORDER RADIUS
+   ======================================== */
+
+.rounded    { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+
+/* ========================================
+   FOCUSABLE SR-ONLY — not in _reset.css
+   ======================================== */
+
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}

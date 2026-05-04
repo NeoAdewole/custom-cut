@@ -1,0 +1,167 @@
+/**
+ * CSS Custom Properties (Variables)
+ *
+ * This file defines all design tokens used throughout the theme.
+ * Values are synchronized with theme.json for consistency.
+ *
+ * Color, typography, and spacing values are centralized here
+ * to enable easy theming and maintainability.
+ */
+
+:root {
+  /* ========================================
+     COLOR PALETTE
+     ======================================== */
+
+  /* Primary Colors */
+  --clr-primary-purple: #7B2CBF;
+  --clr-dark-purple: #5A1F8C;
+  --clr-light-purple: #A855B8;
+
+  /* Secondary/Accent Colors */
+  --clr-cyan: #00B4D8;
+  --clr-teal: #0096C7;
+
+  /* Neutral Colors */
+  --clr-dark-gray-text: #2C3E50;
+  --clr-medium-gray-text: #7F8C8D;
+  --clr-light-gray-bg: #ECF0F1;
+  --clr-white: #FFFFFF;
+
+  /* Semantic Color Aliases */
+  --clr-text: var(--clr-dark-gray-text);
+  --clr-text-secondary: var(--clr-medium-gray-text);
+  --clr-background: var(--clr-white);
+  --clr-background-secondary: var(--clr-light-gray-bg);
+  --clr-link: var(--clr-primary-purple);
+  --clr-button: var(--clr-primary-purple);
+  --clr-button-text: var(--clr-white);
+  --clr-focus: var(--clr-primary-purple);
+
+  /* ========================================
+     GRADIENTS
+     ======================================== */
+
+  --grad-purple: linear-gradient(135deg, var(--clr-primary-purple) 0%, var(--clr-light-purple) 100%);
+  --grad-cyan: linear-gradient(135deg, var(--clr-cyan) 0%, var(--clr-teal) 100%);
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+
+  /* Font Families */
+  --ff-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --ff-serif: Georgia, 'Times New Roman', serif;
+  --ff-base: var(--ff-system);
+
+  /* Font Sizes */
+  --fs-caption: 12px;
+  --fs-small: 14px;
+  --fs-body: 16px;
+  --fs-h5: 20px;
+  --fs-h4: 24px;
+  --fs-h3: 28px;
+  --fs-h2: 36px;
+  --fs-h1: 48px;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Line Heights */
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-loose: 1.8;
+
+  /* Letter Spacing */
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+  --ls-loose: 0.05em;
+
+  /* ========================================
+     SPACING SCALE
+     ======================================== */
+
+  --sp-xs: 4px;
+  --sp-s: 8px;
+  --sp-m: 16px;
+  --sp-l: 24px;
+  --sp-xl: 32px;
+  --sp-2xl: 48px;
+  --sp-3xl: 64px;
+
+  /* Semantic spacing aliases */
+  --sp-gutter: var(--sp-m);
+  --sp-section-gap: var(--sp-3xl);
+  --sp-element-gap: var(--sp-l);
+
+  /* ========================================
+     LAYOUT
+     ======================================== */
+
+  /* Content width constraints */
+  --layout-max-width: 800px;
+  --layout-wide-width: 1200px;
+
+  /* Breakpoints (mobile-first approach) */
+  --bp-mobile: 320px;
+  --bp-tablet: 640px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1280px;
+
+  /* ========================================
+     BORDERS & SHADOWS
+     ======================================== */
+
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Box Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* ========================================
+     TRANSITIONS & ANIMATIONS
+     ======================================== */
+
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  /* ========================================
+     BUTTON STYLES
+     ======================================== */
+
+  --btn-padding-y: var(--sp-m);
+  --btn-padding-x: var(--sp-l);
+  --btn-font-weight: var(--fw-semibold);
+  --btn-border-radius: var(--radius-md);
+  --btn-background: var(--clr-button);
+  --btn-color: var(--clr-button-text);
+
+  /* ========================================
+     FORM ELEMENTS
+     ======================================== */
+
+  --form-input-padding: var(--sp-m);
+  --form-input-border-radius: var(--radius-md);
+  --form-input-border: 1px solid #ccc;
+  --form-input-focus-border: 2px solid var(--clr-focus);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+}

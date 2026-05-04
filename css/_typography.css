@@ -1,0 +1,421 @@
+/**
+ * Typography System
+ *
+ * Establishes comprehensive typography standards including:
+ * - Heading hierarchy (H1-H6)
+ * - Body text styles
+ * - Scale and proportions
+ * - Semantic markup styling
+ */
+
+/* ========================================
+   HEADING STYLES
+   ======================================== */
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--sp-l);
+  color: var(--clr-dark-gray-text);
+  letter-spacing: var(--ls-tight);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--sp-l);
+  margin-top: var(--sp-2xl);
+  color: var(--clr-dark-gray-text);
+  letter-spacing: var(--ls-tight);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--sp-m);
+  margin-top: var(--sp-xl);
+  color: var(--clr-dark-gray-text);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-m);
+  margin-top: var(--sp-xl);
+  color: var(--clr-dark-gray-text);
+}
+
+h5 {
+  font-size: var(--fs-h5);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-m);
+  margin-top: var(--sp-l);
+  color: var(--clr-dark-gray-text);
+}
+
+h6 {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-m);
+  margin-top: var(--sp-l);
+  color: var(--clr-dark-gray-text);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-loose);
+}
+
+/* ========================================
+   BODY TEXT STYLES
+   ======================================== */
+
+p {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  margin-bottom: var(--sp-m);
+  color: var(--clr-text);
+}
+
+/* Lead paragraph for emphasis */
+.lead {
+  font-size: calc(var(--fs-body) * 1.125);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-secondary);
+}
+
+/* Small text */
+small,
+.text-small,
+.text-sm {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-secondary);
+}
+
+/* Caption/helper text */
+.text-caption {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--clr-text-secondary);
+}
+
+/* ========================================
+   TEXT UTILITIES
+   ======================================== */
+
+/* Text alignment */
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+/* Text decorations */
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: var(--ls-loose);
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: var(--fw-bold);
+}
+
+.text-semibold {
+  font-weight: var(--fw-semibold);
+}
+
+.text-medium {
+  font-weight: var(--fw-medium);
+}
+
+.text-light {
+  font-weight: var(--fw-normal);
+}
+
+/* Strikethrough */
+.text-strikethrough {
+  text-decoration: line-through;
+}
+
+/* Underline */
+.text-underline {
+  text-decoration: underline;
+}
+
+/* ========================================
+   COLOR UTILITIES
+   ======================================== */
+
+.text-primary {
+  color: var(--clr-primary-purple);
+}
+
+.text-secondary {
+  color: var(--clr-text-secondary);
+}
+
+.text-muted {
+  color: var(--clr-text-secondary);
+}
+
+.text-accent {
+  color: var(--clr-cyan);
+}
+
+.text-white {
+  color: var(--clr-white);
+}
+
+/* ========================================
+   LINE LENGTH & READABILITY
+   ======================================== */
+
+/* Measure (optimal line length) */
+.measure {
+  max-width: 65ch;
+}
+
+.measure-wide {
+  max-width: 80ch;
+}
+
+.measure-narrow {
+  max-width: 45ch;
+}
+
+/* ========================================
+   SEMANTIC ELEMENTS
+   ======================================== */
+
+/* Emphasis - semantic equivalent of <b> (strong importance) */
+strong,
+b {
+  font-weight: var(--fw-bold);
+}
+
+/* Emphasis - semantic equivalent of <i> (alternative voice) */
+em,
+i {
+  font-style: italic;
+}
+
+/* Mark highlighted text */
+mark {
+  background-color: #fffacd;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* Subscript and superscript */
+sub,
+sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Deleted and inserted text */
+del {
+  color: var(--clr-text-secondary);
+  text-decoration: line-through;
+}
+
+ins {
+  background-color: #c3f9d8;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+/* ========================================
+   INTERACTIVE TEXT
+   ======================================== */
+
+/* Links with focus states */
+a {
+  color: var(--clr-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+a:hover {
+  color: var(--clr-dark-purple);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--clr-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+a:active {
+  color: var(--clr-dark-purple);
+}
+
+/* ========================================
+   CODE FORMATTING
+   ======================================== */
+
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: var(--clr-background-secondary);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: #c7254e;
+  word-break: break-word;
+}
+
+pre {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: var(--clr-background-secondary);
+  padding: var(--sp-l);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  line-height: 1.4;
+  margin-bottom: var(--sp-l);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* ========================================
+   QUOTATIONS
+   ======================================== */
+
+blockquote {
+  margin: var(--sp-l) 0;
+  padding: var(--sp-l);
+  padding-left: var(--sp-xl);
+  border-left: 4px solid var(--clr-primary-purple);
+  background-color: var(--clr-background-secondary);
+  border-radius: var(--radius-md);
+  font-style: italic;
+  color: var(--clr-text-secondary);
+  font-size: var(--fs-body);
+}
+
+blockquote p {
+  margin-bottom: var(--sp-s);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: var(--sp-m);
+  font-size: var(--fs-small);
+  font-style: normal;
+  font-weight: var(--fw-medium);
+  color: var(--clr-text);
+}
+
+/* ========================================
+   ABBREVIATIONS
+   ======================================== */
+
+abbr {
+  border-bottom: 1px dotted var(--clr-text-secondary);
+  cursor: help;
+  text-decoration: none;
+}
+
+/* ========================================
+   FONT SMOOTHING
+   ======================================== */
+
+/* Improve rendering of light text on dark backgrounds */
+.text-on-dark {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: var(--fs-body);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+}

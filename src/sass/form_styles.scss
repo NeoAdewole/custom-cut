@@ -1,64 +1,54 @@
-// Ninja Forms
+// Ninja Forms — styles use design tokens from css/_variables.css
 .nf-form-content {
   div.nf-field-container {
-    .field-wrap{
+    .field-wrap {
       &:not(.submit-wrap) {
-        
         > .nf-field-element {
-          .ninja-forms-field.nf-element{
+          .ninja-forms-field.nf-element {
             position: relative;
             display: block;
             flex: 1 1 auto;
-            border-radius: .375rem;
-            border-width: 1px;  
-            --tw-border-opacity: 1;
-            border-color: rgb(209 213 219 / var(--tw-border-opacity));
-            padding: .5rem 1rem .5rem 1rem;
-            --tw-text-opacity: 1;
-            color: rgb(31 41 55 / var(--tw-text-opacity));
+            border-radius: var(--form-input-border-radius);
+            border: var(--form-input-border);
+            padding: var(--form-input-padding);
+            color: var(--clr-text);
             outline: 2px solid transparent;
             outline-offset: 2px;
-            transition-property: all;
-            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-            transition-duration: .15s;
-            
+            transition: all var(--transition-fast);
+
             &:focus {
-              --tw-border-opacity: 1;
-              border-color: rgb(239 68 68 / var(--tw-border-opacity));
-              --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
-              --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-              box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+              outline: none;
+              border: var(--form-input-focus-border);
+              box-shadow: var(--shadow-sm);
             }
           }
         }
-        
       }
+
       &.submit-wrap {
         div.nf-field-element {
-          .ninja-forms-field.nf-element{
+          .ninja-forms-field.nf-element {
             position: relative;
             display: block;
             flex: 1 1 auto;
-            border-radius: .375rem;
-            border-width: 1px;
-            border-color: var(--wp--preset--color--primary);
-            padding: .5rem 1rem;
+            border-radius: var(--form-input-border-radius);
+            border: 1px solid var(--clr-primary-purple);
+            padding: var(--sp-s) var(--sp-m);
+            transition: all var(--transition-fast);
+
             &:hover {
-              // background-color: $primary;
-              background-color: var(--wp--preset--color--primary);
-              color: #fff;
+              background-color: var(--clr-primary-purple);
+              color: var(--clr-white);
             }
-            
+
             &:focus {
-              --tw-border-opacity: 1;
-              border-color: rgb(239 68 68 / var(--tw-border-opacity));
-              --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
-              --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-              box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+              outline: none;
+              border: var(--form-input-focus-border);
+              box-shadow: var(--shadow-sm);
             }
           }
         }
       }
     }
-  } 
+  }
 }

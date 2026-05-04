@@ -1,0 +1,91 @@
+/**
+ * Layout
+ *
+ * Page-level structure: containers, grids, sections, spacing stacks.
+ * All values reference design tokens from css/_variables.css.
+ */
+
+/* ========================================
+   SITE CONTAINERS
+   ======================================== */
+
+.site-container {
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--sp-gutter);
+  width: 100%;
+}
+
+.site-container--wide {
+  max-width: var(--layout-wide-width);
+  margin-inline: auto;
+  padding-inline: var(--sp-gutter);
+  width: 100%;
+}
+
+/* ========================================
+   PAGE GRID
+   ======================================== */
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-xl);
+}
+
+@media (min-width: 1024px) {
+  .page-grid--with-sidebar {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
+/* ========================================
+   SECTION RHYTHM
+   ======================================== */
+
+.section {
+  padding-block: var(--sp-section-gap);
+}
+
+.section--sm {
+  padding-block: var(--sp-2xl);
+}
+
+.section--lg {
+  padding-block: calc(var(--sp-section-gap) * 1.5);
+}
+
+/* ========================================
+   STACK — vertical spacing between children
+   ======================================== */
+
+.stack > * + * {
+  margin-top: var(--sp-element-gap);
+}
+
+.stack--sm > * + * {
+  margin-top: var(--sp-m);
+}
+
+.stack--lg > * + * {
+  margin-top: var(--sp-3xl);
+}
+
+/* ========================================
+   FLEX ROW
+   ======================================== */
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-m);
+  align-items: center;
+}
+
+.flex-row--between {
+  justify-content: space-between;
+}
+
+.flex-row--center {
+  justify-content: center;
+}

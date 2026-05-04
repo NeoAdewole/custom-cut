@@ -10,3 +10,6 @@ npm-debug.log
 build/*
 !build/index.js
 !build/index.css
+CLAUDE.md
+PLAN.md
+implementation.md
