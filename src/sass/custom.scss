@@ -26,3 +26,9 @@ body {
   height: 100%;
   fill: transparent;
 }
+
+.wp-block-group.jumbotron {
+  position: absolute;
+  z-index: -999;
+  top: 0;
+}
